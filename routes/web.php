@@ -20,10 +20,10 @@ Route::get('/login', [Controller\Auth\LoginController::class, 'showLoginForm'])-
 Route::post('/login', [Controller\Auth\LoginController::class, 'login'])->name('login');
 Route::post('/logout', [Controller\Auth\LoginController::class, 'logout'])->name('logout');
 
-Route::get('/password_forgot', [Controller\Auth\PasswordForgotController::class, 'showEmailInputForm'])->name('password_forgot');
-Route::post('/password_forgot', [Controller\Auth\PasswordForgotController::class, 'recieveEmailAddress'])->name('address_recieve');
-Route::get('/password_reset/{token}/{email}', [Controller\Auth\PasswordForgotController::class, 'passwordResetForm'])->name('password_reset_form');
-Route::post('/password_reset', [Controller\Auth\PasswordForgotController::class, 'passwordReset'])->name('password_reset');
+Route::get('/password_forgot', [Controller\PasswordForgotController::class, 'showEmailInputForm'])->name('password_forgot');
+Route::post('/password_forgot', [Controller\PasswordForgotController::class, 'recieveEmailAddress'])->name('address_recieve');
+Route::get('/password_reset/{token}/{email}', [Controller\PasswordForgotController::class, 'passwordResetForm'])->name('password_reset_form');
+Route::post('/password_reset', [Controller\PasswordForgotController::class, 'passwordReset'])->name('password_reset');
 
 // ユーザ
 Route::group(['middleware' => ['auth', 'can:' . GateConst::USER_HIGHER]], function () {
