@@ -32,7 +32,6 @@ export function formAjaxRequest(url, type, formData, successCallback = function 
 
     ajax(setting, successCallback, failureCallback, alwaysCallback);
 }
-// export { ajaxRequest, formAjaxRequest };
 
 
 /* type */
@@ -101,7 +100,6 @@ export function isRegExp(any) {
 export function isInt(any) {
     return Number.isInteger(any);
 }
-// export { isNull, isUndefined, isString, isNumber, isBoolean, isObject, isArray, isJSON, isFunction, isError, isDate, isMath, isRegExp, isInt }
 
 
 /* string */
@@ -116,4 +114,3 @@ export function characterLimit(str, limit, ellipsis = "...") {
 
     return str.substr(0, limit) + ellipsis;
 }
-// export { nl2br, characterLimit }

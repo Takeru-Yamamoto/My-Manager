@@ -1,7 +1,8 @@
 import './bootstrap';
 
-import './base';
 import './global';
+import './base';
+import './calendar';
 import './unique';
 
 import './pusher/screenUpdateRequest';
