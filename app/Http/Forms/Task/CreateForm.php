@@ -5,6 +5,8 @@ namespace App\Http\Forms\Task;
 use App\Http\Forms\BaseForm;
 use App\Http\Forms\ValidationRule as Rule;
 
+use App\Consts\TextConst;
+
 class CreateForm extends BaseForm
 {
     public $startDate;
@@ -32,5 +34,6 @@ class CreateForm extends BaseForm
     
     protected function validateAfterBinding(): void
     {
+        if (dateUtil($this->startDate)->isGreaterEqual(dateUtil($this->endDate)->carbon())) $this->addError(getTextFromConst(TextConst::TASK_DATE_INJUSTICE));
     }
 }

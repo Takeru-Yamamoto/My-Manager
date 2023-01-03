@@ -8,9 +8,17 @@
     <form method="post" action="{{ url('task/update') }}" id="{{ formId() }}">
         @csrf
         <input type="text" name="id" value="{{ $task->id }}" hidden>
-        <input type="text" name="start_date" value="{{ $task->startDate }}" hidden>
-        <input type="text" name="end_date" value="{{ $task->endDate }}" hidden>
 
+        <div class="form-group">
+            <label for="start_date">開始日</label>
+            <input type="date" name="start_date" id="start_date" class="form-control"
+                value="{{ old('start_date', $task->startDate) }}">
+        </div>
+        <div class="form-group">
+            <label for="end_date">終了日</label>
+            <input type="date" name="end_date" id="end_date" class="form-control"
+                value="{{ old('end_date', $task->endDate) }}">
+        </div>
         <div class="form-group">
             <label for="title">タイトル</label>
             <input type="text" name="title" id="title" class="form-control"

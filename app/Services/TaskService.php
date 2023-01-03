@@ -58,8 +58,10 @@ class TaskService extends BaseService
     {
         $task = $this->TaskRepository->findRawById($form->id);
 
-        $task->title   = $form->title;
-        $task->comment = $form->comment;
+        $task->start_date = $form->startDate;
+        $task->end_date   = $form->endDate;
+        $task->title      = $form->title;
+        $task->comment    = $form->comment;
 
         Transaction(
             'タスク情報 更新',

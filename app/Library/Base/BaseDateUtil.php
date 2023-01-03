@@ -14,7 +14,7 @@ class BaseDateUtil
     public static string $FORMAT_DATE_JP                = 'Y年n月j日';
     public static string $FORMAT_MONTH_JP               = 'Y年n月';
     public static string $FORMAT_DATE_CHAR              = 'Ymd';
-    public static string $FORMAT_DATE_FORMAR_CHAR_SHORT = 'ymd';
+    public static string $FORMAT_DATE_FORMAT_CHAR_SHORT = 'ymd';
     public static string $FORMAT_TIME                   = 'H:i:s';
     public static string $FORMAT_DATETIME               = 'Y-m-d H:i:s';
     public static string $FORMAT_DATETIME_JP            = 'Y年n月j日 G時i分';
@@ -422,5 +422,30 @@ class BaseDateUtil
     final public function isPast(): bool
     {
         return $this->carbon->isPast();
+    }
+
+    final public function isEqual(Carbon $carbon): bool
+    {
+        return $this->carbon->eq($carbon);
+    }
+
+    final public function isGreater(Carbon $carbon): bool
+    {
+        return $this->carbon->gt($carbon);
+    }
+
+    final public function isGreaterEqual(Carbon $carbon): bool
+    {
+        return $this->carbon->gte($carbon);
+    }
+
+    final public function isLess(Carbon $carbon): bool
+    {
+        return $this->carbon->lt($carbon);
+    }
+
+    final public function isLessEqual(Carbon $carbon): bool
+    {
+        return $this->carbon->lte($carbon);
     }
 }

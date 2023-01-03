@@ -7,9 +7,16 @@
 @section('modal_body')
     <form method="post" action="{{ url('task/create') }}" id="{{ formId() }}">
         @csrf
-        <input type="text" name="start_date" value="{{ $form->startDate }}" hidden>
-        <input type="text" name="end_date" value="{{ $form->endDate }}" hidden>
-
+        <div class="form-group">
+            <label for="start_date">開始日</label>
+            <input type="date" name="start_date" id="start_date" class="form-control"
+                value="{{ old('start_date', $form->startDate) }}">
+        </div>
+        <div class="form-group">
+            <label for="end_date">終了日</label>
+            <input type="date" name="end_date" id="end_date" class="form-control"
+                value="{{ old('end_date', $form->endDate) }}">
+        </div>
         <div class="form-group">
             <label for="title">タイトル</label>
             <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}">
