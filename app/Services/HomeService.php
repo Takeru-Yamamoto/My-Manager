@@ -10,9 +10,19 @@ class HomeService extends BaseService
     public function getAttendance(): stdClass|null
     {
         $dateUtil    = dateUtil();
-        $attendance = $this->AttendanceRepository->where("user_id", authUserId())->whereBetween("datetime", $dateUtil->startOfDay(), $dateUtil->endOfDay())->whereNull("relation")->find();
+        $attendance = $this->AttendanceRepository
+            ->where("user_id", authUserId())
+            ->whereBetween("datetime", $dateUtil->startOfDay(), $dateUtil->endOfDay())
+            ->whereNull("relation")->find();
 
-        if (is_null($attendance)) return null;
+        if (is_null($attendance)) {
+            $attendance = $this->AttendanceRepository
+                ->where("user_id", authUserId())
+                ->desc("id")->find();
+            if (is_null($attendance) || $attendance->type === "end_work") return null;
+
+            if (!is_null($attendance->relation)) $attendance = $this->AttendanceRepository->findById($attendance->relation);
+        }
 
         $attendances = $this->AttendanceRepository->whereClosure(function ($query) use ($attendance) {
             $query->whereNull("relation")->orWhere("relation", $attendance->id);

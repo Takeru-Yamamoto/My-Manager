@@ -38,7 +38,8 @@ class AttendanceService extends BaseService
 
         $attendances = $this->AttendanceRepository
             ->where("user_id", authUserId())
-            ->whereBetween("datetime", $dateUtil->firstOfMonth(), $dateUtil->endOfMonth())->whereNull("relation")->get();
+            ->whereBetween("datetime", $dateUtil->firstOfMonth(), $dateUtil->endOfMonth())
+            ->whereNull("relation")->get();
 
         $result = new stdClass();
 
@@ -59,7 +60,7 @@ class AttendanceService extends BaseService
             })->get();
 
             foreach ($relatedAttendances as $relatedAttendance) {
-                $dateUtil->reset($relatedAttendance->datetime);
+                $dateUtil = dateUtil($relatedAttendance->datetime);
 
                 switch ($relatedAttendance->type) {
                     case "start_work":
@@ -67,12 +68,14 @@ class AttendanceService extends BaseService
                         break;
                     case "end_work":
                         $result->totalWork += $buffer["work"]->diffSecond($dateUtil->carbon()) / squared(60);
+                        $buffer["work"] = null;
                         break;
                     case "start_break":
                         $buffer["break"] = $dateUtil;
                         break;
                     case "end_break":
                         $result->totalBreak += $buffer["break"]->diffSecond($dateUtil->carbon()) / squared(60);
+                        $buffer["break"] = null;
                         break;
                 }
             }

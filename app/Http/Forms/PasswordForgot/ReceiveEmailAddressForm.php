@@ -5,7 +5,7 @@ namespace App\Http\Forms\PasswordForgot;
 use App\Http\Forms\BaseForm;
 use App\Http\Forms\ValidationRule as Rule;
 
-class RecieveEmailAddressForm extends BaseForm
+class ReceiveEmailAddressForm extends BaseForm
 {
     public $email;
 

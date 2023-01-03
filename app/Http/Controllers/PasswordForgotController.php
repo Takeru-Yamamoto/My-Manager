@@ -28,9 +28,9 @@ class PasswordForgotController extends Controller
         return view('auth.passwordForgot');
     }
 
-    public function recieveEmailAddress(Request $request): Redirector|RedirectResponse
+    public function receiveEmailAddress(Request $request): Redirector|RedirectResponse
     {
-        $form = new Forms\RecieveEmailAddressForm($request->all());
+        $form = new Forms\ReceiveEmailAddressForm($request->all());
 
 		if ($form->hasError()) return $form->redirect("password_forgot");
 
@@ -41,7 +41,7 @@ class PasswordForgotController extends Controller
 
     public function passwordResetForm(string $token, string $email): View|Factory|Redirector|RedirectResponse
     {
-        $form = new Forms\PasswordResetPreperationForm(compact("token", "email"));
+        $form = new Forms\PasswordResetPreparationForm(compact("token", "email"));
 
 		if ($form->hasError()) throw $form->exception();
 

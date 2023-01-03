@@ -8,6 +8,7 @@ use App\Http\Forms\ValidationRule as Rule;
 class CreateForm extends BaseForm
 {
     public $type;
+    public $relation;
 
     protected function validationRule(): array
     {

@@ -139,3 +139,10 @@ if (!function_exists('formId')) {
         return str_replace("/", "-", request()->path()) . "-form" . $num;
     }
 }
+
+if (!function_exists('calendar')) {
+    function calendar(string $formUrl, string $formUrlType, string $fetchUrl, string $fetchUrlType): string
+    {
+        return "<div id='calendar' data-form-url='" . $formUrl . "' data-form-url-type='" . $formUrlType . "' data-fetch-url='" . $fetchUrl . "' data-fetch-url-type='" . $fetchUrlType . "'></div>";
+    }
+}

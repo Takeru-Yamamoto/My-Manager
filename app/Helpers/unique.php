@@ -21,3 +21,10 @@ if (!function_exists('getAttendanceTypeText')) {
         }
     }
 }
+
+if (!function_exists('taskCalendar')) {
+    function taskCalendar(): string
+    {
+        return calendar(url("task/fetch"), "POST", url("task/create"), "GET");
+    }
+}

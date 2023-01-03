@@ -11,7 +11,7 @@ use App\Consts\MailConst;
 class PasswordForgotService extends BaseService
 {
 
-    public function sendPasswordResetMail(Forms\RecieveEmailAddressForm $form): string
+    public function sendPasswordResetMail(Forms\receiveEmailAddressForm $form): string
     {
         if (!$this->UserRepository->where("email", $form->email)->isExist()) {
             return TextConst::EMAIL_ADDRESS_NOT_EXIST;
@@ -37,7 +37,7 @@ class PasswordForgotService extends BaseService
         return sendMail(MailConst::PASSWORD_FORGOT, $data, $form->email) ? TextConst::EMAIL_SEND_SUCCESS : TextConst::EMAIL_SEND_FAILURE;
     }
 
-    public function checkTokenAndEmailExist(Forms\PasswordResetPreperationForm $form): ?string
+    public function checkTokenAndEmailExist(Forms\PasswordResetPreparationForm $form): ?string
     {
         return $this->PasswordResetRepository->where('token', $form->token)->where('email', $form->email)->isExist() ? null : TextConst::AUTHENTICATION_FAILURE;
     }
