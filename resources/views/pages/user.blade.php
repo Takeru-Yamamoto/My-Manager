@@ -57,4 +57,29 @@
             @endif
         </tbody>
     </table>
+
+
+    @if (!is_null($tasks))
+        {!! border(5) !!}
+        <p class="h4">タスク</p>
+
+        <table class="table table-hover">
+            <thead>
+                <th width="25%">タイトル</th>
+                <th width="35%">コメント</th>
+                <th width="20%">開始日</th>
+                <th width="20%">終了日</th>
+            </thead>
+            <tbody>
+                @foreach ($tasks as $task)
+                    <tr>
+                        <td>{{ $task->title }}</td>
+                        <td>{{ $task->comment }}</td>
+                        <td>{{ $task->startDate }}</td>
+                        <td>{{ $task->endDate }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
 @stop

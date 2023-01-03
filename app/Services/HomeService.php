@@ -9,7 +9,7 @@ class HomeService extends BaseService
 {
     public function getAttendance(): stdClass|null
     {
-        $dateUtil    = dateUtil();
+        $dateUtil   = dateUtil();
         $attendance = $this->AttendanceRepository
             ->where("user_id", authUserId())
             ->whereBetween("datetime", $dateUtil->startOfDay(), $dateUtil->endOfDay())
@@ -60,5 +60,10 @@ class HomeService extends BaseService
         }
 
         return $result;
+    }
+
+    public function getTodaysTask(): array|null
+    {
+        return $this->TaskRepository->whereLessEqual("start_date", dateUtil()->toDateString())->get();
     }
 }

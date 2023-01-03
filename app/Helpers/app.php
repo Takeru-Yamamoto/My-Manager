@@ -132,10 +132,3 @@ if (!function_exists('tableCardHeader')) {
         return cardHeader() . ContentConst::IS_TABLE;
     }
 }
-
-if (!function_exists('formId')) {
-    function formId(?int $num = null): string
-    {
-        return str_replace("/", "-", request()->path()) . "-form" . $num;
-    }
-}

@@ -1,15 +1,15 @@
 <?php
-
 use Illuminate\Http\JsonResponse;
+
 
 if (!function_exists('removeNullAndEmptyFromArray')) {
     function removeNullAndEmptyFromArray(array $array): array
     {
         $tmp = [];
-        foreach ($array as $item) {
-            if (is_array($item)) {
+        foreach($array as $item) {
+            if( is_array($item) ) {
                 $tmp[] = removeNullAndEmptyFromArray($item);
-            } else if (!empty($item) || $item === '0' || $item === 0) {
+            } else if( ! empty($item) || $item === '0' || $item === 0 ) {
                 $tmp[] = $item;
             }
         }
@@ -55,6 +55,27 @@ if (!function_exists('className')) {
     function className(object $object): string
     {
         return str_replace(__NAMESPACE__ . '\\', '', get_class($object));
+    }
+}
+
+if (!function_exists('formId')) {
+    function formId(?int $num = null): string
+    {
+        return str_replace("/", "-", request()->path()) . "-form" . $num;
+    }
+}
+
+if (!function_exists('calendar')) {
+    function calendar(string $formUrl, string $formUrlType, string $fetchUrl, string $fetchUrlType): string
+    {
+        return "<div id='calendar' data-form-url='" . $formUrl . "' data-form-url-type='" . $formUrlType . "' data-fetch-url='" . $fetchUrl . "' data-fetch-url-type='" . $fetchUrlType . "'></div>";
+    }
+}
+
+if (!function_exists('border')) {
+    function border(int $margin = 3): string
+    {
+        return "<div class='border my-" . $margin . "'></div>";
     }
 }
 

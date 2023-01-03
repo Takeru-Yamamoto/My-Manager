@@ -26,7 +26,8 @@ class HomeController extends Controller
             return view("pages.admin");
         } else {
             $attendance = $this->service->getAttendance();
-            return view("pages.user", compact("attendance"));
+            $tasks = $this->service->getTodaysTask();
+            return view("pages.user", compact("attendance", "tasks"));
         }
     }
 }
