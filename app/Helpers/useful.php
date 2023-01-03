@@ -1,13 +1,15 @@
 <?php
 
+use Illuminate\Http\JsonResponse;
+
 if (!function_exists('removeNullAndEmptyFromArray')) {
     function removeNullAndEmptyFromArray(array $array): array
     {
         $tmp = [];
-        foreach($array as $item) {
-            if( is_array($item) ) {
+        foreach ($array as $item) {
+            if (is_array($item)) {
                 $tmp[] = removeNullAndEmptyFromArray($item);
-            } else if( ! empty($item) || $item === '0' || $item === 0 ) {
+            } else if (!empty($item) || $item === '0' || $item === 0) {
                 $tmp[] = $item;
             }
         }
@@ -53,5 +55,12 @@ if (!function_exists('className')) {
     function className(object $object): string
     {
         return str_replace(__NAMESPACE__ . '\\', '', get_class($object));
+    }
+}
+
+if (!function_exists('responseJson')) {
+    function responseJson(mixed $data = []): JsonResponse
+    {
+        return response()->json($data);
     }
 }

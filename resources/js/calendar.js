@@ -8,6 +8,8 @@ import * as f from "./functions";
 var calendarEl = document.getElementById("calendar");
 var createFormUrl = calendarEl.dataset.createFormUrl;
 var createFormUrlType = calendarEl.dataset.createFormUrlType;
+var updateFormUrl = calendarEl.dataset.updateFormUrl;
+var updateFormUrlType = calendarEl.dataset.updateFormUrlType;
 var fetchUrl = calendarEl.dataset.fetchUrl;
 var fetchUrlType = calendarEl.dataset.fetchUrlType;
 
@@ -16,19 +18,18 @@ let calendar = new Calendar(calendarEl, {
     plugins: [interactionPlugin, dayGridPlugin],
     initialView: "dayGridMonth",
     headerToolbar: {
-        // left: "prev,next today",
-        left: "",
+        left: "prev,next today",
         center: "title",
         // right: "dayGridMonth,timeGridWeek,listWeek",
-        right: "prev,next today",
+        right: "",
     },
     locale: "ja",
-
+    height: 'auto',
     selectable: true,
     select: function (info) {
         var data = {
-            start_date: info.start.valueOf(),
-            end_date: info.end.valueOf(),
+            start_date: info.startStr,
+            end_date: info.endStr,
         };
         var callback = function (response) {
             $(MODAL_MARKS).html(response);
@@ -38,15 +39,25 @@ let calendar = new Calendar(calendarEl, {
     },
     events: function (info, successCallback, failureCallback) {
         var data = {
-            start_date: info.start.valueOf(),
-            end_date: info.end.valueOf(),
+            start_date: $.datepicker.formatDate("yy-mm-dd", info.start),
+            end_date: $.datepicker.formatDate("yy-mm-dd", info.end),
         };
         var callback = function (response) {
             calendar.removeAllEvents();
-            successCallback(response.data);
+            successCallback(response);
         };
         f.ajaxRequest(fetchUrl, fetchUrlType, data, callback);
     },
+    eventClick: function(info){
+        var data = {
+            id: info.event.id,
+        };
+        var callback = function (response) {
+            $(MODAL_MARKS).html(response);
+            $("#modal").modal();
+        };
+        f.ajaxRequest(updateFormUrl, updateFormUrlType, data, callback);
+    }
 });
 
 calendar.render();

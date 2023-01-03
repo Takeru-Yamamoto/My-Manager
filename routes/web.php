@@ -21,7 +21,7 @@ Route::post('/login', [Controller\Auth\LoginController::class, 'login'])->name('
 Route::post('/logout', [Controller\Auth\LoginController::class, 'logout'])->name('logout');
 
 Route::get('/password_forgot', [Controller\PasswordForgotController::class, 'showEmailInputForm'])->name('password_forgot');
-Route::post('/password_forgot', [Controller\PasswordForgotController::class, 'recieveEmailAddress'])->name('address_recieve');
+Route::post('/password_forgot', [Controller\PasswordForgotController::class, 'receiveEmailAddress'])->name('address_receive');
 Route::get('/password_reset/{token}/{email}', [Controller\PasswordForgotController::class, 'passwordResetForm'])->name('password_reset_form');
 Route::post('/password_reset', [Controller\PasswordForgotController::class, 'passwordReset'])->name('password_reset');
 
@@ -40,6 +40,13 @@ Route::group(['middleware' => ['auth', 'can:' . GateConst::USER_HIGHER]], functi
 
     Route::get('/attendance', [Controller\AttendanceController::class, 'index'])->name('attendance');
     Route::post('/attendance/create', [Controller\AttendanceController::class, 'create'])->name('attendance-create');
+ 
+    Route::get('/task', [Controller\TaskController::class, 'index'])->name('task');
+    Route::post('/task/fetch', [Controller\TaskController::class, 'fetch'])->name('task-fetch');
+    Route::get('/task/create', [Controller\TaskController::class, 'createModal'])->name('task-createModal');
+    Route::post('/task/create', [Controller\TaskController::class, 'create'])->name('task-create');
+    Route::get('/task/update', [Controller\TaskController::class, 'updateModal'])->name('task-updateModal');
+    Route::post('/task/update', [Controller\TaskController::class, 'update'])->name('task-update');
 });
 
 // 管理者

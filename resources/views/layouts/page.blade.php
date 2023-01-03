@@ -81,7 +81,7 @@
                         </div>
                     </div>
 
-                    <div class="ajax-modal-marks"></div>
+                    <div class="modal-marks"></div>
 
                     @yield('modal')
 

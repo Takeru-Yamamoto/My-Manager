@@ -27,6 +27,10 @@ class TextConst
     /* attendance */
     public const ATTENDANCE_CREATED = "attendance_created";
 
+    /* task */
+    public const TASK_CREATED = "task_created";
+    public const TASK_UPDATED = "task_updated";
+
     /* email */
     public const EMAIL_ADDRESS_EXIST     = "email_address_exist";
     public const EMAIL_ADDRESS_NOT_EXIST = "email_address_not_exist";
@@ -57,6 +61,9 @@ class TextConst
         self::USER_NAME_EXIST           => "このユーザ名は既に登録されています。",
 
         self::ATTENDANCE_CREATED        => "勤怠情報を追加しました。",
+
+        self::TASK_CREATED              => "タスク情報を追加しました。",
+        self::TASK_UPDATED              => "タスク情報を変更しました。",
 
         self::EMAIL_ADDRESS_EXIST       => "このメールアドレスは既に登録されています。",
         self::EMAIL_ADDRESS_NOT_EXIST   => "このメールアドレスは登録されていません。",
