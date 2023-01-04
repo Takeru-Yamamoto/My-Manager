@@ -48,6 +48,10 @@ Route::group(['middleware' => ['auth', 'can:' . GateConst::USER_HIGHER]], functi
     Route::get('/task/update', [Controller\TaskController::class, 'updateModal'])->name('task-updateModal');
     Route::post('/task/update', [Controller\TaskController::class, 'update'])->name('task-update');
     Route::post('/task/delete', [Controller\TaskController::class, 'delete'])->name('task-delete');
+    Route::get('/task/task_color', [Controller\TaskController::class, 'taskColorModal'])->name('task-taskColorModal');
+    Route::post('/task/task_color/create', [Controller\TaskController::class, 'createTaskColor'])->name('task-createTaskColor');
+    Route::post('/task/task_color/update', [Controller\TaskController::class, 'updateTaskColor'])->name('task-updateTaskColor');
+    Route::post('/task/task_color/delete', [Controller\TaskController::class, 'deleteTaskColor'])->name('task-deleteTaskColor');
 });
 
 // 管理者

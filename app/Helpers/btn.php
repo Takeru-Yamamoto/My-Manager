@@ -30,6 +30,18 @@ if (!function_exists('btnFlg')) {
     }
 }
 
+if (!function_exists('btnModalAjax')) {
+    function btnModalAjax(string $url, int $id, string $type, string $text = "モーダル表示", string $addClass = ""): string
+    {
+        $html = "";
+        $html .= "<a class='" . btnModalAjaxClass() . " " . $addClass . "' data-url='" . $url . "' data-id='" . $id . "' data-type='" . $type . "'>";
+        $html .= $text;
+        $html .= "</a>";
+
+        return $html;
+    }
+}
+
 
 /* class */
 if (!function_exists('btnClass')) {

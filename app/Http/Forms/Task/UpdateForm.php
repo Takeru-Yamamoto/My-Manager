@@ -14,6 +14,7 @@ class UpdateForm extends BaseForm
     public $endDate;
     public $title;
     public $comment;
+    public $colorId;
 
     protected function validationRule(): array
     {
@@ -23,6 +24,7 @@ class UpdateForm extends BaseForm
             'end_date'   => 'required|' . Rule::VALUE_STRING,
             'title'      => 'required|' . Rule::VALUE_STRING,
             'comment'    => 'nullable|' . Rule::VALUE_STRING,
+            'color_id'   => 'nullable|' . Rule::VALUE_INTEGER,
         ];
     }
 
@@ -33,6 +35,7 @@ class UpdateForm extends BaseForm
         $this->endDate   = strval($input['end_date']);
         $this->title     = strval($input['title']);
         $this->comment   = isset($input['comment']) ? strval($input['comment']) : null;
+        $this->colorId   = isset($input['color_id']) ? intval($input['color_id']) : null;
     }
 
     protected function validateAfterBinding(): void

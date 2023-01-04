@@ -13,16 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('task_colors', function (Blueprint $table) {
             $table->id();
-            $table->integer("user_id");
-            $table->string("title");
-            $table->string("comment")->nullable();
-            $table->integer("color_id")->nullable();
-            $table->string("start_date");
-            $table->string("end_date");
-            $table->timestamps();
-            $table->softDeletes();
+            $table->string("color");
+            $table->string("description");
         });
     }
 
@@ -33,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('task_colors');
     }
 };

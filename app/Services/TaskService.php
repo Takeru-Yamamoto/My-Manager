@@ -21,17 +21,21 @@ class TaskService extends BaseService
         if (is_null($tasks)) return responseJson();
 
         $events = [];
+        $taskColors = $this->TaskColorRepository->get();
+
         foreach ($tasks as $task) {
+            $taskColor = arraySearchValue($taskColors, "id", $task->colorId);
             $events[] = convertToCalendarEvent(
                 $task->id,
                 $task->title,
                 $task->startDate,
                 $task->endDate,
-                $task->comment
+                $task->comment,
+                is_null($taskColor) ? null : convertToBootstrapColorCode($taskColor->color)
             );
         }
 
-        return response()->json($events);
+        return responseJson($events);
     }
 
     public function create(Forms\CreateForm $form): string
@@ -40,6 +44,7 @@ class TaskService extends BaseService
             authUserId(),
             $form->title,
             $form->comment,
+            $form->colorId,
             $form->startDate,
             $form->endDate
         );
@@ -58,10 +63,13 @@ class TaskService extends BaseService
     {
         $task = $this->TaskRepository->findRawById($form->id);
 
+        if (is_null($task)) throw $form->exception("IDが不正です。");
+
         $task->start_date = $form->startDate;
         $task->end_date   = $form->endDate;
         $task->title      = $form->title;
         $task->comment    = $form->comment;
+        $task->color_id   = $form->colorId;
 
         Transaction(
             'タスク情報 更新',
@@ -70,17 +78,69 @@ class TaskService extends BaseService
             }
         );
 
-        return TextConst::TASK_CREATED;
+        return TextConst::TASK_UPDATED;
     }
 
     public function delete(Forms\DeleteForm $form): void
     {
         $task = $this->TaskRepository->findRawById($form->id);
 
+        if (is_null($task)) throw $form->exception("IDが不正です。");
+
         Transaction(
             'タスク情報 削除',
             function () use ($task) {
                 $task->delete();
+            }
+        );
+    }
+
+    public function createTaskColor(Forms\CreateTaskColorForm $form): string
+    {
+        $taskColor = $this->TaskColorRepository->createEntity(
+            $form->color,
+            $form->description
+        );
+
+        Transaction(
+            'タスク分類 登録',
+            function () use ($taskColor) {
+                $taskColor->save();
+            }
+        );
+
+        return TextConst::TASK_COLOR_CREATED;
+    }
+
+    public function updateTaskColor(Forms\UpdateTaskColorForm $form): string
+    {
+        $taskColor = $this->TaskColorRepository->findRawById($form->id);
+
+        if (is_null($taskColor)) throw $form->exception("IDが不正です。");
+
+        $taskColor->color       = $form->color;
+        $taskColor->description = $form->description;
+
+        Transaction(
+            'タスク分類 更新',
+            function () use ($taskColor) {
+                $taskColor->save();
+            }
+        );
+
+        return TextConst::TASK_COLOR_UPDATED;
+    }
+
+    public function deleteTaskColor(Forms\DeleteTaskColorForm $form): void
+    {
+        $taskColor = $this->TaskColorRepository->findRawById($form->id);
+
+        if (is_null($taskColor)) throw $form->exception("IDが不正です。");
+
+        Transaction(
+            'タスク分類 削除',
+            function () use ($taskColor) {
+                $taskColor->delete();
             }
         );
     }

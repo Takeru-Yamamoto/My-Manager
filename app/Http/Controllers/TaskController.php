@@ -13,6 +13,7 @@ use App\Http\Forms\Task as Forms;
 use App\Services\TaskService;
 
 use Illuminate\Http\JsonResponse;
+use App\Consts\ContentConst;
 
 class TaskController extends Controller
 {
@@ -43,7 +44,9 @@ class TaskController extends Controller
 
 		if ($form->hasError()) throw $form->exception();
 
-		return view("pages.task.createFormModal", compact("form"));
+		$taskColors = $this->service->TaskColorRepository->get();
+
+		return view("pages.task.createFormModal", compact("form", "taskColors"));
 	}
 
 	public function create(Request $request): Redirector|RedirectResponse
@@ -61,7 +64,10 @@ class TaskController extends Controller
 
 		if ($form->hasError()) throw $form->exception();
 
-		return view("pages.task.updateFormModal", ["task" => $this->service->TaskRepository->findById($form->id)]);
+		$task       = $this->service->TaskRepository->findById($form->id);
+		$taskColors = $this->service->TaskColorRepository->get();
+
+		return view("pages.task.updateFormModal", compact("task", "taskColors"));
 	}
 
 	public function update(Request $request): Redirector|RedirectResponse
@@ -80,5 +86,40 @@ class TaskController extends Controller
 		if ($form->hasError()) throw $form->exception();
 
 		$this->service->delete($form);
+	}
+
+	public function taskColorModal(): View|Factory
+	{
+		$taskColors = $this->service->TaskColorRepository->get();
+		$bootstrapColors = ContentConst::BOOTSTRAP_COLORS;
+
+		return view("pages.task.taskColorModal", compact("taskColors", "bootstrapColors"));
+	}
+
+	public function createTaskColor(Request $request): string
+	{
+		$form = new Forms\CreateTaskColorForm($request->all());
+
+		if ($form->hasError()) throw $form->exception();
+
+		return getTextFromConst($this->service->createTaskColor($form));
+	}
+
+	public function updateTaskColor(Request $request): string
+	{
+		$form = new Forms\UpdateTaskColorForm($request->all());
+
+		if ($form->hasError()) throw $form->exception();
+
+		return getTextFromConst($this->service->updateTaskColor($form));
+	}
+
+	public function deleteTaskColor(Request $request): void
+	{
+		$form = new Forms\DeleteTaskColorForm($request->all());
+
+		if ($form->hasError()) throw $form->exception();
+
+		$this->service->deleteTaskColor($form);
 	}
 }

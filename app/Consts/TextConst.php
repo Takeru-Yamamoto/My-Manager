@@ -31,6 +31,8 @@ class TextConst
     public const TASK_CREATED        = "task_created";
     public const TASK_UPDATED        = "task_updated";
     public const TASK_DATE_INJUSTICE = "task_date_injustice";
+    public const TASK_COLOR_CREATED = "task_color_created";
+    public const TASK_COLOR_UPDATED = "task_color_updated";
 
     /* email */
     public const EMAIL_ADDRESS_EXIST     = "email_address_exist";
@@ -66,6 +68,8 @@ class TextConst
         self::TASK_CREATED              => "タスク情報を追加しました。",
         self::TASK_UPDATED              => "タスク情報を変更しました。",
         self::TASK_DATE_INJUSTICE       => "終了日は開始日より後の日付に設定してください。",
+        self::TASK_COLOR_CREATED        => "タスク分類を追加しました。",
+        self::TASK_COLOR_UPDATED        => "タスク分類を変更しました。",
 
         self::EMAIL_ADDRESS_EXIST       => "このメールアドレスは既に登録されています。",
         self::EMAIL_ADDRESS_NOT_EXIST   => "このメールアドレスは登録されていません。",

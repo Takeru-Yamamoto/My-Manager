@@ -28,6 +28,16 @@
             <label for="comment">コメント</label>
             <textarea name="comment" id="comment" class="form-control" rows="5">{{ old('comment', $task->comment) }}</textarea>
         </div>
+        <div class="form-group">
+            <label for="color_id">タスク分類</label>
+            <select class="form-control" name="color_id" id="color_id">
+                @foreach ($taskColors as $taskColor)
+                    <option class="bg-{{ $taskColor->color }}" value="{{ $taskColor->id }}"
+                        {{ isSelected(old('color_id', $task->colorId) === $taskColor->id) }}>
+                        {{ $taskColor->description }}</option>
+                @endforeach
+            </select>
+        </div>
     </form>
 @stop
 

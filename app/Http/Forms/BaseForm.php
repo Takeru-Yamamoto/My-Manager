@@ -4,6 +4,8 @@ namespace App\Http\Forms;
 
 use Illuminate\Support\Facades\Validator;
 use App\Exceptions\InvalidFormException;
+use Illuminate\Routing\Redirector;
+use Illuminate\Http\RedirectResponse;
 
 abstract class BaseForm
 {
@@ -51,13 +53,14 @@ abstract class BaseForm
         $this->errors[] = $errorText;
     }
 
-    public function redirect(string $path)
+    public function redirect(string $path): Redirector|RedirectResponse
     {
         return redirect($path)->with('danger_message', $this->errors)->withInput();
     }
 
-    public function exception()
+    public function exception(string $errorText = null): InvalidFormException
     {
+        if (!is_null($errorText)) $this->addError($errorText);
         return new InvalidFormException($this);
     }
 }

@@ -7,6 +7,15 @@ $(function ($) {
 
     $(SORTABLE).disableSelection();
 
+    $(document).on("change", COLORS_SELECT, function () {
+        var color = $(this).val();
+
+        $(this).removeClass(function (index, className) {
+            return (className.match(/\bbg-\S+/g) || []).join(' ');
+        });
+        $(this).addClass("bg-" + color);
+    });
+
     $(document).on("click", LOGOUT_BTN, function () {
         $(LOGOUT_FORM).trigger("submit");
     });

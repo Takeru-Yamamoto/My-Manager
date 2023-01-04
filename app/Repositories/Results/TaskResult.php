@@ -11,6 +11,7 @@ class TaskResult extends JsonResult
     public $userId;
     public $title;
     public $comment;
+    public $colorId;
     public $startDate;
     public $endDate;
 
@@ -20,6 +21,7 @@ class TaskResult extends JsonResult
         $this->userId    = $entity->user_id;
         $this->title     = $entity->title;
         $this->comment   = $entity->comment;
+        $this->colorId   = $entity->color_id;
         $this->startDate = $entity->start_date;
         $this->endDate   = $entity->end_date;
     }

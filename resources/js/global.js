@@ -13,6 +13,7 @@ function define(name, value) {
 define("LOGOUT_BTN", ".logout-btn");
 define("LOGOUT_FORM", "#logout-form");
 define("FORM_SUBMIT_BTN", ".form-submit-btn");
+define("COLORS_SELECT", ".colors-select");
 
 /* modal */
 define("MODAL_MARKS", ".modal-marks");
@@ -43,3 +44,5 @@ define("FLG_CHANGE_BTN", ".flg-change-btn");
 
 /* unique */
 define("ATTENDANCE_CREATE_BTN", ".attendance-create-btn");
+define("TASK_COLOR_CREATE_BTN", ".task-color-create-btn");
+define("TASK_COLOR_UPDATE_BTN", ".task-color-update-btn");

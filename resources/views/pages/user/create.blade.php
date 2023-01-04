@@ -29,7 +29,7 @@
             @can('system')
                 <div class="custom-control custom-radio custom-control-inline">
                     <input class="custom-control-input" type="radio" name="role" value="5" id="role-5"
-                        {{ old('role') === '5' ? 'checked' : '' }}>
+                        {{ isChecked(old('role') === '5') }}>
                     <label class="custom-control-label" for="role-5">
                         Admin
                     </label>
@@ -37,7 +37,7 @@
             @endcan
             <div class="custom-control custom-radio custom-control-inline">
                 <input class="custom-control-input" type="radio" name="role" value="10" id="role-10"
-                    {{ empty(old('role')) || old('role') === '10' ? 'checked' : '' }}>
+                    {{ isChecked(empty(old('role')) || old('role') === '10') }}>
                 <label class="custom-control-label" for="role-10">
                     User
                 </label>

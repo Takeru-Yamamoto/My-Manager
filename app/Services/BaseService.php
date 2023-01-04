@@ -7,6 +7,7 @@ use App\Repositories\PasswordResetRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\ProfileRepository;
 use App\Repositories\AttendanceRepository;
+use App\Repositories\TaskColorRepository;
 use App\Repositories\TaskRepository;
 
 abstract class BaseService
@@ -17,6 +18,7 @@ abstract class BaseService
     public ProfileRepository $ProfileRepository;
     public AttendanceRepository $AttendanceRepository;
     public TaskRepository $TaskRepository;
+    public TaskColorRepository $TaskColorRepository;
 
     public function __construct()
     {
@@ -26,5 +28,6 @@ abstract class BaseService
         $this->ProfileRepository       = new ProfileRepository();
         $this->AttendanceRepository    = new AttendanceRepository();
         $this->TaskRepository          = new TaskRepository();
+        $this->TaskColorRepository     = new TaskColorRepository();
     }
 }
