@@ -47,6 +47,7 @@ Route::group(['middleware' => ['auth', 'can:' . GateConst::USER_HIGHER]], functi
     Route::post('/task/create', [Controller\TaskController::class, 'create'])->name('task-create');
     Route::get('/task/update', [Controller\TaskController::class, 'updateModal'])->name('task-updateModal');
     Route::post('/task/update', [Controller\TaskController::class, 'update'])->name('task-update');
+    Route::post('/task/delete', [Controller\TaskController::class, 'delete'])->name('task-delete');
 });
 
 // 管理者

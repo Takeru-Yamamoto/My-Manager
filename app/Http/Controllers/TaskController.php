@@ -72,4 +72,13 @@ class TaskController extends Controller
 
 		return successRedirect("task", $this->service->update($form));
 	}
+
+	public function delete(Request $request): void
+	{
+		$form = new Forms\DeleteForm($request->all());
+
+		if ($form->hasError()) throw $form->exception();
+
+		$this->service->delete($form);
+	}
 }

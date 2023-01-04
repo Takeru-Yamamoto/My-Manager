@@ -72,4 +72,16 @@ class TaskService extends BaseService
 
         return TextConst::TASK_CREATED;
     }
+
+    public function delete(Forms\DeleteForm $form): void
+    {
+        $task = $this->TaskRepository->findRawById($form->id);
+
+        Transaction(
+            'タスク情報 削除',
+            function () use ($task) {
+                $task->delete();
+            }
+        );
+    }
 }
