@@ -59,6 +59,16 @@ if (calendarEl) {
                 $("#modal").modal();
             };
             f.ajaxRequest(updateFormUrl, updateFormUrlType, data, callback);
+        },
+        eventMouseEnter (info) {
+            $(info.el).popover({
+                title: info.event.title,
+                content: info.event.extendedProps.description,
+                trigger: 'hover',
+                placement: 'top',
+                container: 'body',
+                html: true
+            });
         }
     });
 

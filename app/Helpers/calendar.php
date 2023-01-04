@@ -27,7 +27,7 @@ if (!function_exists('convertToCalendarEvent')) {
             "end"   => $end,
         ];
 
-        if (!is_null($description)) $event["description"] = $description;
+        if (!is_null($description)) $event["description"] = nl2br($description);
         if (!is_null($url)) $event["url"]                 = $url;
         if (!is_null($color)) $event["color"]             = $color;
 
