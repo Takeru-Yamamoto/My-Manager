@@ -19,13 +19,14 @@
                 {{ $user->name }}
             </td>
             <td>
-                {!! btnFlg(url('user/change_is_valid'), $user->id, $user->isValid) !!}
+                {!! btnFlg(url('user/change_is_valid'), $user->id, $user->isValid, btnBlock()) !!}
             </td>
             <td>
-                <a class="{{ btnUpdateClass() }}" href="{{ url('user/update/' . $user->id) }}">{{ btnUpdateShortText() }}</a>
+                <a class="{{ btnUpdateClass() }} {{ btnBlock() }}"
+                    href="{{ url('user/update/' . $user->id) }}">{{ btnUpdateShortText() }}</a>
             </td>
             <td>
-                {!! btnDelete(url('user/delete'), $user->id) !!}
+                {!! btnDelete(url('user/delete'), $user->id, btnBlock()) !!}
             </td>
         </tr>
     @endforeach

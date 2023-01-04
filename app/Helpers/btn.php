@@ -4,12 +4,11 @@ use App\Consts\BtnConst;
 use App\Consts\NameConst;
 
 /* html */
-
 if (!function_exists('btnDelete')) {
-    function btnDelete(string $url, int $id, string $type = NameConst::TYPE_SHORT): string
+    function btnDelete(string $url, int $id, string $addClass = "", string $type = NameConst::TYPE_SHORT): string
     {
         $html = "";
-        $html .= "<a class='" . btnDeleteClass() . "' data-url='" . $url . "' data-id='" . $id . "'>";
+        $html .= "<a class='" . btnDeleteClass() . " " . $addClass . "' data-url='" . $url . "' data-id='" . $id . "'>";
         $html .= btnDeleteText($type);
         $html .= "</a>";
 
@@ -18,12 +17,12 @@ if (!function_exists('btnDelete')) {
 }
 
 if (!function_exists('btnFlg')) {
-    function btnFlg(string $url, int $id, bool $flg, string $type = NameConst::TYPE_SHORT): string
+    function btnFlg(string $url, int $id, bool $flg, string $addClass = "", string $type = NameConst::TYPE_SHORT): string
     {
         $new_flg = $flg ? 0 : 1;
 
         $html = "";
-        $html .= "<a class='" . btnFlgClass($flg) . "' data-url='" . $url . "' data-id='" . $id . "' data-flg='" . $new_flg . "'>";
+        $html .= "<a class='" . btnFlgClass($flg) . " " . $addClass . "' data-url='" . $url . "' data-id='" . $id . "' data-flg='" . $new_flg . "'>";
         $html .= btnFlgText($type, $flg);
         $html .= "</a>";
 
