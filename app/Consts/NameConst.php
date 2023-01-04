@@ -37,4 +37,12 @@ class NameConst
             self::FALSE  => "無効",
         ],
     ];
+
+    public const FORM_ATTRIBUTES = [
+        'name' => 'アカウント名',
+        'email' => 'メールアドレス',
+        'status'=>'ステータス',
+        'password' => 'パスワード',
+        'password_confirmation'=>'パスワード(確認用)',
+    ];
 }

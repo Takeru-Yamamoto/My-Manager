@@ -1,5 +1,7 @@
 <?php
 
+use App\Consts\NameConst;
+
 return [
 
     /*
@@ -153,12 +155,5 @@ return [
     |
     */
 
-    'attributes' => [
-        'name' => 'アカウント名',
-        'email' => 'メールアドレス',
-        'status'=>'ステータス',
-        'password' => 'パスワード',
-        'password_confirmation'=>'パスワード(確認用)',
-    ],
-
+    'attributes' => NameConst::FORM_ATTRIBUTES,
 ];
