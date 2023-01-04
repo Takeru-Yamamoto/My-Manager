@@ -50,9 +50,9 @@
                     <td>{{ $attendance->type }}</td>
                     <td>{{ $attendance->startWork }}</td>
                     <td>{{ isset($attendance->endWork) ? $attendance->endWork : '' }}</td>
-                    <td>{{ isset($attendance->totalWorkActual) ? $attendance->totalWorkActual : '' }}</td>
-                    <td>{{ isset($attendance->totalWork) ? $attendance->totalWork : '' }}</td>
-                    <td>{{ isset($attendance->totalBreak) ? $attendance->totalBreak : '' }}</td>
+                    <td>{{ isset($attendance->totalWorkActual) ? round($attendance->totalWorkActual, 2) : '' }}</td>
+                    <td>{{ isset($attendance->totalWork) ? round($attendance->totalWork, 2) : '' }}</td>
+                    <td>{{ isset($attendance->totalBreak) ? round($attendance->totalBreak, 2) : '' }}</td>
                 </tr>
             @endif
         </tbody>

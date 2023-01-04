@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
 use Closure;
+use stdClass;
 
 use App\Repositories\Results\JsonResult;
 
@@ -166,6 +167,19 @@ abstract class BaseRepository
         return $result;
     }
 
+    final public function paginate(int $page, int $limit): stdClass
+    {
+        $result = new stdClass();
+
+        $copy = $this->query();
+        $result->items = $this->forPage($page, $limit)->get();
+
+        $this->query = $copy;
+        $result->total = $this->count();
+        
+        return $result;
+    }
+
 
     /* select */
     final public function select(array|string $columns): self
@@ -204,22 +218,22 @@ abstract class BaseRepository
 
     final public function whereGreater(string $column, mixed $value): self
     {
-        return $this->where($column, $value, "<");
+        return $this->where($column, $value, ">");
     }
 
     final public function whereGreaterEqual(string $column, mixed $value): self
     {
-        return $this->where($column, $value, "<=");
+        return $this->where($column, $value, ">=");
     }
 
     final public function whereLess(string $column, mixed $value): self
     {
-        return $this->where($column, $value, ">");
+        return $this->where($column, $value, "<");
     }
 
     final public function whereLessEqual(string $column, mixed $value): self
     {
-        return $this->where($column, $value, ">=");
+        return $this->where($column, $value, "<=");
     }
 
     final public function whereClosure(Closure $closure): self
@@ -278,22 +292,22 @@ abstract class BaseRepository
 
     final public function whereColumnGreater(string $column1, string $column2): self
     {
-        return $this->whereColumn($column1, $column2, "<");
+        return $this->whereColumn($column1, $column2, ">");
     }
 
     final public function whereColumnGreaterEqual(string $column1, string $column2): self
     {
-        return $this->whereColumn($column1, $column2, "<=");
+        return $this->whereColumn($column1, $column2, ">=");
     }
 
     final public function whereColumnLess(string $column1, string $column2): self
     {
-        return $this->whereColumn($column1, $column2, ">");
+        return $this->whereColumn($column1, $column2, "<");
     }
 
     final public function whereColumnLessEqual(string $column1, string $column2): self
     {
-        return $this->whereColumn($column1, $column2, ">=");
+        return $this->whereColumn($column1, $column2, "<=");
     }
 
     final public function orWhere(string $column, mixed $value, string $operator = "="): self
@@ -309,22 +323,22 @@ abstract class BaseRepository
 
     final public function orWhereGreater(string $column, mixed $value): self
     {
-        return $this->orWhere($column, $value, "<");
+        return $this->orWhere($column, $value, ">");
     }
 
     final public function orWhereGreaterEqual(string $column, mixed $value): self
     {
-        return $this->orWhere($column, $value, "<=");
+        return $this->orWhere($column, $value, ">=");
     }
 
     final public function orWhereLess(string $column, mixed $value): self
     {
-        return $this->orWhere($column, $value, ">");
+        return $this->orWhere($column, $value, "<");
     }
 
     final public function orWhereLessEqual(string $column, mixed $value): self
     {
-        return $this->orWhere($column, $value, ">=");
+        return $this->orWhere($column, $value, "<=");
     }
 
     final public function orWhereClosure(Closure $closure): self
@@ -383,22 +397,22 @@ abstract class BaseRepository
 
     final public function orWhereColumnGreater(string $column1, string $column2): self
     {
-        return $this->orWhereColumn($column1, $column2, "<");
+        return $this->orWhereColumn($column1, $column2, ">");
     }
 
     final public function orWhereColumnGreaterEqual(string $column1, string $column2): self
     {
-        return $this->orWhereColumn($column1, $column2, "<=");
+        return $this->orWhereColumn($column1, $column2, ">=");
     }
 
     final public function orWhereColumnLess(string $column1, string $column2): self
     {
-        return $this->orWhereColumn($column1, $column2, ">");
+        return $this->orWhereColumn($column1, $column2, "<");
     }
 
     final public function orWhereColumnLessEqual(string $column1, string $column2): self
     {
-        return $this->orWhereColumn($column1, $column2, ">=");
+        return $this->orWhereColumn($column1, $column2, "<=");
     }
 
     final public function whereJsonContains(string $jsonColumn, array $values): self
@@ -415,22 +429,22 @@ abstract class BaseRepository
 
     final public function whereJsonLengthGreater(string $jsonColumn, int $length): self
     {
-        return $this->whereJsonLength($jsonColumn, $length, "<");
+        return $this->whereJsonLength($jsonColumn, $length, ">");
     }
 
     final public function whereJsonLengthGreaterEqual(string $jsonColumn, int $length): self
     {
-        return $this->whereJsonLength($jsonColumn, $length, "<=");
+        return $this->whereJsonLength($jsonColumn, $length, ">=");
     }
 
     final public function whereJsonLengthLess(string $jsonColumn, int $length): self
     {
-        return $this->whereJsonLength($jsonColumn, $length, ">");
+        return $this->whereJsonLength($jsonColumn, $length, "<");
     }
 
     final public function whereJsonLengthLessEqual(string $jsonColumn, int $length): self
     {
-        return $this->whereJsonLength($jsonColumn, $length, ">=");
+        return $this->whereJsonLength($jsonColumn, $length, "<=");
     }
 
     final public function whereDate(string $dateColumn, ?string $date, string $operator = "="): self
@@ -442,22 +456,22 @@ abstract class BaseRepository
 
     final public function whereDateGreater(string $dateColumn, ?string $date): self
     {
-        return $this->whereDate($dateColumn, $date, "<");
+        return $this->whereDate($dateColumn, $date, ">");
     }
 
     final public function whereDateGreaterEqual(string $dateColumn, ?string $date): self
     {
-        return $this->whereDate($dateColumn, $date, "<=");
+        return $this->whereDate($dateColumn, $date, ">=");
     }
 
     final public function whereDateLess(string $dateColumn, ?string $date): self
     {
-        return $this->whereDate($dateColumn, $date, ">");
+        return $this->whereDate($dateColumn, $date, "<");
     }
 
     final public function whereDateLessEqual(string $dateColumn, ?string $date): self
     {
-        return $this->whereDate($dateColumn, $date, ">=");
+        return $this->whereDate($dateColumn, $date, "<=");
     }
 
     final public function whereYear(string $dateColumn, ?int $year, string $operator = "="): self
@@ -472,22 +486,22 @@ abstract class BaseRepository
 
     final public function whereYearGreater(string $dateColumn, ?int $year): self
     {
-        return $this->whereYear($dateColumn, $year, "<");
+        return $this->whereYear($dateColumn, $year, ">");
     }
 
     final public function whereYearGreaterEqual(string $dateColumn, ?int $year): self
     {
-        return $this->whereYear($dateColumn, $year, "<=");
+        return $this->whereYear($dateColumn, $year, ">=");
     }
 
     final public function whereYearLess(string $dateColumn, ?int $year): self
     {
-        return $this->whereYear($dateColumn, $year, ">");
+        return $this->whereYear($dateColumn, $year, "<");
     }
 
     final public function whereYearLessEqual(string $dateColumn, ?int $year): self
     {
-        return $this->whereYear($dateColumn, $year, ">=");
+        return $this->whereYear($dateColumn, $year, "<=");
     }
 
     final public function whereMonth(string $dateColumn, ?int $month, string $operator = "="): self
@@ -506,22 +520,22 @@ abstract class BaseRepository
 
     final public function whereMonthGreater(string $dateColumn, ?int $month): self
     {
-        return $this->whereMonth($dateColumn, $month, "<");
+        return $this->whereMonth($dateColumn, $month, ">");
     }
 
     final public function whereMonthGreaterEqual(string $dateColumn, ?int $month): self
     {
-        return $this->whereMonth($dateColumn, $month, "<=");
+        return $this->whereMonth($dateColumn, $month, ">=");
     }
 
     final public function whereMonthLess(string $dateColumn, ?int $month): self
     {
-        return $this->whereMonth($dateColumn, $month, ">");
+        return $this->whereMonth($dateColumn, $month, "<");
     }
 
     final public function whereMonthLessEqual(string $dateColumn, ?int $month): self
     {
-        return $this->whereMonth($dateColumn, $month, ">=");
+        return $this->whereMonth($dateColumn, $month, "<=");
     }
 
     final public function whereDay(string $dateColumn, ?int $day, string $operator = "="): self
@@ -536,22 +550,22 @@ abstract class BaseRepository
 
     final public function whereDayGreater(string $dateColumn, ?int $day): self
     {
-        return $this->whereDay($dateColumn, $day, "<");
+        return $this->whereDay($dateColumn, $day, ">");
     }
 
     final public function whereDayGreaterEqual(string $dateColumn, ?int $day): self
     {
-        return $this->whereDay($dateColumn, $day, "<=");
+        return $this->whereDay($dateColumn, $day, ">=");
     }
 
     final public function whereDayLess(string $dateColumn, ?int $day): self
     {
-        return $this->whereDay($dateColumn, $day, ">");
+        return $this->whereDay($dateColumn, $day, "<");
     }
 
     final public function whereDayLessEqual(string $dateColumn, ?int $day): self
     {
-        return $this->whereDay($dateColumn, $day, ">=");
+        return $this->whereDay($dateColumn, $day, "<=");
     }
 
     final public function whereTime(string $dateColumn, ?string $time, string $operator = "="): self
@@ -563,22 +577,22 @@ abstract class BaseRepository
 
     final public function whereTimeGreater(string $dateColumn, ?string $time): self
     {
-        return $this->whereTime($dateColumn, $time, "<");
+        return $this->whereTime($dateColumn, $time, ">");
     }
 
     final public function whereTimeGreaterEqual(string $dateColumn, ?string $time): self
     {
-        return $this->whereTime($dateColumn, $time, "<=");
+        return $this->whereTime($dateColumn, $time, ">=");
     }
 
     final public function whereTimeLess(string $dateColumn, ?string $time): self
     {
-        return $this->whereTime($dateColumn, $time, ">");
+        return $this->whereTime($dateColumn, $time, "<");
     }
 
     final public function whereTimeLessEqual(string $dateColumn, ?string $time): self
     {
-        return $this->whereTime($dateColumn, $time, ">=");
+        return $this->whereTime($dateColumn, $time, "<=");
     }
 
 
@@ -615,20 +629,20 @@ abstract class BaseRepository
 
     final public function havingGreater(string $column, string|int|float|null $value): self
     {
-        return $this->having($column, $value, "<");
+        return $this->having($column, $value, ">");
     }
 
     final public function havingGreaterEqual(string $column, string|int|float|null $value): self
     {
-        return $this->having($column, $value, "<=");
+        return $this->having($column, $value, ">=");
     }
     final public function havingLess(string $column, string|int|float|null $value): self
     {
-        return $this->having($column, $value, ">");
+        return $this->having($column, $value, "<");
     }
     final public function havingLessEqual(string $column, string|int|float|null $value): self
     {
-        return $this->having($column, $value, ">=");
+        return $this->having($column, $value, "<=");
     }
 
     final public function havingBetween(string $column, mixed $start, mixed $end): self

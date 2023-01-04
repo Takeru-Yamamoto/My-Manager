@@ -16,28 +16,31 @@ if (!function_exists('authUserResult')) {
     function authUserResult(): UserResult
     {
         $UserRepository = new UserRepository();
-        return $UserRepository->toResult(auth()->user());
+        return $UserRepository->toResult(authUser());
     }
 }
 
 if (!function_exists('isSystem')) {
-    function isSystem(): bool
+    function isSystem(User $user = null): bool
     {
-        return authUserRole() === GateConst::SYSTEM_NUMBER;
+        $role = is_null($user) ? authUserRole() : $user->role;
+        return $role === GateConst::SYSTEM_NUMBER;
     }
 }
 
 if (!function_exists('isAdmin')) {
-    function isAdmin(): bool
+    function isAdmin(User $user = null): bool
     {
-        return authUserRole() > GateConst::SYSTEM_NUMBER && authUserRole() <= GateConst::ADMIN_NUMBER;
+        $role = is_null($user) ? authUserRole() : $user->role;
+        return $role > GateConst::SYSTEM_NUMBER && $role <= GateConst::ADMIN_NUMBER;
     }
 }
 
 if (!function_exists('isUser')) {
-    function isUser(): bool
+    function isUser(User $user = null): bool
     {
-        return authUserRole() > GateConst::ADMIN_NUMBER && authUserRole() <= GateConst::USER_NUMBER;
+        $role = is_null($user) ? authUserRole() : $user->role;
+        return $role > GateConst::ADMIN_NUMBER && $role <= GateConst::USER_NUMBER;
     }
 }
 

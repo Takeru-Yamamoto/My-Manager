@@ -64,6 +64,6 @@ class HomeService extends BaseService
 
     public function getTodaysTask(): array|null
     {
-        return $this->TaskRepository->whereLessEqual("start_date", dateUtil()->toDateString())->get();
+        return $this->TaskRepository->whereGreaterEqual("start_date", dateUtil()->toDateString())->get();
     }
 }

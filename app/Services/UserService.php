@@ -12,7 +12,7 @@ class UserService extends BaseService
 {
     public function getLowerThanRole(): array
     {
-        return $this->UserRepository->whereLess("role", authUserRole())->get();
+        return $this->UserRepository->whereGreater("role", authUserRole())->get();
     }
 
     public function create(Forms\CreateForm $form): string

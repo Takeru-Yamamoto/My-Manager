@@ -3,6 +3,15 @@
 use Illuminate\Http\JsonResponse;
 use App\Consts\ContentConst;
 
+if (!function_exists('varDump')) {
+    function varDump(mixed $any): void
+    {
+        echo "<pre>";
+        var_dump($any);
+        echo "</pre>";
+    }
+}
+
 if (!function_exists('removeNullAndEmptyFromArray')) {
     function removeNullAndEmptyFromArray(array $array): array
     {

@@ -1,11 +1,19 @@
 @extends('layouts.page.card-noFooter')
 
 @section('card-header')
-    {{ tableCardHeader() }}
+    <div class="d-flex justify-content-between align-items-center">
+        {{ tableCardHeader() }}
+        <div>
+            <a class="{{ btnLinkClass() }}"
+                href="{{ url('attendance') }}?month={{ $subMonth->format(DateUtil::$FORMAT_MONTH) }}">{{ $subMonth->format(DateUtil::$FORMAT_MONTH_JP) }}</a>
+            <a class="{{ btnLinkClass() }}"
+                href="{{ url('attendance') }}?month={{ $addMonth->format(DateUtil::$FORMAT_MONTH) }}">{{ $addMonth->format(DateUtil::$FORMAT_MONTH_JP) }}</a>
+        </div>
+    </div>
 @stop
 
 @section('card-body')
-    <p class="h4 m-0">月間</p>
+    <p class="h4 m-0">{{ $dateUtil->format(DateUtil::$FORMAT_MONTH_JP) }}</p>
     <table class="table table-hover">
         <thead>
             <th width="25%">勤務日数</th>
@@ -16,9 +24,9 @@
         <tbody>
             <tr>
                 <td>{{ $attendanceInMonth->workDays }}</td>
-                <td>{{ $attendanceInMonth->totalWorkActual }}</td>
-                <td>{{ $attendanceInMonth->totalWork }}</td>
-                <td>{{ $attendanceInMonth->totalBreak }}</td>
+                <td>{{ round($attendanceInMonth->totalWorkActual, 2) }}</td>
+                <td>{{ round($attendanceInMonth->totalWork, 2) }}</td>
+                <td>{{ round($attendanceInMonth->totalBreak, 2) }}</td>
             </tr>
         </tbody>
     </table>

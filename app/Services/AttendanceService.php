@@ -9,6 +9,7 @@ use App\Consts\TextConst;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use stdClass;
+use App\Consts\GateConst;
 
 class AttendanceService extends BaseService
 {
@@ -18,26 +19,20 @@ class AttendanceService extends BaseService
     {
         $dateUtil = dateUtil($form->month);
 
-        $attendances = $this->AttendanceRepository
+        $repository = $this->AttendanceRepository
             ->where("user_id", authUserId())
             ->whereBetween("datetime", $dateUtil->firstOfMonth(), $dateUtil->endOfMonth())
-            ->forPage($form->page, $this->limit)->desc("datetime")->get();
+            ->desc("datetime");
 
-        if (is_null($attendances)) return null;
-
-        $totalRows = $this->AttendanceRepository
-            ->where("user_id", authUserId())
-            ->whereBetween("datetime", $dateUtil->firstOfMonth(), $dateUtil->endOfMonth())->count();
-
-        return paginator($attendances, $totalRows, $this->limit, $form->path, $form->page, ["month" => $form->month]);
+        return paginatorByRepository($repository, $this->limit, $form->path, $form->page, ["month" => $form->month]);
     }
 
-    public function getAttendanceInMonth(Forms\IndexForm $form): stdClass
+    public function getAttendanceInMonth(int $userId, ?string $month): stdClass
     {
-        $dateUtil = dateUtil($form->month);
+        $dateUtil = dateUtil($month);
 
         $attendances = $this->AttendanceRepository
-            ->where("user_id", authUserId())
+            ->where("user_id", $userId)
             ->whereBetween("datetime", $dateUtil->firstOfMonth(), $dateUtil->endOfMonth())
             ->whereNull("relation")->get();
 
@@ -104,5 +99,29 @@ class AttendanceService extends BaseService
         );
 
         return TextConst::ATTENDANCE_CREATED;
+    }
+
+    public function getUserAttendanceInMonth(Forms\AdminIndexForm $form): LengthAwarePaginator|null
+    {
+        $results  = [];
+
+        if (is_null($form->name)) {
+            $paginate = $this->UserRepository->whereGreater("role", GateConst::ADMIN_NUMBER)->paginate($form->page, $this->limit);
+        } else {
+            $paginate = $this->UserRepository->whereGreater("role", GateConst::ADMIN_NUMBER)->whereLike("name", $form->name)->paginate($form->page, $this->limit);
+        }
+
+        if (is_null($paginate->items)) return null;
+
+        foreach ($paginate->items as $user) {
+            $result = new stdClass();
+
+            $result->user       = $user;
+            $result->attendance = $this->getAttendanceInMonth($user->id, $form->month);
+
+            $results[] = $result;
+        }
+
+        return paginator($results, $paginate->total, $this->limit, $form->path, $form->page, ["month" => $form->month, "name" => $form->name]);
     }
 }

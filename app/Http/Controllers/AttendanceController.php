@@ -21,8 +21,10 @@ class AttendanceController extends Controller
 		$this->service = new AttendanceService;
 	}
 
-	public function index(Request $request): View|Factory
+	public function index(Request $request): View|Factory|Redirector|RedirectResponse
 	{
+		if (!isUser()) return redirect("attendance/admin");
+
 		$form = new Forms\IndexForm([
 			"month" => $request->month,
 			"page"  => $request->page,
@@ -32,9 +34,13 @@ class AttendanceController extends Controller
 		if ($form->hasError()) throw $form->exception();
 
 		$attendances       = $this->service->getPaginatedAttendances($form);
-		$attendanceInMonth = $this->service->getAttendanceInMonth($form);
+		$attendanceInMonth = $this->service->getAttendanceInMonth(authUserId(), $form->month);
 
-		return view('pages.attendance.index', compact("attendances", "attendanceInMonth"));
+		$dateUtil          = dateUtil($form->month);
+		$addMonth          = $dateUtil->copy()->addMonth(1);
+		$subMonth          = $dateUtil->copy()->subMonth(1);
+
+		return view('pages.attendance.index', compact("attendances", "attendanceInMonth", "dateUtil", "subMonth", "addMonth"));
 	}
 
 	public function create(Request $request): Redirector|RedirectResponse
@@ -44,5 +50,24 @@ class AttendanceController extends Controller
 		if ($form->hasError()) return $form->redirect("attendance");
 
 		return successRedirect("attendance", $this->service->create($form), "勤怠種別: " . getAttendanceTypeText($form->type));
+	}
+
+	public function adminIndex(Request $request): View|Factory
+	{
+		$form = new Forms\AdminIndexForm([
+			"name"  => $request->name,
+			"month" => $request->month,
+			"page"  => $request->page,
+			"path"  => $request->path(),
+		]);
+
+		if ($form->hasError()) throw $form->exception();
+
+		$attendanceInMonths = $this->service->getUserAttendanceInMonth($form);
+		$dateUtil           = dateUtil($form->month);
+		$addMonth           = $dateUtil->copy()->addMonth(1);
+		$subMonth           = $dateUtil->copy()->subMonth(1);
+
+		return view('pages.attendance.adminIndex', compact("attendanceInMonths", "dateUtil", "subMonth", "addMonth"));
 	}
 }

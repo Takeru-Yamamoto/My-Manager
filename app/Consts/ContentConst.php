@@ -46,11 +46,14 @@ class ContentConst
     public const SIDEBARS = [
         GateConst::SYSTEM => [
             self::USER,
+            self::ATTENDANCE,
+            self::TASK,
         ],
         GateConst::ADMIN => [
             self::LOGIN_INFO,
             self::PROFILE,
             self::USER,
+            self::TASK,
         ],
         GateConst::USER => [
             self::LOGIN_INFO,
