@@ -36,7 +36,7 @@ abstract class BaseForm
 
             foreach ($messages as $message) {
                 foreach ($message as $row) {
-                    $this->errors[] = $row;
+                    $this->addError($row);
                 }
             }
         }
