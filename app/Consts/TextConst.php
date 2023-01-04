@@ -8,6 +8,8 @@ class TextConst
     public const KEY_NULL               = "key_null";
     public const KEY_NOT_EXIST          = "key_not_exist";
     public const AUTHENTICATION_FAILURE = "authentication_failure";
+    public const FORM_ID_INJUSTICE      = "form_id_injustice";
+    public const FORM_EMAIL_INJUSTICE   = "form_email_injustice";
 
     /* login info */
     public const LOGIN_INFO_UPDATED = "login_info_updated";
@@ -51,6 +53,8 @@ class TextConst
         self::KEY_NULL                  => "キーがnullです。",
         self::KEY_NOT_EXIST             => "存在しないキーです。",
         self::AUTHENTICATION_FAILURE    => "認証に失敗しました。",
+        self::FORM_ID_INJUSTICE         => "IDが不正です。",
+        self::FORM_EMAIL_INJUSTICE      => "E-Mailアドレスが不正です。",
 
         self::LOGIN_INFO_UPDATED        => "ログイン情報を更新しました。",
 

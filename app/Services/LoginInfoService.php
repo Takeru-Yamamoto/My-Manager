@@ -14,6 +14,8 @@ class LoginInfoService extends BaseService
     {
         $user = $this->UserRepository->findRawById($form->id);
 
+        if (is_null($user)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
+
         $user->role = $form->role;
         if (!is_null($form->email)) {
             $user->email = $form->email;

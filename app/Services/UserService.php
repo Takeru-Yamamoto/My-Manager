@@ -43,6 +43,8 @@ class UserService extends BaseService
     {
         $user = $this->UserRepository->findRawById($form->id);
 
+        if (is_null($user)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
+
         $user->role = $form->role;
         $user->email = $form->email;
         if (!is_null($form->password)) {
@@ -63,6 +65,8 @@ class UserService extends BaseService
     {
         $user = $this->UserRepository->findRawById($form->id);
 
+        if (is_null($user)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
+
         Transaction(
             'ユーザー情報削除',
             function () use ($user) {
@@ -74,6 +78,8 @@ class UserService extends BaseService
     public function changeIsValid(Forms\ChangeIsValidForm $form): void
     {
         $user = $this->UserRepository->findRawById($form->id);
+
+        if (is_null($user)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
         $user->is_valid = $form->isValid;
 

@@ -63,7 +63,7 @@ class TaskService extends BaseService
     {
         $task = $this->TaskRepository->findRawById($form->id);
 
-        if (is_null($task)) throw $form->exception("IDが不正です。");
+        if (is_null($task)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
         $task->start_date = $form->startDate;
         $task->end_date   = $form->endDate;
@@ -85,7 +85,7 @@ class TaskService extends BaseService
     {
         $task = $this->TaskRepository->findRawById($form->id);
 
-        if (is_null($task)) throw $form->exception("IDが不正です。");
+        if (is_null($task)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
         Transaction(
             'タスク情報 削除',
@@ -116,7 +116,7 @@ class TaskService extends BaseService
     {
         $taskColor = $this->TaskColorRepository->findRawById($form->id);
 
-        if (is_null($taskColor)) throw $form->exception("IDが不正です。");
+        if (is_null($taskColor)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
         $taskColor->color       = $form->color;
         $taskColor->description = $form->description;
@@ -135,7 +135,7 @@ class TaskService extends BaseService
     {
         $taskColor = $this->TaskColorRepository->findRawById($form->id);
 
-        if (is_null($taskColor)) throw $form->exception("IDが不正です。");
+        if (is_null($taskColor)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
         Transaction(
             'タスク分類 削除',

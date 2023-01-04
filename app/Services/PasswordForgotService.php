@@ -46,6 +46,8 @@ class PasswordForgotService extends BaseService
     {
         $user = $this->UserRepository->where("email", $form->email)->findRaw();
 
+        if (is_null($user)) throw $form->exception(TextConst::FORM_EMAIL_INJUSTICE);
+
         $user->password = makeHash($form->password);
 
         Transaction(

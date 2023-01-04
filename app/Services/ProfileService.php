@@ -48,6 +48,8 @@ class ProfileService extends BaseService
     {
         $profile = $this->ProfileRepository->findRawById($form->id);
 
+        if (is_null($profile)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
+
         Transaction(
             'プロフィール更新',
             function () use ($profile) {
