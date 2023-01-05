@@ -23,10 +23,8 @@ if (!function_exists('divergeRedirect')) {
 
     function divergeRedirect(bool $flg, string $path, string $textKey, string $addText = null): Redirector|RedirectResponse
     {
-        if ($flg) {
-            return successRedirect($path, $textKey, $addText);
-        } else {
-            return failureRedirect($path, $textKey, $addText);
-        }
+        if ($flg) return successRedirect($path, $textKey, $addText);
+
+        return failureRedirect($path, $textKey, $addText);
     }
 }

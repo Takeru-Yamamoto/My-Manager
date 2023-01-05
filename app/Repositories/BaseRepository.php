@@ -172,10 +172,10 @@ abstract class BaseRepository
         $result = new stdClass();
 
         $copy = $this->query();
-        $result->items = $this->forPage($page, $limit)->get();
+        $result->total = $this->count();
 
         $this->query = $copy;
-        $result->total = $this->count();
+        $result->items = $this->forPage($page, $limit)->get();
         
         return $result;
     }

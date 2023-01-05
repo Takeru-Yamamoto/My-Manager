@@ -104,47 +104,38 @@ class BaseAPIUtil
 
     final public function status(): ?int
     {
-        if ($this->isReceived() && !$this->hasError()) {
-            return $this->response->status();
-        } else {
-            return null;
-        }
+        if (!$this->isReceived() || $this->hasError()) return null;
+
+        return $this->response->status();
+
     }
 
     final public function header(string $key): ?string
     {
-        if ($this->isReceived() && !$this->hasError()) {
-            return $this->response->header($key);
-        } else {
-            return null;
-        }
+        if (!$this->isReceived() || $this->hasError()) return null;
+
+        return $this->response->header($key);
     }
 
     final public function headers(): ?array
     {
-        if ($this->isReceived() && !$this->hasError()) {
-            return $this->response->headers();
-        } else {
-            return null;
-        }
+        if (!$this->isReceived() || $this->hasError()) return null;
+
+        return $this->response->headers();
     }
 
     final public function body(): ?string
     {
-        if ($this->isReceived() && !$this->hasError()) {
-            return $this->response->body();
-        } else {
-            return null;
-        }
+        if (!$this->isReceived() || $this->hasError()) return null;
+
+        return $this->response->body();
     }
 
     final public function json(?string $key): mixed
     {
-        if ($this->isReceived() && !$this->hasError()) {
-            return $this->response->json($key);
-        } else {
-            return null;
-        }
+        if (!$this->isReceived() || $this->hasError()) return null;
+
+        return $this->response->json($key);
     }
 
     final public function setErrorMessage(string $errorMessage): void
@@ -161,13 +152,11 @@ class BaseAPIUtil
     {
         $this->isReceivedResponse = true;
 
-        if ($this->response->clientError()) {
-            $this->hasError = true;
-            return $this->failureLog();
-        } else {
-            $this->hasError = false;
-            return $this->successLog();
-        }
+        $this->hasError = $this->response->clientError();
+
+        if ($this->hasError()) return $this->failureLog();
+
+        return $this->successLog();
     }
 
     final private function isReceived(): bool

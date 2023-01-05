@@ -111,6 +111,8 @@ class AttendanceService extends BaseService
             $paginate = $this->UserRepository->whereGreater("role", GateConst::ADMIN_NUMBER)->whereLike("name", $form->name)->paginate($form->page, $this->limit);
         }
 
+        checkLog($paginate->total);
+
         if (is_null($paginate->items)) return null;
 
         foreach ($paginate->items as $user) {
@@ -122,6 +124,6 @@ class AttendanceService extends BaseService
             $results[] = $result;
         }
 
-        return paginator($results, $paginate->total, $this->limit, $form->path, $form->page, ["month" => $form->month, "name" => $form->name]);
+        return paginator($results, $paginate->total, $this->limit, $form->page, ["month" => $form->month, "name" => $form->name]);
     }
 }

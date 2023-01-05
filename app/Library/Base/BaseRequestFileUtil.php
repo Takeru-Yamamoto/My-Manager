@@ -65,7 +65,7 @@ class BaseRequestFileUtil
 
         $this->setName($registerName);
 
-        $this->downloadPath         = $this->upload_directory . "/" . $this->name;
+        $this->downloadPath         = $this->uploadDirectory . "/" . $this->name;
         $this->fullPath             = storage_path("app/" . $this->downloadPath);
         $this->deletePath           = $this->uploadDirectory . "/" . $this->name;
 
@@ -156,12 +156,12 @@ class BaseRequestFileUtil
 
             $this->delete();
 
-            $this->isExistFile = true;
-            $this->extension   = "mp4";
-            $this->name        = $newName;
-            $this->url         = str_replace($oldName, $newName, $this->url);
-            $this->fullPath    = str_replace($oldName, $newName, $this->fullPath);
-            $this->deletePath  = str_replace($oldName, $newName, $this->deletePath);
+            $this->isExistFile  = true;
+            $this->extension    = "mp4";
+            $this->name         = $newName;
+            $this->downloadPath = str_replace($oldName, $newName, $this->downloadPath);
+            $this->fullPath     = str_replace($oldName, $newName, $this->fullPath);
+            $this->deletePath   = str_replace($oldName, $newName, $this->deletePath);
         } catch (\Exception $ex) {
             return false;
         }
@@ -195,22 +195,18 @@ class BaseRequestFileUtil
     {
         if (!$this->isSetData) return false;
 
-        if (array_key_exists($key, $this->sheetData)) {
-            return $this->sheetData[$key];
-        } else {
-            return $this->sheetData;
-        }
+        if (array_key_exists($key, $this->sheetData)) return $this->sheetData[$key];
+
+        return $this->sheetData;
     }
 
     final public function sheetTotalRow(?string $key): mixed
     {
         if (!$this->isSetData) return false;
 
-        if (array_key_exists($key, $this->sheetTotalRows)) {
-            return $this->sheetTotalRows[$key];
-        } else {
-            return $this->sheetTotalRows;
-        }
+        if (array_key_exists($key, $this->sheetTotalRows)) return $this->sheetTotalRows[$key];
+
+        return $this->sheetTotalRows;
     }
 
     final public function sheetName(): array

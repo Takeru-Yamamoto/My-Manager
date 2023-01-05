@@ -58,7 +58,6 @@ class AttendanceController extends Controller
 			"name"  => $request->name,
 			"month" => $request->month,
 			"page"  => $request->page,
-			"path"  => $request->path(),
 		]);
 
 		if ($form->hasError()) throw $form->exception();
