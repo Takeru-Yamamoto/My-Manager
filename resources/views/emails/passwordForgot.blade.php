@@ -1,4 +1,4 @@
-@extends('layouts.components.email')
+@extends('layouts.email')
 
 @section('text')
     <p>パスワード変更用メールです。</p>
