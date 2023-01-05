@@ -47,7 +47,7 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $attendances->links() }}
+        {{ $attendances->appends(['month' => $form->month])->links() }}
 
     @endif
 @stop

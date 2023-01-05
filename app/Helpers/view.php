@@ -42,20 +42,6 @@ if (!function_exists('formId')) {
     }
 }
 
-if (!function_exists('calendar')) {
-    function calendar(string $formUrl, string $formUrlType, string $fetchUrl, string $fetchUrlType): string
-    {
-        return "<div id='calendar' data-form-url='" . $formUrl . "' data-form-url-type='" . $formUrlType . "' data-fetch-url='" . $fetchUrl . "' data-fetch-url-type='" . $fetchUrlType . "'></div>";
-    }
-}
-
-if (!function_exists('border')) {
-    function border(int $margin = 3): string
-    {
-        return "<div class='border my-" . $margin . "'></div>";
-    }
-}
-
 if (!function_exists('isChecked')) {
     function isChecked(bool $bool): string
     {

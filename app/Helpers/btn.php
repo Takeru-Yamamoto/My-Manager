@@ -3,45 +3,20 @@
 use App\Consts\BtnConst;
 use App\Consts\NameConst;
 
-/* html */
-if (!function_exists('btnDelete')) {
-    function btnDelete(string $url, int $id, string $addClass = "", string $type = NameConst::TYPE_SHORT): string
+/* type */
+if (!function_exists('btnTypeShort')) {
+    function btnTypeShort(): string
     {
-        $html = "";
-        $html .= "<a class='" . btnDeleteClass() . " " . $addClass . "' data-url='" . $url . "' data-id='" . $id . "'>";
-        $html .= btnDeleteText($type);
-        $html .= "</a>";
-
-        return $html;
+        return NameConst::TYPE_SHORT;
     }
 }
 
-if (!function_exists('btnFlg')) {
-    function btnFlg(string $url, int $id, bool $flg, string $addClass = "", string $type = NameConst::TYPE_SHORT): string
+if (!function_exists('btnTypeFull')) {
+    function btnTypeFull(): string
     {
-        $new_flg = $flg ? 0 : 1;
-
-        $html = "";
-        $html .= "<a class='" . btnFlgClass($flg) . " " . $addClass . "' data-url='" . $url . "' data-id='" . $id . "' data-flg='" . $new_flg . "'>";
-        $html .= btnFlgText($type, $flg);
-        $html .= "</a>";
-
-        return $html;
+        return NameConst::TYPE_FULL;
     }
 }
-
-if (!function_exists('btnModalAjax')) {
-    function btnModalAjax(string $url, int $id, string $type, string $text = "モーダル表示", string $addClass = ""): string
-    {
-        $html = "";
-        $html .= "<a class='" . btnModalAjaxClass() . " " . $addClass . "' data-url='" . $url . "' data-id='" . $id . "' data-type='" . $type . "'>";
-        $html .= $text;
-        $html .= "</a>";
-
-        return $html;
-    }
-}
-
 
 /* class */
 if (!function_exists('btnClass')) {

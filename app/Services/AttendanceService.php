@@ -24,7 +24,7 @@ class AttendanceService extends BaseService
             ->whereBetween("datetime", $dateUtil->firstOfMonth(), $dateUtil->endOfMonth())
             ->desc("datetime");
 
-        return paginatorByRepository($repository, $this->limit, $form->page, ["month" => $form->month]);
+        return paginatorByRepository($repository, $this->limit, $form->page);
     }
 
     public function getAttendanceInMonth(int $userId, ?string $month): stdClass
@@ -124,6 +124,6 @@ class AttendanceService extends BaseService
             $results[] = $result;
         }
 
-        return paginator($results, $paginate->total, $this->limit, $form->page, ["month" => $form->month, "name" => $form->name]);
+        return paginator($results, $paginate->total, $this->limit, $form->page);
     }
 }

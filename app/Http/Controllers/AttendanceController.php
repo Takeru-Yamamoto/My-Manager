@@ -25,11 +25,7 @@ class AttendanceController extends Controller
 	{
 		if (!isUser()) return redirect("attendance/admin");
 
-		$form = new Forms\IndexForm([
-			"month" => $request->month,
-			"page"  => $request->page,
-			"path"  => $request->path(),
-		]);
+		$form = new Forms\IndexForm($request->all());
 
 		if ($form->hasError()) throw $form->exception();
 
@@ -40,7 +36,7 @@ class AttendanceController extends Controller
 		$addMonth          = $dateUtil->copy()->addMonth(1);
 		$subMonth          = $dateUtil->copy()->subMonth(1);
 
-		return view('pages.attendance.index', compact("attendances", "attendanceInMonth", "dateUtil", "subMonth", "addMonth"));
+		return view('pages.attendance.index', compact("form", "attendances", "attendanceInMonth", "dateUtil", "subMonth", "addMonth"));
 	}
 
 	public function create(Request $request): Redirector|RedirectResponse
@@ -54,11 +50,7 @@ class AttendanceController extends Controller
 
 	public function adminIndex(Request $request): View|Factory
 	{
-		$form = new Forms\AdminIndexForm([
-			"name"  => $request->name,
-			"month" => $request->month,
-			"page"  => $request->page,
-		]);
+		$form = new Forms\AdminIndexForm($request->all());
 
 		if ($form->hasError()) throw $form->exception();
 
@@ -67,6 +59,6 @@ class AttendanceController extends Controller
 		$addMonth           = $dateUtil->copy()->addMonth(1);
 		$subMonth           = $dateUtil->copy()->subMonth(1);
 
-		return view('pages.attendance.adminIndex', compact("attendanceInMonths", "dateUtil", "subMonth", "addMonth"));
+		return view('pages.attendance.adminIndex', compact("form", "attendanceInMonths", "dateUtil", "subMonth", "addMonth"));
 	}
 }

@@ -12,7 +12,7 @@
     </div>
     <div class="card">
         <div class="card-body">
-            <input type="text" class="form-control" >
+            <input type="text" class="form-control">
         </div>
     </div>
 @stop
@@ -42,6 +42,6 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $attendanceInMonths->links() }}
+        {{ $attendanceInMonths->appends(['month' => $form->month, 'name' => $form->name])->links() }}
     @endif
 @stop
