@@ -19,14 +19,25 @@
                 {{ $user->name }}
             </td>
             <td>
-                {!! btnFlg(url('user/change_is_valid'), $user->id, $user->isValid, btnBlock()) !!}
+                @include('components.btn.flg', [
+                    'addClass' => btnBlock(),
+                    'flg'      => $user->isValid,
+                    'id'       => $user->id,
+                    'type'     => btnTypeShort(),
+                    'url'      => url('user/change_is_valid'),
+                ])
             </td>
             <td>
                 <a class="{{ btnUpdateClass() }} {{ btnBlock() }}"
                     href="{{ url('user/update/' . $user->id) }}">{{ btnUpdateShortText() }}</a>
             </td>
             <td>
-                {!! btnDelete(url('user/delete'), $user->id, btnBlock()) !!}
+                @include('components.btn.delete', [
+                    'addClass' => btnBlock(),
+                    'id'       => $user->id,
+                    'type'     => btnTypeShort(),
+                    'url'      => url('user/delete'),
+                ])
             </td>
         </tr>
     @endforeach

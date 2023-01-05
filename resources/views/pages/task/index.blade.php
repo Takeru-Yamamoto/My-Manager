@@ -2,9 +2,22 @@
 
 @section('card-header')
     {{ tableCardHeader() }}
-    {!! btnModalAjax(url('task/task_color'), 0, 'GET', 'タスク分類', btnRight()) !!}
+    @include('components.btn.modalAjax', [
+        'addClass' => btnRight(),
+        'id'       => 0,
+        'text'     => 'タスク分類',
+        'type'     => 'GET',
+        'url'      => url('task/task_color'),
+    ])
 @stop
 
 @section('card-body')
-    {!! calendar(url("task/create"), "GET", url("task/update"), "GET", url("task/fetch"), "POST") !!}
+    @include('components.calendar', [
+        'createFormUrl'     => url('task/create'),
+        'createFormUrlType' => 'GET',
+        'fetchUrl'          => url('task/fetch'),
+        'fetchUrlType'      => 'POST',
+        'updateFormUrl'     => url('task/update'),
+        'updateFormUrlType' => 'GET',
+    ])
 @stop

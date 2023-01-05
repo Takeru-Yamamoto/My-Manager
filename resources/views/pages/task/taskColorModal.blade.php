@@ -54,7 +54,12 @@
                     </td>
                     <td>
                         @if (count($taskColors) > 1)
-                            {!! btnDelete(url('task/task_color/delete'), $taskColor->id, btnBlock()) !!}
+                            @include('components.btn.delete', [
+                                'addClass' => btnBlock(),
+                                'id'       => $taskColor->id,
+                                'type'     => btnTypeShort(),
+                                'url'      => url('task/task_color/delete'),
+                            ])
                         @endif
                     </td>
                 </tr>

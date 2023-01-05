@@ -60,7 +60,7 @@
 
 
     @if (!is_null($tasks))
-        {!! border(5) !!}
+        @include('components.border', ['margin' => 5])
         <p class="h4">タスク</p>
 
         <table class="table table-hover">

@@ -45,7 +45,12 @@
     <div class="d-flex align-items-center justify-content-end">
         <a class="{{ btnUpdateClass() }} {{ btnFormSubmit() }}"
             data-form="{{ formId() }}">{{ btnUpdateShortText() }}</a>
-        {!! btnDelete(url('task/delete'), $task->id, 'ml-3') !!}
+        @include('components.btn.delete', [
+            'addClass' => 'ml-3',
+            'id'       => $$task->id,
+            'type'     => btnTypeShort(),
+            'url'      => url('task/delete'),
+        ])
         <a class="btn btn-secondary ml-3" data-dismiss="modal">キャンセル</a>
     </div>
 @stop
