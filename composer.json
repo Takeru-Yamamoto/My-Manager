@@ -50,7 +50,8 @@
             "app/Helpers/transaction.php",
             "app/Helpers/unique.php",
             "app/Helpers/useful.php",
-            "app/Helpers/utils.php"
+            "app/Helpers/utils.php",
+            "app/Helpers/view.php"
         ],
         "psr-4": {
             "App\\": "app/",

@@ -6,5 +6,5 @@
 @stop
 
 @section('card-body')
-    {!! taskCalendar() !!}
+    {!! calendar(url("task/create"), "GET", url("task/update"), "GET", url("task/fetch"), "POST") !!}
 @stop

@@ -3,7 +3,6 @@
 use App\Consts\GateConst;
 use App\Consts\ContentConst;
 use App\Consts\ApplicationConst;
-use App\Consts\NameConst;
 
 if (!function_exists('role')) {
     function role(): string
@@ -87,37 +86,5 @@ if (!function_exists('pageFooter')) {
         if ($year === ApplicationConst::FIRST_PUBLICATION_YEAR) return "© " . $year . " " . ApplicationConst::COPYRIGHT_HOLDER_NAME;
 
         return "© " . ApplicationConst::FIRST_PUBLICATION_YEAR . " - " . $year . " " . ApplicationConst::COPYRIGHT_HOLDER_NAME;
-    }
-}
-
-if (!function_exists('cardHeader')) {
-    function cardHeader(?string $kind = null): string
-    {
-        $cardHeader = ContentConst::TITLES[urlSegment()];
-
-        if (isset(NameConst::NAMES[NameConst::TYPE_SHORT][$kind])) return $cardHeader . NameConst::NAMES[NameConst::TYPE_SHORT][$kind];
-
-        return $cardHeader;
-    }
-}
-
-if (!function_exists('createCardHeader')) {
-    function createCardHeader(): string
-    {
-        return cardHeader(NameConst::CREATE);
-    }
-}
-
-if (!function_exists('updateCardHeader')) {
-    function updateCardHeader(): string
-    {
-        return cardHeader(NameConst::UPDATE);
-    }
-}
-
-if (!function_exists('tableCardHeader')) {
-    function tableCardHeader(): string
-    {
-        return cardHeader() . ContentConst::IS_TABLE;
     }
 }

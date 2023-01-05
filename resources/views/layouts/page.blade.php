@@ -14,11 +14,11 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown user-menu">
-                    <button type="button" class="btn nav-link dropdown-toggle" data-toggle="dropdown">
+                    <a class="nav-link dropdown-toggle pointer" data-toggle="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <span>{{ authUserName() }}</span>
-                    </button>
+                    </a>
 
-                    <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink">
                         <li class="user-footer">
                             <a class="btn btn-default btn-flat float-right btn-block logout-btn">
                                 <i class="fa fa-fw fa-power-off"></i>

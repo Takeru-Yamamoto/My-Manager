@@ -67,3 +67,10 @@ if (!function_exists('checkAccessToken')) {
         return checkHash(ApplicationConst::API_ACCESS_TOKEN, $accessToken);
     }
 }
+
+if (!function_exists('expirationDate')) {
+    function expirationDate(int $minute): string
+    {
+        return dateUtil()->addMinute($minute)->toDateTimeString();
+    }
+}
