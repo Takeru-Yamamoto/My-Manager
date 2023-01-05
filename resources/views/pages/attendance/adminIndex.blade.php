@@ -1,13 +1,18 @@
 @extends('layouts.page.card-noFooter')
 
 @section('card-header')
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between align-items-center mb-3">
         {{ tableCardHeader() }}
         <div>
             <a class="{{ btnLinkClass() }}"
                 href="{{ url('attendance/admin') }}?month={{ $subMonth->format(DateUtil::$FORMAT_MONTH) }}">{{ $subMonth->format(DateUtil::$FORMAT_MONTH_JP) }}</a>
             <a class="{{ btnLinkClass() }}"
                 href="{{ url('attendance/admin') }}?month={{ $addMonth->format(DateUtil::$FORMAT_MONTH) }}">{{ $addMonth->format(DateUtil::$FORMAT_MONTH_JP) }}</a>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <input type="text" class="form-control" >
         </div>
     </div>
 @stop
