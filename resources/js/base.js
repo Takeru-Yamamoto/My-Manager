@@ -35,7 +35,7 @@ $(function ($) {
     });
 
     $(document).on("click", MODAL_BTN, function () {
-        $("#modal").modal();
+        $(MODAL).modal("show");
     });
 
     $(document).on("click", AJAX_MODAL_BTN, function () {
@@ -45,7 +45,7 @@ $(function ($) {
 
         var callback = function (response) {
             $(MODAL_MARKS).html(response);
-            $("#modal").modal();
+            $(MODAL).modal("show");
         }
 
         f.ajaxRequest(url, type, { id: id }, callback);

@@ -16,6 +16,7 @@ define("FORM_SUBMIT_BTN", ".form-submit-btn");
 define("COLORS_SELECT", ".colors-select");
 
 /* modal */
+define("MODAL", "#modal");
 define("MODAL_MARKS", ".modal-marks");
 define("MODAL_BTN", ".modal-btn");
 define("AJAX_MODAL_BTN", ".ajax-modal-btn");

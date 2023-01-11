@@ -35,7 +35,7 @@ if (calendarEl) {
             };
             var callback = function (response) {
                 $(MODAL_MARKS).html(response);
-                $("#modal").modal();
+                $(MODAL).modal("show");
             };
             f.ajaxRequest(createFormUrl, createFormUrlType, data, callback);
         },
@@ -56,7 +56,7 @@ if (calendarEl) {
             };
             var callback = function (response) {
                 $(MODAL_MARKS).html(response);
-                $("#modal").modal();
+                $(MODAL).modal("show");
             };
             f.ajaxRequest(updateFormUrl, updateFormUrlType, data, callback);
         },

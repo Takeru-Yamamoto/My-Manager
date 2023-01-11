@@ -1,4 +1,4 @@
-@extends('layouts.modal', ['id' => 'modal'])
+@extends('layouts.modal')
 
 @section('modal_title')
     タスク分類
