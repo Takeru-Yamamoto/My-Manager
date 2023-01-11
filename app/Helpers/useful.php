@@ -2,7 +2,6 @@
 
 use Illuminate\Http\JsonResponse;
 use App\Consts\ContentConst;
-use stdClass;
 
 if (!function_exists('varDump')) {
     function varDump(mixed $any): void
@@ -68,9 +67,9 @@ if (!function_exists('removeNullAndEmptyFromArray')) {
 }
 
 if (!function_exists('convertToObjectFromSerializeArray')) {
-    function convertToObjectFromSerializeArray(array $serializeArray): stdClass
+    function convertToObjectFromSerializeArray(array $serializeArray): \stdClass
     {
-        $data = new stdClass();
+        $data = new \stdClass();
 
         foreach ($serializeArray as $element) {
             $name = $element["name"];
