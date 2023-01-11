@@ -7,6 +7,7 @@ use App\Consts\NameConst;
 class BtnConst
 {
     public const LINK        = "link";
+    public const INFO        = "info";
     public const SPINNER     = "spinner";
     public const MODAL       = "modal";
     public const MODAL_AJAX  = "modal_ajax";
@@ -25,6 +26,7 @@ class BtnConst
         NameConst::FALSE  => "btn btn-secondary flg-change-btn",
 
         self::LINK        => "btn btn-link",
+        self::INFO        => "btn btn-info",
         self::SPINNER     => "btn btn-info start-spinner-btn",
         self::MODAL       => "btn btn-info modal-btn",
         self::MODAL_AJAX  => "btn btn-info ajax-modal-btn",

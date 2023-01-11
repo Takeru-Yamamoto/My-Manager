@@ -69,6 +69,13 @@ if (!function_exists('btnLinkClass')) {
     }
 }
 
+if (!function_exists('btnInfoClass')) {
+    function btnInfoClass(): string
+    {
+        return btnClass(BtnConst::INFO);
+    }
+}
+
 if (!function_exists('btnSpinnerClass')) {
     function btnSpinnerClass(): string
     {
