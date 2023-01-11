@@ -28,8 +28,8 @@ class UserController extends Controller
 		if ($form->hasError()) throw $form->exception();
 
 		$users = $this->service->getLowerThanRole($form);
-		
-		return view('pages.user.index', compact("users"));
+
+		return view('pages.user.index', compact("form", "users"));
 	}
 
 	public function createForm(): View|Factory

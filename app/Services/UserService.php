@@ -13,10 +13,14 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class UserService extends BaseService
 {
     public $limit = 10;
- 
+
     public function getLowerThanRole(Forms\IndexForm $form): LengthAwarePaginator|null
     {
-        $repository = $this->UserRepository->whereGreater("role", authUserRole());
+        if (is_null($form->name)) {
+            $repository = $this->UserRepository->whereGreater("role", authUserRole());
+        } else {
+            $repository = $this->UserRepository->whereGreater("role", authUserRole())->whereLike("name", $form->name);
+        }
 
         return paginatorByRepository($repository, $this->limit, $form->page);
     }
