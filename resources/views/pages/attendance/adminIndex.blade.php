@@ -15,7 +15,7 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between">
                     <p class="h5 m-0">名前検索</p>
-                    <button class="{{ btnCreateClass() }} {{ btnSmall() }}">検索</button>
+                    <button class="{{ btnInfoClass() }} {{ btnSmall() }}">検索</button>
                 </div>
             </div>
             <div class="card-body">
