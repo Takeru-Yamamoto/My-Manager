@@ -14,6 +14,7 @@ class BtnConst
     public const FORM_SUBMIT = "form_submit";
     public const RIGHT       = "right";
     public const BLOCK       = "block";
+    public const SMALL       = "small";
 
     public const BTN_CLASS_MAP = [
         NameConst::CREATE => "btn btn-primary",
@@ -31,5 +32,6 @@ class BtnConst
         self::FORM_SUBMIT => "form-submit-btn",
         self::BLOCK       => "btn-block",
         self::RIGHT       => "float-right",
+        self::SMALL       => "btn-sm",
     ];
 }

@@ -13,7 +13,7 @@ class IndexForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'month' => 'nullable|' . Rule::VALUE_STRING,
+            'month' => 'nullable|' . Rule::VALUE_MONTH,
             'page'  => 'nullable|' . Rule::VALUE_INTEGER,
         ];
     }

@@ -34,7 +34,7 @@ if (!function_exists('br2nl')) {
 if (!function_exists('removeFromEnd')) {
     function removeFromEnd(string $text, int $num): string
     {
-        return substr($text, 0, (-1 * $num));
+        return mb_substr($text, 0, (-1 * $num));
     }
 }
 

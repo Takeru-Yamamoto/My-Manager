@@ -10,6 +10,7 @@ use App\Consts\TextConst;
 use Illuminate\Pagination\LengthAwarePaginator;
 use stdClass;
 use App\Consts\GateConst;
+use app\Library\DateUtil;
 
 class AttendanceService extends BaseService
 {
@@ -110,8 +111,6 @@ class AttendanceService extends BaseService
         } else {
             $paginate = $this->UserRepository->whereGreater("role", GateConst::ADMIN_NUMBER)->whereLike("name", $form->name)->paginate($form->page, $this->limit);
         }
-
-        checkLog($paginate->total);
 
         if (is_null($paginate->items)) return null;
 

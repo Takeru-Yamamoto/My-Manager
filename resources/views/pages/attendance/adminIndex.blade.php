@@ -5,15 +5,25 @@
         {{ tableCardHeader() }}
         <div>
             <a class="{{ btnLinkClass() }}"
-                href="{{ url('attendance/admin') }}?month={{ $subMonth->format(DateUtil::$FORMAT_MONTH) }}">{{ $subMonth->format(DateUtil::$FORMAT_MONTH_JP) }}</a>
+                href="{{ url('attendance/admin?month=' . $subMonth->format(DateUtil::$FORMAT_MONTH)) }}&name={{ $form->name }}">{{ $subMonth->format(DateUtil::$FORMAT_MONTH_JP) }}</a>
             <a class="{{ btnLinkClass() }}"
-                href="{{ url('attendance/admin') }}?month={{ $addMonth->format(DateUtil::$FORMAT_MONTH) }}">{{ $addMonth->format(DateUtil::$FORMAT_MONTH_JP) }}</a>
+                href="{{ url('attendance/admin?month=' . $addMonth->format(DateUtil::$FORMAT_MONTH)) }}&name={{ $form->name }}">{{ $addMonth->format(DateUtil::$FORMAT_MONTH_JP) }}</a>
         </div>
     </div>
     <div class="card">
-        <div class="card-body">
-            <input type="text" class="form-control">
-        </div>
+        <form method="get" action="{{ url('attendance/admin') }}">
+            <div class="card-header">
+                <div class="d-flex justify-content-between">
+                    <p class="h5 m-0">名前検索</p>
+                    <button class="{{ btnCreateClass() }} {{ btnSmall() }}">検索</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <input type="month" name="month" value="{{ $form->month }}" hidden>
+
+                <input type="text" name="name" class="form-control" value="{{ $form->name }}">
+            </div>
+        </form>
     </div>
 @stop
 

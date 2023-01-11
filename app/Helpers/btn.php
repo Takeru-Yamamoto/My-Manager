@@ -111,6 +111,13 @@ if (!function_exists('btnRight')) {
     }
 }
 
+if (!function_exists('btnSmall')) {
+    function btnSmall(): string
+    {
+        return btnClass(BtnConst::SMALL);
+    }
+}
+
 
 /* text */
 if (!function_exists('btnText')) {

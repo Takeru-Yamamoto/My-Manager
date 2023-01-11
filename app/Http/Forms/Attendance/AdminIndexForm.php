@@ -15,7 +15,7 @@ class AdminIndexForm extends BaseForm
     {
         return [
             'name'  => 'nullable|' . Rule::VALUE_STRING,
-            'month' => 'nullable|' . Rule::VALUE_STRING,
+            'month' => 'nullable|' . Rule::VALUE_MONTH,
             'page'  => 'nullable|' . Rule::VALUE_INTEGER,
         ];
     }

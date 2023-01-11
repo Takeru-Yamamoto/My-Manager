@@ -18,5 +18,7 @@ class ValidationRule
         VALUE_POSITIVE_NON_ZERO  = 'numeric|min:0|not_in:0',
         VALUE_STRING             = 'string|max:250',
         VALUE_TEXT               = 'string|max:500',
-        VALUE_SIX_DIGIT_CODE     = 'string|regex:/^[0-9]{6}$/';
+        VALUE_SIX_DIGIT_CODE     = 'string|regex:/^[0-9]{6}$/',
+        VALUE_DATE               = 'string|regex:/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/',
+        VALUE_MONTH              = 'string|regex:/^[0-9]{4}-[0-9]{2}$/';
 }
