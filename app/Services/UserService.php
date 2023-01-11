@@ -8,11 +8,17 @@ use App\Http\Forms\User as Forms;
 use App\Repositories\Results;
 use App\Consts\TextConst;
 
+use Illuminate\Pagination\LengthAwarePaginator;
+
 class UserService extends BaseService
 {
-    public function getLowerThanRole(): array
+    public $limit = 10;
+ 
+    public function getLowerThanRole(Forms\IndexForm $form): LengthAwarePaginator|null
     {
-        return $this->UserRepository->whereGreater("role", authUserRole())->get();
+        $repository = $this->UserRepository->whereGreater("role", authUserRole());
+
+        return paginatorByRepository($repository, $this->limit, $form->page);
     }
 
     public function create(Forms\CreateForm $form): string

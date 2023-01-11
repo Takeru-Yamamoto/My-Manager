@@ -21,9 +21,15 @@ class UserController extends Controller
 		$this->service = new UserService;
 	}
 
-	public function index(): View|Factory
+	public function index(Request $request): View|Factory
 	{
-		return view('pages.user.index', ['users' => $this->service->getLowerThanRole()]);
+		$form = new Forms\IndexForm($request->all());
+
+		if ($form->hasError()) throw $form->exception();
+
+		$users = $this->service->getLowerThanRole($form);
+		
+		return view('pages.user.index', compact("users"));
 	}
 
 	public function createForm(): View|Factory
