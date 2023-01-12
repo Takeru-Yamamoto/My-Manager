@@ -35,9 +35,6 @@ Route::group(['middleware' => ['auth', 'can:' . GateConst::USER_HIGHER]], functi
     Route::get('/login_info/authentication_code/', [Controller\LoginInfoController::class, 'authenticationCodeForm'])->name('login_info-authenticationCodeForm');
     Route::post('/login_info/change_email/', [Controller\LoginInfoController::class, 'changeEmail'])->name('login_info-changeEmail');
 
-    Route::get('/profile', [Controller\ProfileController::class, 'index'])->name('profile');
-    Route::post('/profile/update', [Controller\ProfileController::class, 'update'])->name('profile-update');
-
     Route::get('/attendance', [Controller\AttendanceController::class, 'index'])->name('attendance');
     Route::post('/attendance/create', [Controller\AttendanceController::class, 'create'])->name('attendance-create');
  

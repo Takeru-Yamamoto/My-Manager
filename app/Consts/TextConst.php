@@ -18,9 +18,6 @@ class TextConst
     public const PASSWORD_RESET_SUCCESS = "password_reset_success";
     public const PASSWORD_RESET_FAILURE = "password_reset_failure";
 
-    /* profile */
-    public const PROFILE_UPDATED = "profile_updated";
-
     /* user */
     public const USER_CREATED    = "user_created";
     public const USER_UPDATED    = "user_updated";
@@ -60,8 +57,6 @@ class TextConst
 
         self::PASSWORD_RESET_SUCCESS    => "パスワードリセットに成功しました。",
         self::PASSWORD_RESET_FAILURE    => "パスワードリセットに失敗しました。",
-
-        self::PROFILE_UPDATED           => "プロフィールを更新しました。",
 
         self::USER_CREATED              => "ユーザー情報を登録しました。",
         self::USER_UPDATED              => "ユーザー情報を更新しました。",
