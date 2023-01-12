@@ -6,7 +6,7 @@ class MailConst
 {
     public const EXPIRATION_MINUTE = 30;
 
-    public const SUBJECT_HEAD = "[Laravel CMS]";
+    public const SUBJECT_HEAD = "[My Manager]";
 
     public const SYSTEM_ALERT    = "systemAlert";
     public const PASSWORD_FORGOT = "passwordForgot";
