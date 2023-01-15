@@ -1,7 +1,7 @@
 @extends('layouts.page.card')
 
 @section('card-header')
-    {{ cardHeader('update') }}
+    {{ updateCardHeader() }}
 @stop
 
 @section('card-body')
