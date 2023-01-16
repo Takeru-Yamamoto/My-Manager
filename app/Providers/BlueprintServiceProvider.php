@@ -24,8 +24,8 @@ class BlueprintServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Blueprint::macro('isValid', function (Blueprint $table) {
-            $table->tinyInteger('is_valid')->default(1);
+        Blueprint::macro('isValid', function () {
+            $this->tinyInteger('is_valid')->default(1);
         });
     }
 }
