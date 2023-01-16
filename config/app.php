@@ -196,7 +196,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\DataBaseQueryServiceProvider::class,
-
+        App\Providers\BlueprintServiceProvider::class,
     ],
 
     /*
@@ -228,7 +228,7 @@ return [
         'DateUtil' => App\Library\DateUtil::class,
         'EventUtil' => App\Library\EventUtil::class,
         'RequestFileUtil' => App\Library\RequestFileUtil::class,
-        'TimeUtil' => App\Library\TimeUtil::class, 
+        'TimeUtil' => App\Library\TimeUtil::class,
     ])->toArray(),
 
 ];

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EmailReset extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, BaseModel, SoftDeletes;
 
     const UPDATED_AT = null;
 }

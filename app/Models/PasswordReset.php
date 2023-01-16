@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PasswordReset extends Model
 {
-    use HasFactory;
+    use HasFactory, BaseModel;
 
     const UPDATED_AT = null;
 }
