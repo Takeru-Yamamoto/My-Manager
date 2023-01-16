@@ -92,12 +92,7 @@ class AttendanceService extends BaseService
             dateUtil()->toDatetimeString()
         );
 
-        Transaction(
-            '勤怠情報 登録',
-            function () use ($attendance) {
-                $attendance->save();
-            }
-        );
+        $attendance->safeSave("勤怠情報 登録");
 
         return TextConst::ATTENDANCE_CREATED;
     }

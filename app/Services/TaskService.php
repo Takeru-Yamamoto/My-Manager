@@ -49,12 +49,7 @@ class TaskService extends BaseService
             $form->endDate
         );
 
-        Transaction(
-            'タスク情報 登録',
-            function () use ($task) {
-                $task->save();
-            }
-        );
+        $task->safeSave("タスク情報 登録");
 
         return TextConst::TASK_CREATED;
     }
@@ -71,12 +66,7 @@ class TaskService extends BaseService
         $task->comment    = $form->comment;
         $task->color_id   = $form->colorId;
 
-        Transaction(
-            'タスク情報 更新',
-            function () use ($task) {
-                $task->save();
-            }
-        );
+        $task->safeSave("タスク情報 更新");
 
         return TextConst::TASK_UPDATED;
     }
@@ -87,12 +77,7 @@ class TaskService extends BaseService
 
         if (is_null($task)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
-        Transaction(
-            'タスク情報 削除',
-            function () use ($task) {
-                $task->delete();
-            }
-        );
+        $task->safeDelete("タスク情報 削除");
     }
 
     public function createTaskColor(Forms\CreateTaskColorForm $form): string
@@ -102,12 +87,7 @@ class TaskService extends BaseService
             $form->description
         );
 
-        Transaction(
-            'タスク分類 登録',
-            function () use ($taskColor) {
-                $taskColor->save();
-            }
-        );
+        $taskColor->safeSave("タスク分類 登録");
 
         return TextConst::TASK_COLOR_CREATED;
     }
@@ -121,12 +101,7 @@ class TaskService extends BaseService
         $taskColor->color       = $form->color;
         $taskColor->description = $form->description;
 
-        Transaction(
-            'タスク分類 更新',
-            function () use ($taskColor) {
-                $taskColor->save();
-            }
-        );
+        $taskColor->safeSave("タスク分類 更新");
 
         return TextConst::TASK_COLOR_UPDATED;
     }
@@ -137,11 +112,6 @@ class TaskService extends BaseService
 
         if (is_null($taskColor)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
-        Transaction(
-            'タスク分類 削除',
-            function () use ($taskColor) {
-                $taskColor->delete();
-            }
-        );
+        $taskColor->safeDelete("タスク分類 削除");
     }
 }

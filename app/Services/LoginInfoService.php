@@ -15,7 +15,7 @@ class LoginInfoService extends BaseService
         $user = $this->UserRepository->findRawById($form->id);
 
         if (is_null($user)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
-
+        
         $user->role = $form->role;
         if (!is_null($form->email)) {
             $user->email = $form->email;
@@ -24,12 +24,7 @@ class LoginInfoService extends BaseService
             $user->password = makeHash($form->password);
         }
 
-        Transaction(
-            'ログイン情報更新',
-            function () use ($user) {
-                $user->save();
-            }
-        );
+        $user->safeSave("ログイン情報更新");
 
         return TextConst::LOGIN_INFO_UPDATED;
     }
@@ -49,12 +44,7 @@ class LoginInfoService extends BaseService
             expirationDate(MailConst::EXPIRATION_MINUTE)
         );
 
-        Transaction(
-            'E-Mail リセット登録',
-            function () use ($entity) {
-                $entity->save();
-            }
-        );
+        $entity->safeSave("E-Mail リセット登録");
 
         $isSendEmailReset = sendMail(MailConst::EMAIL_RESET, ["authenticationCode" => $authenticationCode], $form->email);
 
@@ -73,12 +63,7 @@ class LoginInfoService extends BaseService
 
         $user->email = $authenticateResult->new_email;
 
-        Transaction(
-            'ユーザーE-Mail更新',
-            function () use ($user) {
-                $user->save();
-            }
-        );
+        $user->safeSave("ユーザーE-Mail更新");
 
         return TextConst::EMAIL_CHANGED_SUCCESS;
     }

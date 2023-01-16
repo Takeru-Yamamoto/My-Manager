@@ -25,6 +25,7 @@ class BlueprintServiceProvider extends ServiceProvider
     public function boot()
     {
         Blueprint::macro('isValid', function () {
+            assert($this instanceof Blueprint);
             $this->tinyInteger('is_valid')->default(1);
         });
     }

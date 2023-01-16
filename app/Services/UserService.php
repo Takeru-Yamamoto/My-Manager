@@ -34,12 +34,7 @@ class UserService extends BaseService
             $form->role
         );
 
-        Transaction(
-            'ユーザー情報登録',
-            function () use ($user) {
-                $user->save();
-            }
-        );
+        $user->safeSave("ユーザー情報登録");
 
         return TextConst::USER_CREATED;
     }
@@ -61,12 +56,7 @@ class UserService extends BaseService
             $user->password = makeHash($form->password);
         }
 
-        Transaction(
-            'ユーザー情報更新',
-            function () use ($user) {
-                $user->save();
-            }
-        );
+        $user->safeSave("ユーザー情報更新");
 
         return TextConst::USER_UPDATED;
     }
@@ -77,12 +67,7 @@ class UserService extends BaseService
 
         if (is_null($user)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
-        Transaction(
-            'ユーザー情報削除',
-            function () use ($user) {
-                $user->delete();
-            }
-        );
+        $user->safeDelete("ユーザー情報削除");
     }
 
     public function changeIsValid(Forms\ChangeIsValidForm $form): void
@@ -91,13 +76,6 @@ class UserService extends BaseService
 
         if (is_null($user)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
-        $user->is_valid = $form->isValid;
-
-        Transaction(
-            'ユーザー情報更新',
-            function () use ($user) {
-                $user->save();
-            }
-        );
+        $user->changeIsValid("ユーザー情報更新", $form->isValid);
     }
 }
