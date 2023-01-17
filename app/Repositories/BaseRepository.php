@@ -58,6 +58,16 @@ abstract class BaseRepository
     }
 
     /* useful */
+    final public function valid(): self
+    {
+        return $this->where("is_valid", 1);
+    }
+
+    final public function invalid(): self
+    {
+        return $this->where("is_valid", 0);
+    }
+
     final public function findById(int $id): JsonResult|null
     {
         return $this->find("id", $id);
@@ -66,6 +76,26 @@ abstract class BaseRepository
     final public function findRawById(int $id): Model|null
     {
         return $this->findRaw("id", $id);
+    }
+
+    final public function findByUserId(int $userId): JsonResult|null
+    {
+        return $this->find("user_id", $userId);
+    }
+
+    final public function findRawByUserId(int $userId): Model|null
+    {
+        return $this->findRaw("user_id", $userId);
+    }
+
+    final public function getByUserId(int $userId): array|null
+    {
+        return $this->get("user_id", $userId);
+    }
+
+    final public function getRawByUserId(int $userId): Collection|null
+    {
+        return $this->getRaw("user_id", $userId);
     }
 
 
