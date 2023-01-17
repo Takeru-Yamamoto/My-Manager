@@ -203,4 +203,87 @@ class PrefectureConst
         self::PREFECTURES[45] => "鹿児島県",
         self::PREFECTURES[46] => "沖縄県"
     ];
+
+    public const REGIONS = [
+        "hokkaido",
+        "tohoku",
+        "kanto",
+        "chubu",
+        "kinki",
+        "chugoku",
+        "shikoku",
+        "kyushu"
+    ];
+
+    public const REGIONS_UPPER_CASE = [
+        self::REGIONS[0]  => "Hokkaido",
+        self::REGIONS[1]  => "Tohoku",
+        self::REGIONS[2]  => "Kanto",
+        self::REGIONS[3]  => "Chubu",
+        self::REGIONS[4]  => "Kinki",
+        self::REGIONS[5]  => "Chugoku",
+        self::REGIONS[6]  => "Shikoku",
+        self::REGIONS[7]  => "Kyushu"
+    ];
+
+    public const REGIONS_KANJI = [
+        self::REGIONS[0]  => "北海道",
+        self::REGIONS[1]  => "東北",
+        self::REGIONS[2]  => "関東",
+        self::REGIONS[3]  => "中部",
+        self::REGIONS[4]  => "近畿",
+        self::REGIONS[5]  => "中国",
+        self::REGIONS[6]  => "四国",
+        self::REGIONS[7]  => "九州"
+    ];
+
+    public const PREFECTURES_REGIONS = [
+        self::PREFECTURES[0]  => self::REGIONS[0],
+        self::PREFECTURES[1]  => self::REGIONS[1],
+        self::PREFECTURES[2]  => self::REGIONS[1],
+        self::PREFECTURES[3]  => self::REGIONS[1],
+        self::PREFECTURES[4]  => self::REGIONS[1],
+        self::PREFECTURES[5]  => self::REGIONS[1],
+        self::PREFECTURES[6]  => self::REGIONS[1],
+        self::PREFECTURES[7]  => self::REGIONS[2],
+        self::PREFECTURES[8]  => self::REGIONS[2],
+        self::PREFECTURES[9]  => self::REGIONS[2],
+        self::PREFECTURES[10] => self::REGIONS[2],
+        self::PREFECTURES[11] => self::REGIONS[2],
+        self::PREFECTURES[12] => self::REGIONS[2],
+        self::PREFECTURES[13] => self::REGIONS[2],
+        self::PREFECTURES[14] => self::REGIONS[3],
+        self::PREFECTURES[15] => self::REGIONS[3],
+        self::PREFECTURES[16] => self::REGIONS[3],
+        self::PREFECTURES[17] => self::REGIONS[3],
+        self::PREFECTURES[18] => self::REGIONS[3],
+        self::PREFECTURES[19] => self::REGIONS[3],
+        self::PREFECTURES[20] => self::REGIONS[3],
+        self::PREFECTURES[21] => self::REGIONS[3],
+        self::PREFECTURES[22] => self::REGIONS[3],
+        self::PREFECTURES[23] => self::REGIONS[4],
+        self::PREFECTURES[24] => self::REGIONS[4],
+        self::PREFECTURES[25] => self::REGIONS[4],
+        self::PREFECTURES[26] => self::REGIONS[4],
+        self::PREFECTURES[27] => self::REGIONS[4],
+        self::PREFECTURES[28] => self::REGIONS[4],
+        self::PREFECTURES[29] => self::REGIONS[4],
+        self::PREFECTURES[30] => self::REGIONS[5],
+        self::PREFECTURES[31] => self::REGIONS[5],
+        self::PREFECTURES[32] => self::REGIONS[5],
+        self::PREFECTURES[33] => self::REGIONS[5],
+        self::PREFECTURES[34] => self::REGIONS[5],
+        self::PREFECTURES[35] => self::REGIONS[6],
+        self::PREFECTURES[36] => self::REGIONS[6],
+        self::PREFECTURES[37] => self::REGIONS[6],
+        self::PREFECTURES[38] => self::REGIONS[6],
+        self::PREFECTURES[39] => self::REGIONS[7],
+        self::PREFECTURES[40] => self::REGIONS[7],
+        self::PREFECTURES[41] => self::REGIONS[7],
+        self::PREFECTURES[42] => self::REGIONS[7],
+        self::PREFECTURES[43] => self::REGIONS[7],
+        self::PREFECTURES[44] => self::REGIONS[7],
+        self::PREFECTURES[45] => self::REGIONS[7],
+        self::PREFECTURES[46] => self::REGIONS[7]
+    ];
 }
