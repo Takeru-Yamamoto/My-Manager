@@ -11,7 +11,7 @@ class DayOfWeekConst
         "wednesday",
         "thursday",
         "friday",
-        "satuaday",
+        "saturday",
     ];
 
     public const DAY_OF_WEEK_UPPER_CASE = [
@@ -19,9 +19,9 @@ class DayOfWeekConst
         self::DAY_OF_WEEK[1] => "Monday",
         self::DAY_OF_WEEK[2] => "Tuesday",
         self::DAY_OF_WEEK[3] => "Wednesday",
-        self::DAY_OF_WEEK[4] => "Thuesday",
+        self::DAY_OF_WEEK[4] => "Thursday",
         self::DAY_OF_WEEK[5] => "Friday",
-        self::DAY_OF_WEEK[6] => "Satuaday",
+        self::DAY_OF_WEEK[6] => "Saturday",
     ];
 
     public const DAY_OF_WEEK_SHORT = [
