@@ -85,7 +85,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if (isUser($user)) {
-            Auth::logoutOtherDevices($request('password'));
+            Auth::logoutOtherDevices($request->password);
         }
     }
 
