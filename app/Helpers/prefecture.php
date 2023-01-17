@@ -35,3 +35,37 @@ if (!function_exists('fullKanjiPrefecture')) {
         return PrefectureConst::PREFECTURES_FULL_KANJI[$prefecture];
     }
 }
+
+if (!function_exists('isRegion')) {
+    function isRegion(string $region): bool
+    {
+        return isset(PrefectureConst::REGIONS[$region]);
+    }
+}
+
+if (!function_exists('upperCaseRegion')) {
+    function upperCaseRegion(string $region): string
+    {
+        if (!isRegion($region)) return "";
+
+        return PrefectureConst::REGIONS_UPPER_CASE[$region];
+    }
+}
+
+if (!function_exists('kanjiRegion')) {
+    function kanjiRegion(string $region): string
+    {
+        if (!isRegion($region)) return "";
+
+        return PrefectureConst::REGIONS_KANJI[$region];
+    }
+}
+
+if (!function_exists('convertToRegionFromPrefecture')) {
+    function convertToRegionFromPrefecture(string $prefecture): string
+    {
+        if (!isPrefecture($prefecture)) return "";
+
+        return PrefectureConst::PREFECTURES_REGIONS[$prefecture];
+    }
+}
