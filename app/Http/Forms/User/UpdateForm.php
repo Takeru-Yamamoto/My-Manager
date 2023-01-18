@@ -15,10 +15,10 @@ class UpdateForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'id'       => 'required|' . Rule::VALUE_INTEGER,
+            'id'       => 'required|' . Rule::INTEGER,
             'email'    => 'required|' . Rule::EMAIL,
-            'password' => 'nullable|confirmed|' . Rule::VALUE_STRING,
-            'role'     => 'required|' . Rule::VALUE_INTEGER,
+            'password' => 'nullable|confirmed|' . Rule::STRING,
+            'role'     => 'required|' . Rule::INTEGER,
         ];
     }
 

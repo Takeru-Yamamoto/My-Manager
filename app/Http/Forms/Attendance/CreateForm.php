@@ -13,8 +13,8 @@ class CreateForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'type'     => 'required|' . Rule::VALUE_STRING,
-            'relation' => 'nullable|' . Rule::VALUE_INTEGER,
+            'type'     => 'required|' . Rule::STRING,
+            'relation' => 'nullable|' . Rule::INTEGER,
         ];
     }
 

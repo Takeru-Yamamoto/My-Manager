@@ -13,8 +13,8 @@ class ChangeEmailForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'user_id'             => 'required|' . Rule::VALUE_POSITIVE_NON_ZERO,
-            'authentication_code' => 'required|' . Rule::VALUE_SIX_DIGIT_CODE,
+            'user_id'             => 'required|' . Rule::POSITIVE_NON_ZERO,
+            'authentication_code' => 'required|' . Rule::SIX_DIGIT_CODE,
         ];
     }
 

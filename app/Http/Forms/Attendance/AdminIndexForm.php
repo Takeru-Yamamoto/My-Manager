@@ -14,9 +14,9 @@ class AdminIndexForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'name'  => 'nullable|' . Rule::VALUE_STRING,
-            'month' => 'nullable|' . Rule::VALUE_MONTH,
-            'page'  => 'nullable|' . Rule::VALUE_INTEGER,
+            'name'  => 'nullable|' . Rule::STRING,
+            'month' => 'nullable|' . Rule::MONTH,
+            'page'  => 'nullable|' . Rule::INTEGER,
         ];
     }
 

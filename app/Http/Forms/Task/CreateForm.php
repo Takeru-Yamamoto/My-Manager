@@ -18,11 +18,11 @@ class CreateForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'start_date' => 'required|' . Rule::VALUE_STRING,
-            'end_date'   => 'required|' . Rule::VALUE_STRING,
-            'title'      => 'required|' . Rule::VALUE_STRING,
-            'comment'    => 'nullable|' . Rule::VALUE_STRING,
-            'color_id'   => 'nullable|' . Rule::VALUE_INTEGER,
+            'start_date' => 'required|' . Rule::STRING,
+            'end_date'   => 'required|' . Rule::STRING,
+            'title'      => 'required|' . Rule::STRING,
+            'comment'    => 'nullable|' . Rule::STRING,
+            'color_id'   => 'nullable|' . Rule::INTEGER,
         ];
     }
 

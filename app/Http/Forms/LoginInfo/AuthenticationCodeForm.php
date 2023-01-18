@@ -13,7 +13,7 @@ class AuthenticationCodeForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'user_id' => 'required|' . Rule::VALUE_POSITIVE_NON_ZERO,
+            'user_id' => 'required|' . Rule::POSITIVE_NON_ZERO,
             'email'   => 'required|' . Rule::EMAIL,
         ];
     }

@@ -14,9 +14,9 @@ class UpdateTaskColorForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'id'          => 'required|' . Rule::VALUE_INTEGER,
-            'color'       => 'required|' . Rule::VALUE_STRING,
-            'description' => 'required|' . Rule::VALUE_STRING,
+            'id'          => 'required|' . Rule::INTEGER,
+            'color'       => 'required|' . Rule::STRING,
+            'description' => 'required|' . Rule::STRING,
         ];
     }
 

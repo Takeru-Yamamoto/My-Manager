@@ -13,8 +13,8 @@ class CreateTaskColorForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'color'       => 'required|' . Rule::VALUE_STRING,
-            'description' => 'required|' . Rule::VALUE_STRING,
+            'color'       => 'required|' . Rule::STRING,
+            'description' => 'required|' . Rule::STRING,
         ];
     }
 

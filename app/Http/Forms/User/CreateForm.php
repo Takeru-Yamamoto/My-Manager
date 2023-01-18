@@ -18,10 +18,10 @@ class CreateForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'name'     => 'required|' . Rule::VALUE_STRING,
+            'name'     => 'required|' . Rule::STRING,
             'email'    => 'required|' . Rule::EMAIL,
-            'password' => 'required|confirmed|' . Rule::VALUE_STRING,
-            'role'     => 'required|' . Rule::VALUE_INTEGER,
+            'password' => 'required|confirmed|' . Rule::STRING,
+            'role'     => 'required|' . Rule::INTEGER,
         ];
     }
 

@@ -13,8 +13,8 @@ class FetchForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'start_date'  => 'required|' . Rule::VALUE_STRING,
-            'end_date'    => 'required|' . Rule::VALUE_STRING,
+            'start_date'  => 'required|' . Rule::STRING,
+            'end_date'    => 'required|' . Rule::STRING,
         ];
     }
 

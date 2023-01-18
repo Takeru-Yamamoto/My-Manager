@@ -13,7 +13,7 @@ class PasswordResetPreparationForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'token' => 'required|' . Rule::VALUE_TEXT,
+            'token' => 'required|' . Rule::TEXT,
             'email' => 'required|' . Rule::EMAIL,
         ];
     }

@@ -12,7 +12,7 @@ class DeleteForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'id' => 'required|' . Rule::VALUE_INTEGER,
+            'id' => 'required|' . Rule::INTEGER,
         ];
     }
 

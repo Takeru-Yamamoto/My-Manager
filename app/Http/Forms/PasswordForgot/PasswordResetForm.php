@@ -16,7 +16,7 @@ class PasswordResetForm extends BaseForm
         return [
             'password' => 'required|confirmed|' . Rule::PASSWORD,
             'email' => 'required|' . Rule::EMAIL,
-            'token' => 'required|' . Rule::VALUE_TEXT,
+            'token' => 'required|' . Rule::TEXT,
         ];
     }
 
