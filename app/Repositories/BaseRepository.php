@@ -68,6 +68,14 @@ abstract class BaseRepository
         return $this->where("is_valid", 0);
     }
 
+    final public function isValid(int $isValid): self
+    {
+        if($isValid === 0) return $this->invalid();
+        if($isValid === 1) return $this->valid();
+        
+        return $this->where("is_valid", $isValid);
+    }
+
     final public function findById(int $id): JsonResult|null
     {
         return $this->find("id", $id);
