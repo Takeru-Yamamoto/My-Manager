@@ -5,5 +5,5 @@
 @stop
 
 @section('card-body')
-    <p>Hello System!</p>
+    <p class="m-0">Hello System!</p>
 @stop
