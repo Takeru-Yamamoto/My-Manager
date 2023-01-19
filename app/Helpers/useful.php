@@ -31,7 +31,9 @@ if (!function_exists('arraySearchValue')) {
 if (!function_exists('className')) {
     function className(object $object): string
     {
-        return str_replace(__NAMESPACE__ . '\\', '', get_class($object));
+        $array = explode("\\", get_class($object));
+
+        return end($array);
     }
 }
 

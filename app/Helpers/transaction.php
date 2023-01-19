@@ -9,7 +9,7 @@ if (!function_exists('Transaction')) {
     {
         $exception = null;
 
-        emphasisLogStart("TRANSACTION " . $description);
+        emphasisLogStart("TRANSACTION");
 
         DB::beginTransaction();
 
@@ -41,7 +41,7 @@ if (!function_exists('Transaction')) {
             $exception = new Exceptions\DBUtilException($message, $e);
         }
 
-        emphasisLogEnd("TRANSACTION " . $description);
+        emphasisLogEnd("TRANSACTION");
 
         if (!is_null($exception)) throw $exception;
     }

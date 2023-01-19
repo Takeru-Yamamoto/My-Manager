@@ -49,7 +49,7 @@ class TaskService extends BaseService
             $form->endDate
         );
 
-        $task->safeSave("タスク情報 登録");
+        $task->safeCreate();
 
         return TextConst::TASK_CREATED;
     }
@@ -66,7 +66,7 @@ class TaskService extends BaseService
         $task->comment    = $form->comment;
         $task->color_id   = $form->colorId;
 
-        $task->safeSave("タスク情報 更新");
+        $task->safeUpdate();
 
         return TextConst::TASK_UPDATED;
     }
@@ -77,7 +77,7 @@ class TaskService extends BaseService
 
         if (is_null($task)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
-        $task->safeDelete("タスク情報 削除");
+        $task->safeDelete();
     }
 
     public function createTaskColor(Forms\CreateTaskColorForm $form): string
@@ -87,7 +87,7 @@ class TaskService extends BaseService
             $form->description
         );
 
-        $taskColor->safeSave("タスク分類 登録");
+        $taskColor->safeCreate();
 
         return TextConst::TASK_COLOR_CREATED;
     }
@@ -101,7 +101,7 @@ class TaskService extends BaseService
         $taskColor->color       = $form->color;
         $taskColor->description = $form->description;
 
-        $taskColor->safeSave("タスク分類 更新");
+        $taskColor->safeUpdate();
 
         return TextConst::TASK_COLOR_UPDATED;
     }
@@ -112,6 +112,6 @@ class TaskService extends BaseService
 
         if (is_null($taskColor)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
-        $taskColor->safeDelete("タスク分類 削除");
+        $taskColor->safeDelete();
     }
 }

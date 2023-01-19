@@ -10,7 +10,6 @@ use App\Consts\TextConst;
 use Illuminate\Pagination\LengthAwarePaginator;
 use stdClass;
 use App\Consts\GateConst;
-use app\Library\DateUtil;
 
 class AttendanceService extends BaseService
 {
@@ -92,7 +91,7 @@ class AttendanceService extends BaseService
             dateUtil()->toDatetimeString()
         );
 
-        $attendance->safeSave("勤怠情報 登録");
+        $attendance->safeCreate();
 
         return TextConst::ATTENDANCE_CREATED;
     }

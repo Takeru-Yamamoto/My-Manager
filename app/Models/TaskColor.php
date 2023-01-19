@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TaskColor extends Model
 {
-    use HasFactory;
+    use HasFactory, BaseModel;
  
     public $timestamps = false;
 }

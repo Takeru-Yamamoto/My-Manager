@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Consts\NameConst;
 
 trait BaseModel
 {
@@ -12,7 +13,7 @@ trait BaseModel
         return isset($this->is_valid) ? $this->is_valid : false;
     }
 
-    public function safeSave(string $message): void
+    private function safeSave(string $message): void
     {
         assert($this instanceof Model);
         Transaction($message, function () {
@@ -20,20 +21,47 @@ trait BaseModel
         });
     }
 
-    public function safeDelete(string $message): void
+    private function createMessage(string $name): string
+    {
+        $className = className($this);
+        $crud = isset(NameConst::NAMES[NameConst::TYPE_SHORT][$name]) ? isset(NameConst::NAMES[NameConst::TYPE_SHORT][$name]) : $name;
+
+        $backtrace = debug_backtrace();
+        $targetBacktrace = isset($backtrace[1]) ?? $backtrace[1];
+
+        if (is_null($targetBacktrace) || !isset($targetBacktrace["file"]) || !isset($targetBacktrace["line"])) return $className . " " . $crud . " backtrace: " . json_encode($backtrace);
+
+        $service = explode("/", $targetBacktrace["file"]);
+        $serviceClassName = str_replace(".php", "", end($service));
+        $line = $targetBacktrace["line"];
+
+        return $className . " " . $crud . " in " . $serviceClassName . ": " . $line;
+    }
+
+    public function safeCreate(): void
+    {
+        $this->safeSave($this->createMessage(NameConst::CREATE));
+    }
+
+    public function safeUpdate(): void
+    {
+        $this->safeSave($this->createMessage(NameConst::UPDATE));
+    }
+
+    public function safeDelete(): void
     {
         assert($this instanceof Model);
-        Transaction($message, function () {
+        Transaction($this->createMessage(NameConst::DELETE), function () {
             $this->delete();
         });
     }
 
-    public function changeIsValid(string $message, int $isValid): void
+    public function changeIsValid(int $isValid): void
     {
         assert($this instanceof Model);
         if (isset($this->is_valid)) {
             $this->is_valid = $isValid;
-            $this->safeSave($message);
+            $this->safeSave($this->createMessage(NameConst::CHANGE));
         }
     }
 }

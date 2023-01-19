@@ -24,7 +24,7 @@ class LoginInfoService extends BaseService
             $user->password = makeHash($form->password);
         }
 
-        $user->safeSave("ログイン情報更新");
+        $user->safeUpdate();
 
         return TextConst::LOGIN_INFO_UPDATED;
     }
@@ -44,7 +44,7 @@ class LoginInfoService extends BaseService
             expirationDate(MailConst::EXPIRATION_MINUTE)
         );
 
-        $entity->safeSave("E-Mail リセット登録");
+        $entity->safeCreate();
 
         $isSendEmailReset = sendMail(MailConst::EMAIL_RESET, ["authenticationCode" => $authenticationCode], $form->email);
 
@@ -63,7 +63,7 @@ class LoginInfoService extends BaseService
 
         $user->email = $authenticateResult->new_email;
 
-        $user->safeSave("ユーザーE-Mail更新");
+        $user->safeUpdate();
 
         return TextConst::EMAIL_CHANGED_SUCCESS;
     }

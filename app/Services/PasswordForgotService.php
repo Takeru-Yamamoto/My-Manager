@@ -10,7 +10,6 @@ use App\Consts\MailConst;
 
 class PasswordForgotService extends BaseService
 {
-
     public function sendPasswordResetMail(Forms\ReceiveEmailAddressForm $form): string
     {
         if (!$this->UserRepository->where("email", $form->email)->isExist()) {
@@ -25,7 +24,7 @@ class PasswordForgotService extends BaseService
             expirationDate(MailConst::EXPIRATION_MINUTE)
         );
 
-        $entity->safeSave("パスワードリセット登録");
+        $entity->safeCreate();
 
         $data["url"] = url("password_reset/" . $token . "/" . $form->email);
 
@@ -45,7 +44,7 @@ class PasswordForgotService extends BaseService
 
         $user->password = makeHash($form->password);
 
-        $user->safeSave("パスワード更新");
+        $user->safeUpdate();
 
         return TextConst::PASSWORD_RESET_SUCCESS;
     }
