@@ -1,4 +1,4 @@
-@extends('layouts.email')
+@extends('components.email')
 
 @section('text')
     <p>System Alert</p>

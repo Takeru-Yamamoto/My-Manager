@@ -1,4 +1,4 @@
-@extends('layouts.email')
+@extends('components.email')
 
 @section('text')
     <p>メールアドレス変更の確認用メールです。</p>

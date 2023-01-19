@@ -1,4 +1,4 @@
-@extends('layouts.modal')
+@extends('components.modal')
 
 @section('modal_title')
     タスク追加
