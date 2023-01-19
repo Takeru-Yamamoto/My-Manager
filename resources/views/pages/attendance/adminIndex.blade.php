@@ -14,14 +14,32 @@
         <form method="get" action="{{ url('attendance/admin') }}">
             <div class="card-header">
                 <div class="d-flex justify-content-between">
-                    <p class="h5 m-0">名前検索</p>
+                    <p class="h5 m-0">ユーザー検索</p>
                     <button class="{{ btnInfoClass() }} {{ btnSmall() }}">検索</button>
                 </div>
             </div>
             <div class="card-body">
                 <input type="month" name="month" value="{{ $form->month }}" hidden>
 
-                <input type="text" name="name" class="form-control" value="{{ $form->name }}">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="form-group w-50">
+                        <label for="name">ユーザー名</label>
+                        <input type="text" id="name" name="name" class="form-control"
+                            value="{{ $form->name }}">
+                    </div>
+                    <div class="form-group w-25">
+                        <label for="is_valid">有効/無効</label>
+                        <select class="form-control" name="is_valid" id="is_valid">
+                            <option>選択してください。</option>
+                            <option value="1" {{ !is_null($form->isValid) && $form->isValid === 1 ? 'selected' : '' }}>
+                                有効
+                            </option>
+                            <option value="0" {{ !is_null($form->isValid) && $form->isValid === 0 ? 'selected' : '' }}>
+                                無効
+                            </option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </form>
     </div>
@@ -52,6 +70,6 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $attendanceInMonths->appends(['month' => $form->month, 'name' => $form->name])->links() }}
+        {{ $attendanceInMonths->appends(['month' => $form->month, 'name' => $form->name, 'is_valid' => $form->isValid])->links() }}
     @endif
 @stop

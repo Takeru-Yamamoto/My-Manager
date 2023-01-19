@@ -7,24 +7,27 @@ use App\Http\Forms\ValidationRule as Rule;
 
 class AdminIndexForm extends BaseForm
 {
+    public $page;
     public $name;
     public $month;
-    public $page;
+    public $isValid;
 
     protected function validationRule(): array
     {
         return [
+            'page'  => 'nullable|' . Rule::INTEGER,
             'name'  => 'nullable|' . Rule::STRING,
             'month' => 'nullable|' . Rule::MONTH,
-            'page'  => 'nullable|' . Rule::INTEGER,
+            'is_valid'   => 'nullable|' . Rule::INTEGER,
         ];
     }
 
     protected function bind(array $input): void
     {
-        $this->name  = isset($input['name']) ? strval($input['name']) : null;
-        $this->month = isset($input['month']) ? strval($input['month']) : null;
-        $this->page  = isset($input['page']) ? intval($input['page']) : 1;
+        $this->page    = isset($input['page']) ? intval($input['page']) : 1;
+        $this->name    = isset($input['name']) ? strval($input['name']) : null;
+        $this->month   = isset($input['month']) ? strval($input['month']) : null;
+        $this->isValid = isset($input['is_valid']) ? intval($input['is_valid']) : null;
     }
     
     protected function validateAfterBinding(): void

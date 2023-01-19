@@ -100,11 +100,12 @@ class AttendanceService extends BaseService
     {
         $results  = [];
 
-        if (is_null($form->name)) {
-            $paginate = $this->UserRepository->whereGreater("role", GateConst::ADMIN_NUMBER)->paginate($form->page, $this->limit);
-        } else {
-            $paginate = $this->UserRepository->whereGreater("role", GateConst::ADMIN_NUMBER)->whereLike("name", $form->name)->paginate($form->page, $this->limit);
-        }
+        $repository = $this->UserRepository->whereGreater("role", GateConst::ADMIN_NUMBER);
+
+        if (!is_null($form->name)) $repository->whereLike("name", $form->name);
+        if (!is_null($form->isValid)) $repository->isValid($form->isValid);
+
+        $paginate = $repository->paginate($form->page, $this->limit);
 
         if (is_null($paginate->items)) return null;
 

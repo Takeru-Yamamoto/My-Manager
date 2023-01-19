@@ -16,11 +16,10 @@ class UserService extends BaseService
 
     public function getLowerThanRole(Forms\IndexForm $form): LengthAwarePaginator|null
     {
-        if (is_null($form->name)) {
-            $repository = $this->UserRepository->whereGreater("role", authUserRole());
-        } else {
-            $repository = $this->UserRepository->whereGreater("role", authUserRole())->whereLike("name", $form->name);
-        }
+        $repository = $this->UserRepository->whereGreater("role", authUserRole());
+
+        if (!is_null($form->name)) $repository->whereLike("name", $form->name);
+        if (!is_null($form->isValid)) $repository->isValid($form->isValid);
 
         return paginatorByRepository($repository, $this->limit, $form->page);
     }
