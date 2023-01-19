@@ -2,7 +2,7 @@
 
 @section('auth-card')
     <div class="card-body login-card-body">
-        @include('layouts.alert')
+        @include('components.alert')
 
         <form action="{{ url('password_reset') }}" method="post">
             @csrf

@@ -72,7 +72,7 @@
 
             <div class="content">
                 <div class="container-fluid">
-                    @include('layouts.alert')
+                    @include('components.alert')
 
                     <div id="cv-spinner-overlay" class="cv-spinner-overlay">
                         <div class="cv-spinner">

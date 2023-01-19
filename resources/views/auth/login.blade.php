@@ -8,7 +8,7 @@
     </div>
 
     <div class="card-body login-card-body">
-        @include('layouts.alert')
+        @include('components.alert')
 
         @if ($errors->has('email') || $errors->has('password'))
             <div class="alert alert-danger alert-dismissible">
