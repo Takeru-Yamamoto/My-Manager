@@ -7,8 +7,8 @@
 @section('card-body')
     <form method="post" action="{{ url('login_info/update') }}" id="{{ formId() }}">
         @csrf
-        <input type="hidden" name="id" value="{{ $user->id }}" />
-        <input type="hidden" name="role" value="{{ $user->role }}" />
+        <input type="number" name="id" value="{{ $user->id }}" hidden />
+        <input type="number" name="role" value="{{ $user->role }}" hidden />
         <div class="form-group">
             <label for="name">ユーザー名</label>
             <input type="text" name="name" class="form-control" id="name" value="{{ old('name', $user->name) }}"

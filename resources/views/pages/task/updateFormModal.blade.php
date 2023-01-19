@@ -7,7 +7,7 @@
 @section('modal_body')
     <form method="post" action="{{ url('task/update') }}" id="{{ formId() }}">
         @csrf
-        <input type="text" name="id" value="{{ $task->id }}" hidden>
+        <input type="number" name="id" value="{{ $task->id }}" hidden>
 
         <div class="form-group">
             <label for="start_date">開始日</label>

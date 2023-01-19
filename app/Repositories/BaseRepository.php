@@ -778,4 +778,10 @@ abstract class BaseRepository
         $this->query = $this->query->rightJoin($table, $this->tableName . "." . $column, $operator, $table . "." . $tableColumn);
         return $this;
     }
+
+    final public function with(string $method): self
+    {
+        $this->query = $this->query->with($method);
+        return $this;
+    }
 }
