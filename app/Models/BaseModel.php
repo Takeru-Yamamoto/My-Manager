@@ -24,10 +24,10 @@ trait BaseModel
     private function createMessage(string $name): string
     {
         $className = className($this);
-        $crud = isset(NameConst::NAMES[NameConst::TYPE_SHORT][$name]) ? isset(NameConst::NAMES[NameConst::TYPE_SHORT][$name]) : $name;
+        $crud = isset(NameConst::NAMES[NameConst::TYPE_SHORT][$name]) ? NameConst::NAMES[NameConst::TYPE_SHORT][$name] : $name;
 
         $backtrace = debug_backtrace();
-        $targetBacktrace = isset($backtrace[1]) ?? $backtrace[1];
+        $targetBacktrace = isset($backtrace[1]) ? $backtrace[1] : null;
 
         if (is_null($targetBacktrace) || !isset($targetBacktrace["file"]) || !isset($targetBacktrace["line"])) return $className . " " . $crud . " backtrace: " . json_encode($backtrace);
 
