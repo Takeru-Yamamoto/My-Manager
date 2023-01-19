@@ -21,17 +21,15 @@ class TaskService extends BaseService
         if (is_null($tasks)) return responseJson();
 
         $events = [];
-        $taskColors = $this->TaskColorRepository->get();
 
         foreach ($tasks as $task) {
-            $taskColor = arraySearchValue($taskColors, "id", $task->colorId);
             $events[] = convertToCalendarEvent(
                 $task->id,
                 $task->title,
                 $task->startDate,
                 $task->endDate,
                 $task->comment,
-                is_null($taskColor) ? null : convertToBootstrapColorCode($taskColor->color)
+                is_null($task->taskColor) ? null : convertToBootstrapColorCode($task->taskColor->color)
             );
         }
 
@@ -44,7 +42,7 @@ class TaskService extends BaseService
             authUserId(),
             $form->title,
             $form->comment,
-            $form->colorId,
+            $form->taskColorId,
             $form->startDate,
             $form->endDate
         );
@@ -60,11 +58,11 @@ class TaskService extends BaseService
 
         if (is_null($task)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
-        $task->start_date = $form->startDate;
-        $task->end_date   = $form->endDate;
-        $task->title      = $form->title;
-        $task->comment    = $form->comment;
-        $task->color_id   = $form->colorId;
+        $task->start_date    = $form->startDate;
+        $task->end_date      = $form->endDate;
+        $task->title         = $form->title;
+        $task->comment       = $form->comment;
+        $task->task_color_id = $form->taskColorId;
 
         $task->safeUpdate();
 

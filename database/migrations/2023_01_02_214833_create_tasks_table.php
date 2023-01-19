@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer("user_id");
             $table->string("title");
             $table->string("comment")->nullable();
-            $table->integer("color_id")->nullable();
+            $table->integer("task_color_id")->nullable();
             $table->string("start_date");
             $table->string("end_date");
             $table->timestamps();

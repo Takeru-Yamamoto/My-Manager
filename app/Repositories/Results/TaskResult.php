@@ -11,18 +11,22 @@ class TaskResult extends JsonResult
     public $userId;
     public $title;
     public $comment;
-    public $colorId;
+    public $taskColorId;
     public $startDate;
     public $endDate;
 
+    public $taskColor;
+
     public function __construct(Task $entity)
     {
-        $this->id        = $entity->id;
-        $this->userId    = $entity->user_id;
-        $this->title     = $entity->title;
-        $this->comment   = $entity->comment;
-        $this->colorId   = $entity->color_id;
-        $this->startDate = $entity->start_date;
-        $this->endDate   = $entity->end_date;
+        $this->id          = $entity->id;
+        $this->userId      = $entity->user_id;
+        $this->title       = $entity->title;
+        $this->comment     = $entity->comment;
+        $this->taskColorId = $entity->task_color_id;
+        $this->startDate   = $entity->start_date;
+        $this->endDate     = $entity->end_date;
+
+        $this->taskColor   = $entity->taskColor;
     }
 }

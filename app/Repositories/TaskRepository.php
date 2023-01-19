@@ -24,18 +24,18 @@ class TaskRepository extends BaseRepository
         int $userId,
         string $title,
         ?string $comment,
-        ?int $colorId,
+        ?int $taskColorId,
         string $startDate,
         string $endDate
     ): Task {
         $entity = new Task();
 
-        $entity->user_id    = $userId;
-        $entity->title      = $title;
-        $entity->comment    = $comment;
-        $entity->color_id   = $colorId;
-        $entity->start_date = $startDate;
-        $entity->end_date   = $endDate;
+        $entity->user_id       = $userId;
+        $entity->title         = $title;
+        $entity->comment       = $comment;
+        $entity->task_color_id = $taskColorId;
+        $entity->start_date    = $startDate;
+        $entity->end_date      = $endDate;
 
         return $entity;
     }

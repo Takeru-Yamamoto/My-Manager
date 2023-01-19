@@ -14,28 +14,28 @@ class UpdateForm extends BaseForm
     public $endDate;
     public $title;
     public $comment;
-    public $colorId;
+    public $taskColorId;
 
     protected function validationRule(): array
     {
         return [
-            'id'         => 'required|' . Rule::INTEGER,
-            'start_date' => 'required|' . Rule::STRING,
-            'end_date'   => 'required|' . Rule::STRING,
-            'title'      => 'required|' . Rule::STRING,
-            'comment'    => 'nullable|' . Rule::STRING,
-            'color_id'   => 'nullable|' . Rule::INTEGER,
+            'id'            => 'required|' . Rule::INTEGER,
+            'start_date'    => 'required|' . Rule::STRING,
+            'end_date'      => 'required|' . Rule::STRING,
+            'title'         => 'required|' . Rule::STRING,
+            'comment'       => 'nullable|' . Rule::STRING,
+            'task_color_id' => 'nullable|' . Rule::INTEGER,
         ];
     }
 
     protected function bind(array $input): void
     {
-        $this->id        = intval($input['id']);
-        $this->startDate = strval($input['start_date']);
-        $this->endDate   = strval($input['end_date']);
-        $this->title     = strval($input['title']);
-        $this->comment   = isset($input['comment']) ? strval($input['comment']) : null;
-        $this->colorId   = isset($input['color_id']) ? intval($input['color_id']) : null;
+        $this->id          = intval($input['id']);
+        $this->startDate   = strval($input['start_date']);
+        $this->endDate     = strval($input['end_date']);
+        $this->title       = strval($input['title']);
+        $this->comment     = isset($input['comment']) ? strval($input['comment']) : null;
+        $this->taskColorId = isset($input['task_color_id']) ? intval($input['task_color_id']) : null;
     }
 
     protected function validateAfterBinding(): void
