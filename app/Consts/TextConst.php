@@ -11,6 +11,10 @@ class TextConst
     public const FORM_ID_INJUSTICE      = "form_id_injustice";
     public const FORM_EMAIL_INJUSTICE   = "form_email_injustice";
 
+    /* search */
+    public const SEARCH_MODEL_INJUSTICE    = "search_model_injustice";
+    public const SEARCH_ELOQUENT_INJUSTICE = "search_eloquent_injustice";
+
     /* login info */
     public const LOGIN_INFO_UPDATED = "login_info_updated";
 
@@ -52,6 +56,9 @@ class TextConst
         self::AUTHENTICATION_FAILURE    => "認証に失敗しました。",
         self::FORM_ID_INJUSTICE         => "IDが不正です。",
         self::FORM_EMAIL_INJUSTICE      => "E-Mailアドレスが不正です。",
+
+        self::SEARCH_MODEL_INJUSTICE    => "モデルが正しく設定されていません。",
+        self::SEARCH_ELOQUENT_INJUSTICE => "エロクエントが正しく設定されていません。",
 
         self::LOGIN_INFO_UPDATED        => "ログイン情報を更新しました。",
 

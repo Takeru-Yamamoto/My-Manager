@@ -29,6 +29,8 @@ Route::post('/password_reset', [Controller\PasswordForgotController::class, 'pas
 Route::group(['middleware' => ['auth', 'can:' . GateConst::USER_HIGHER]], function () {
     Route::get('/home', [Controller\HomeController::class, 'index'])->name('home');
 
+    Route::post('/search', [Controller\SearchController::class, 'search'])->name('search');
+
     Route::get('/login_info', [Controller\LoginInfoController::class, 'index'])->name('login_info');
     Route::post('/login_info/update', [Controller\LoginInfoController::class, 'update'])->name('login_info-update');
     Route::get('/login_info/change_email/', [Controller\LoginInfoController::class, 'changeEmailForm'])->name('login_info-changeEmailForm');

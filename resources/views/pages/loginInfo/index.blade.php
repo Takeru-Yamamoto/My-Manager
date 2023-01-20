@@ -15,7 +15,7 @@
                 readonly>
         </div>
         <div class="form-group">
-            <label class="d-flex align-items-center flex-wrap">
+            <label class="d-flex align-items-center">
                 メールアドレス
                 <a class="{{ btnLinkClass() }}" href="{{ url('login_info/change_email') }}">メールアドレス変更はこちら</a>
             </label>

@@ -21,13 +21,13 @@
             <div class="card-body">
                 <input type="month" name="month" value="{{ $form->month }}" hidden>
 
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="form-group w-50">
+                <div class="row">
+                    <div class="col-8">
                         <label for="name">ユーザー名</label>
                         <input type="text" id="name" name="name" class="form-control"
                             value="{{ $form->name }}">
                     </div>
-                    <div class="form-group w-25">
+                    <div class="col-4">
                         <label for="is_valid">有効/無効</label>
                         <select class="form-control" name="is_valid" id="is_valid">
                             <option>選択してください。</option>

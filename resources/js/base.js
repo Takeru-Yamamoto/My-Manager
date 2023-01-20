@@ -7,6 +7,66 @@ $(function ($) {
 
     $(SORTABLE).disableSelection();
 
+    $(document).on("keyup", SEARCH_INPUT, function () {
+        var value = $(this).val();
+
+        var url = $(this).data("url");
+        var model = $(this).data("model");
+        var eloquent = $(this).data("eloquent");
+        var from = $(this).data("from");
+        var to = $(this).data("to");
+        var limit = $(this).data("limit");
+        var additional = $(this).data("additional");
+
+        var data = {
+            value: value,
+            model: model,
+            eloquent: eloquent,
+            from: from,
+            to: to,
+            limit: limit,
+            additional: additional
+        };
+
+        var duplicateCount = $(this).data("duplicateCount");
+
+        var callback = function (response) {
+            var html = "";
+
+            html += "<div class='card'>"
+            html += "<div class='card-header'>検索結果 (最大" + limit + "件)</div>"
+            html += "<div class='card-body'>"
+            html += "<div class='list-group'>"
+
+            if (response.length) {
+                for (var result of response) {
+                    html += "<a class='list-group-item list-group-item-action search-result' data-model='" + model + "' data-from='" + from + "' data-to='" + to + "' data-duplicate-count='" + duplicateCount + "' data-value='" + result["to"] + "'>" + result["from"] + "</li>";
+                }
+            } else {
+                html += "<p class='m-0'>検索結果がありません。</p>";
+            }
+
+            html += "</div></div></div>";
+
+            $("#search-result" + duplicateCount).html(html);
+        }
+
+        if (value) f.ajaxRequest(url, "POST", data, callback);
+    });
+
+    $(document).on("click", SEARCH_RESULT, function () {
+        var model = $(this).data("model");
+        var from = $(this).data("from");
+        var to = $(this).data("to");
+        var value = $(this).data("value");
+        var duplicateCount = $(this).data("duplicateCount");
+
+        $("#" + model + "_" + to).val(value);
+        $("#" + model + "_" + from).val($(this).text());
+
+        $("#search-result" + duplicateCount).html("");
+    });
+
     $(document).on("change", COLORS_SELECT, function () {
         var color = $(this).val();
 

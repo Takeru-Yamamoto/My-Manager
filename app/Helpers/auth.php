@@ -47,7 +47,7 @@ if (!function_exists('isUser')) {
 if (!function_exists('isAdminHigher')) {
     function isAdminHigher(User $user = null): bool
     {
-        if (is_null($user)) $user = authUserRole();
+        if (is_null($user)) $user = authUser();
         return isSystem($user) || isAdmin($user);
     }
 }
