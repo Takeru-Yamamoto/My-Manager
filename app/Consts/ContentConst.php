@@ -16,10 +16,10 @@ class ContentConst
     public const ATTENDANCE_URL = self::ATTENDANCE;
     public const TASK_URL       = self::TASK;
 
-    public const USER_TITLE       = "ユーザー情報";
+    public const USER_TITLE       = "ユーザー";
     public const LOGIN_INFO_TITLE = "ログイン情報";
-    public const ATTENDANCE_TITLE = "勤怠情報";
-    public const TASK_TITLE       = "タスク情報";
+    public const ATTENDANCE_TITLE = "勤怠";
+    public const TASK_TITLE       = "タスク";
 
     public const IS_TITLE = "管理";
     public const IS_TABLE = "一覧";

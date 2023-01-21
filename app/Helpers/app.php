@@ -61,9 +61,10 @@ if (!function_exists('urlSegment')) {
 }
 
 if (!function_exists('contentHeader')) {
-    function contentHeader(): string
+    function contentHeader(string $content = null): string
     {
-        return isset(ContentConst::TITLES[urlSegment()]) ? ContentConst::TITLES[urlSegment()] : "";
+        if(is_null($content))$content = urlSegment();
+        return isset(ContentConst::TITLES[$content]) ? ContentConst::TITLES[$content] . ContentConst::IS_TITLE : "";
     }
 }
 

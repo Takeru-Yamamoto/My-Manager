@@ -51,7 +51,7 @@
                                     <li class="nav-item">
                                         <a href="{{ url(ContentConst::URLS[$name]) }}" class="nav-link ">
                                             <p>
-                                                {{ ContentConst::TITLES[$name] }}
+                                                {{ contentHeader($name) }}
                                             </p>
                                         </a>
                                     </li>

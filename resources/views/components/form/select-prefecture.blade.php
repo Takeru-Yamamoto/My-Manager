@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="form-group {{ isset($addClass) ? $addClass : "" }}">
     <label for="{{ $name }}">{{ $title }}</label>
     <select class="form-control" name="{{ $name }}" id="{{ $name }}">
         <option value="">選択してください。</option>
