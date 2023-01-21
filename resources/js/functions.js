@@ -8,6 +8,7 @@ export function ajaxRequest(url, type, data, successCallback = function (result)
         url: url,
         type: type,
         cache: false,
+        dataType: "json",
         data: data,
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -24,6 +25,7 @@ export function formAjaxRequest(url, type, formData, successCallback = function 
         cache: false,
         processData: false,
         contentType: false,
+        dataType: "json",
         data: formData,
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -31,6 +33,20 @@ export function formAjaxRequest(url, type, formData, successCallback = function 
     };
 
     ajax(setting, successCallback, failureCallback, alwaysCallback);
+}
+
+export function fullSettingAjaxRequest(setting, successCallback = function (result) { console.log(result); }, failureCallback = function (error) { console.log(error); }, alwaysCallback = function () { }) {
+    ajax(setting, successCallback, failureCallback, alwaysCallback);
+}
+
+
+/* useful */
+export function startSpinner() {
+    $(CV_SPINNER_OVERLAY).fadeIn(300);
+}
+
+export function stopSpinner() {
+    $(CV_SPINNER_OVERLAY).fadeOut(300);
 }
 
 

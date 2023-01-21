@@ -77,7 +77,7 @@
                     <div id="cv-spinner-overlay" class="cv-spinner-overlay">
                         <div class="cv-spinner">
                             <span class="spinner"></span>
-                            <p class="spinner-text">更新中です。しばらくお待ちください。</p>
+                            <p class="spinner-text">しばらくお待ちください。</p>
                         </div>
                     </div>
 

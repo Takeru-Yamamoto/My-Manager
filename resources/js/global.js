@@ -13,6 +13,9 @@ function define(name, value) {
 define("LOGOUT_BTN", ".logout-btn");
 define("LOGOUT_FORM", "#logout-form");
 define("FORM_SUBMIT_BTN", ".form-submit-btn");
+define("SEARCH_INPUT", ".search-input");
+define("SEARCH_RESULT", ".search-result");
+define("SEARCH_ADDRESS_PREFECTURE_POSTCODE_BTN", ".search-address-prefecture-postcode-btn");
 define("COLORS_SELECT", ".colors-select");
 
 /* modal */
@@ -29,6 +32,7 @@ define("SORTABLE", ".sortable");
 
 /* spinner */
 define("START_SPINNER_BTN", ".start-spinner-btn");
+define("STOP_SPINNER_BTN", ".stop-spinner-btn");
 define("CV_SPINNER_OVERLAY", ".cv-spinner-overlay");
 
 /* accordion */

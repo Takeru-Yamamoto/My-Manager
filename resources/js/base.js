@@ -7,6 +7,42 @@ $(function ($) {
 
     $(SORTABLE).disableSelection();
 
+    $(document).on("click", SEARCH_ADDRESS_PREFECTURE_POSTCODE_BTN, function () {
+        var postCodeInput = $(this).data("postCodeInput");
+        var addressInput = $(this).data("addressInput");
+        var prefectureSelect = $(this).data("prefectureSelect");
+
+        var url = "https://zipcloud.ibsnet.co.jp/api/search";
+
+        var postCode = $("#" + postCodeInput).val();
+
+        if (postCode) {
+            f.startSpinner();
+
+            var callback = function (response) {
+                f.stopSpinner();
+
+                var result = response.results[0];
+
+                $("#" + postCodeInput).val(result.zipcode);
+                $("#" + addressInput).val(result.address1 + result.address2 + result.address3);
+                if (prefectureSelect) $("#" + prefectureSelect).prop('selectedIndex', result.prefcode);
+            }
+
+            var setting = {
+                url: url,
+                type: "GET",
+                cache: false,
+                dataType: "json",
+                data: {
+                    zipcode: postCode
+                },
+            };
+
+            f.fullSettingAjaxRequest(setting, callback);
+        }
+    });
+
     $(document).on("keyup", SEARCH_INPUT, function () {
         var value = $(this).val();
 
@@ -81,7 +117,11 @@ $(function ($) {
     });
 
     $(document).on("click", START_SPINNER_BTN, function () {
-        $(CV_SPINNER_OVERLAY).fadeIn(300);
+        f.startSpinner();
+    });
+
+    $(document).on("click", STOP_SPINNER_BTN, function () {
+        f.stopSpinner();
     });
 
     $(document).on("click", TOOLTIP, function () {
