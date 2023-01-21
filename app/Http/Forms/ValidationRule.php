@@ -19,7 +19,7 @@ class ValidationRule
     const TEXT              = 'string|max:500';
     const LONG_TEXT         = 'string';
     const SIX_DIGIT_CODE    = 'string|regex:/^[0-9]{6}$/';
-    const TEL               = 'string|regex:/^[0-9]{10,11}$/';
+    const TEL               = 'string|regex:/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/';
     const DATE              = 'string|regex:/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/';
     const TIME              = 'string|regex:/^[0-9]{2}:[0-9]{2}:[0-9]{2}$/';
     const MONTH             = 'string|regex:/^[0-9]{4}-[0-9]{2}$/';
