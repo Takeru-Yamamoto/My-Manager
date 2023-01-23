@@ -8,6 +8,35 @@ export function ajaxRequest(url, type, data, successCallback = function (result)
         url: url,
         type: type,
         cache: false,
+        data: data,
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    };
+
+    ajax(setting, successCallback, failureCallback, alwaysCallback);
+}
+
+export function modalAjaxRequest(url, type, data, successCallback = function (response) { $(MODAL_MARKS).html(response); $(MODAL).modal("show"); }, failureCallback = function (error) { console.log(error); }, alwaysCallback = function () { }) {
+    var setting = {
+        url: url,
+        type: type,
+        cache: false,
+        dataType: "html",
+        data: data,
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    };
+
+    ajax(setting, successCallback, failureCallback, alwaysCallback);
+}
+
+export function jsonAjaxRequest(url, type, data, successCallback = function (response) { $(MODAL_MARKS).html(response); $(MODAL).modal("show"); }, failureCallback = function (error) { console.log(error); }, alwaysCallback = function () { }) {
+    var setting = {
+        url: url,
+        type: type,
+        cache: false,
         dataType: "json",
         data: data,
         headers: {
@@ -25,7 +54,6 @@ export function formAjaxRequest(url, type, formData, successCallback = function 
         cache: false,
         processData: false,
         contentType: false,
-        dataType: "json",
         data: formData,
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),

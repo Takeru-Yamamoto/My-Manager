@@ -33,11 +33,8 @@ if (calendarEl) {
                 start_date: info.startStr,
                 end_date: info.endStr,
             };
-            var callback = function (response) {
-                $(MODAL_MARKS).html(response);
-                $(MODAL).modal("show");
-            };
-            f.ajaxRequest(createFormUrl, createFormUrlType, data, callback);
+            
+            f.modalAjaxRequest(createFormUrl, createFormUrlType, data);
         },
         events: function (info, successCallback, failureCallback) {
             var data = {
@@ -48,17 +45,14 @@ if (calendarEl) {
                 calendar.removeAllEvents();
                 successCallback(response);
             };
-            f.ajaxRequest(fetchUrl, fetchUrlType, data, callback);
+            f.jsonAjaxRequest(fetchUrl, fetchUrlType, data, callback);
         },
         eventClick: function (info) {
             var data = {
                 id: info.event.id,
             };
-            var callback = function (response) {
-                $(MODAL_MARKS).html(response);
-                $(MODAL).modal("show");
-            };
-            f.ajaxRequest(updateFormUrl, updateFormUrlType, data, callback);
+
+            f.modalAjaxRequest(updateFormUrl, updateFormUrlType, data);
         },
         eventMouseEnter (info) {
             $(info.el).popover({

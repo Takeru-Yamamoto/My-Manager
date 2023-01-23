@@ -87,7 +87,7 @@ $(function ($) {
             $("#search-result" + duplicateCount).html(html);
         }
 
-        if (value) f.ajaxRequest(url, "POST", data, callback);
+        if (value) f.jsonAjaxRequest(url, "POST", data, callback);
     });
 
     $(document).on("click", SEARCH_RESULT, function () {
@@ -143,23 +143,7 @@ $(function ($) {
         var type = $(this).data("type");
         var id = $(this).data("id");
 
-        var callback = function (response) {
-            $(MODAL_MARKS).html(response);
-            $(MODAL).modal("show");
-        }
-
-        var setting = {
-            url: url,
-            type: type,
-            cache: false,
-            dataType: "html",
-            data: { id: id },
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-        };
-
-        f.fullSettingAjaxRequest(setting, callback);
+        f.modalAjaxRequest(url, type, { id: id });
     });
 
     $(document).on("click", ACCORDION_HEADER, function () {
@@ -197,17 +181,7 @@ $(function ($) {
                 }
             }
 
-            var setting = {
-                url: url,
-                type: "POST",
-                cache: false,
-                data: { id: id },
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                },
-            };
-
-            f.fullSettingAjaxRequest(setting, callback);
+            f.ajaxRequest(url, "POST", { id: id }, callback);
         }
     });
 
@@ -220,16 +194,6 @@ $(function ($) {
             location.reload();
         }
 
-        var setting = {
-            url: url,
-            type: "POST",
-            cache: false,
-            data: { id: id, flg: flg },
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-        };
-
-        f.fullSettingAjaxRequest(setting, callback);
+        f.ajaxRequest(url, "POST", { id: id, flg: flg }, callback);
     });
 });
