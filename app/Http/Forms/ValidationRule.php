@@ -21,7 +21,7 @@ class ValidationRule
     const SIX_DIGIT_CODE    = 'string|regex:/^[0-9]{6}$/';
     const TEL               = 'string|regex:/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/';
     const DATE              = 'string|regex:/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/';
-    const TIME              = 'string|regex:/^[0-9]{2}:[0-9]{2}:[0-9]{2}$/';
+    const TIME              = 'string|regex:/^[0-9]{2}:[0-9]{2}$/';
     const MONTH             = 'string|regex:/^[0-9]{4}-[0-9]{2}$/';
     const POST_CODE         = 'string|regex:/^[0-9]{7}$/';
     const ARRAY             = 'array';
