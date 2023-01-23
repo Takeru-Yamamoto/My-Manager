@@ -3,7 +3,6 @@
 namespace App\Http\Forms\Task;
 
 use App\Http\Forms\BaseForm;
-use App\Http\Forms\ValidationRule as Rule;
 
 use App\Consts\TextConst;
 
@@ -19,12 +18,12 @@ class UpdateForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'id'            => 'required|' . Rule::INTEGER,
-            'start_date'    => 'required|' . Rule::STRING,
-            'end_date'      => 'required|' . Rule::STRING,
-            'title'         => 'required|' . Rule::STRING,
-            'comment'       => 'nullable|' . Rule::STRING,
-            'task_color_id' => 'nullable|' . Rule::INTEGER,
+            'id'            => required(validationId("tasks")),
+            'start_date'    => required(validationDate()),
+            'end_date'      => required(validationDate()),
+            'title'         => required(validationString()),
+            'comment'       => nullable(validationString()),
+            'task_color_id' => nullable(validationId("task_colors")),
         ];
     }
 

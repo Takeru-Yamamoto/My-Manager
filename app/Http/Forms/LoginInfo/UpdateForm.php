@@ -3,7 +3,6 @@
 namespace App\Http\Forms\LoginInfo;
 
 use App\Http\Forms\BaseForm;
-use App\Http\Forms\ValidationRule as Rule;
 
 class UpdateForm extends BaseForm
 {
@@ -15,17 +14,17 @@ class UpdateForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'id'       => 'required|' . Rule::INTEGER,
-            'email'    => 'required|' . Rule::EMAIL,
-            'password' => 'nullable|confirmed|' . Rule::STRING,
-            'role'     => 'required|' . Rule::INTEGER,
+            'id'       => required(validationUserId()),
+            'email'    => required(validationEmail()),
+            'password' => nullable(validationPasswordConfirmed()),
+            'role'     => required(validationInteger()),
         ];
     }
 
     protected function bind(array $input): void
     {
         $this->id       = intval($input['id']);
-        $this->email    = isset($input['email']) ? strval($input['email']) : null;
+        $this->email    = strval($input['email']);
         $this->password = isset($input['password']) ? strval($input['password']) : null;
         $this->role     = intval($input['role']);
     }

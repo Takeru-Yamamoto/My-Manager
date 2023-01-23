@@ -3,7 +3,6 @@
 namespace App\Http\Forms\PasswordForgot;
 
 use App\Http\Forms\BaseForm;
-use App\Http\Forms\ValidationRule as Rule;
 
 class PasswordResetPreparationForm extends BaseForm
 {
@@ -13,8 +12,8 @@ class PasswordResetPreparationForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'token' => 'required|' . Rule::TEXT,
-            'email' => 'required|' . Rule::EMAIL,
+            'token' => required(validationString()),
+            'email' => required(validationEmail()),
         ];
     }
 

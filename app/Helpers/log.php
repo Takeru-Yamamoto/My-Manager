@@ -140,6 +140,13 @@ if (!function_exists('checkLog')) {
     }
 }
 
+if (!function_exists('jsonCheckLog')) {
+    function jsonCheckLog(mixed $check): void
+    {
+        checkLog(json_encode($check, JSON_UNESCAPED_UNICODE));
+    }
+}
+
 if (!function_exists('checkMapLog')) {
     function checkMapLog(string $key, string $value): void
     {

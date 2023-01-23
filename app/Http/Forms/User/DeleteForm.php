@@ -3,7 +3,6 @@
 namespace App\Http\Forms\User;
 
 use App\Http\Forms\BaseForm;
-use App\Http\Forms\ValidationRule as Rule;
 
 class DeleteForm extends BaseForm
 {
@@ -12,7 +11,7 @@ class DeleteForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'id' => 'required|' . Rule::POSITIVE_INTEGER,
+            'id' => required(validationUserId()),
         ];
     }
 

@@ -3,7 +3,6 @@
 namespace App\Http\Forms\Task;
 
 use App\Http\Forms\BaseForm;
-use App\Http\Forms\ValidationRule as Rule;
 
 class UpdateModalForm extends BaseForm
 {
@@ -12,7 +11,7 @@ class UpdateModalForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'id' => 'required|' . Rule::INTEGER,
+            'id' => required(validationId("tasks")),
         ];
     }
 

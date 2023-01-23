@@ -3,7 +3,6 @@
 namespace App\Http\Forms\User;
 
 use App\Http\Forms\BaseForm;
-use App\Http\Forms\ValidationRule as Rule;
 
 use App\Repositories\UserRepository;
 use App\Consts\TextConst;
@@ -18,10 +17,10 @@ class CreateForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'name'     => 'required|' . Rule::STRING,
-            'email'    => 'required|' . Rule::EMAIL,
-            'password' => 'required|confirmed|' . Rule::STRING,
-            'role'     => 'required|' . Rule::INTEGER,
+            'name'     => required(validationString()),
+            'email'    => required(validationEmail()),
+            'password' => required(validationPasswordConfirmed()),
+            'role'     => required(validationInteger()),
         ];
     }
 

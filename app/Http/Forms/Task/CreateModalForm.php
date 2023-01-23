@@ -3,7 +3,6 @@
 namespace App\Http\Forms\Task;
 
 use App\Http\Forms\BaseForm;
-use App\Http\Forms\ValidationRule as Rule;
 
 class CreateModalForm extends BaseForm
 {
@@ -13,8 +12,8 @@ class CreateModalForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'start_date' => 'required|' . Rule::STRING,
-            'end_date'   => 'required|' . Rule::STRING,
+            'start_date' => required(validationDate()),
+            'end_date'   => required(validationDate()),
         ];
     }
 

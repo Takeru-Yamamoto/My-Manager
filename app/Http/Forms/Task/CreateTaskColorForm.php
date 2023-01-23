@@ -3,7 +3,6 @@
 namespace App\Http\Forms\Task;
 
 use App\Http\Forms\BaseForm;
-use App\Http\Forms\ValidationRule as Rule;
 
 class CreateTaskColorForm extends BaseForm
 {
@@ -13,8 +12,8 @@ class CreateTaskColorForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'color'       => 'required|' . Rule::STRING,
-            'description' => 'required|' . Rule::STRING,
+            'color'       => required(validationString()),
+            'description' => required(validationString()),
         ];
     }
 

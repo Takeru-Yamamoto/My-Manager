@@ -3,7 +3,6 @@
 namespace App\Http\Forms\User;
 
 use App\Http\Forms\BaseForm;
-use App\Http\Forms\ValidationRule as Rule;
 
 class IndexForm extends BaseForm
 {
@@ -14,9 +13,9 @@ class IndexForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'page' => 'nullable|' . Rule::INTEGER,
-            'name' => 'nullable|' . Rule::STRING,
-            'is_valid'   => 'nullable|' . Rule::INTEGER,
+            'page'     => nullable(validationInteger()),
+            'name'     => nullable(validationString()),
+            'is_valid' => nullable(validationTinyInteger()),
         ];
     }
 

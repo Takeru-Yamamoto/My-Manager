@@ -3,7 +3,6 @@
 namespace App\Http\Forms\Search;
 
 use App\Http\Forms\BaseForm;
-use App\Http\Forms\ValidationRule as Rule;
 
 class SearchForm extends BaseForm
 {
@@ -18,13 +17,13 @@ class SearchForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'value'      => 'required',
-            'model'      => 'required|' . Rule::STRING,
-            'eloquent'   => 'required|' . Rule::STRING,
-            'from'       => 'required|' . Rule::STRING,
-            'to'         => 'required|' . Rule::STRING,
-            'limit'      => 'required|' . Rule::INTEGER,
-            'additional' => 'nullable|' . Rule::ARRAY,
+            'value'      => required(),
+            'model'      => required(validationString()),
+            'eloquent'   => required(validationString()),
+            'from'       => required(validationString()),
+            'to'         => required(validationString()),
+            'limit'      => required(validationInteger()),
+            'additional' => nullable(validationJson()),
         ];
     }
 

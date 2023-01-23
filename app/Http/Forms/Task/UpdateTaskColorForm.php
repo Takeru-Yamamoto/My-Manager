@@ -3,7 +3,6 @@
 namespace App\Http\Forms\Task;
 
 use App\Http\Forms\BaseForm;
-use App\Http\Forms\ValidationRule as Rule;
 
 class UpdateTaskColorForm extends BaseForm
 {
@@ -14,9 +13,9 @@ class UpdateTaskColorForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'id'          => 'required|' . Rule::INTEGER,
-            'color'       => 'required|' . Rule::STRING,
-            'description' => 'required|' . Rule::STRING,
+            'id'          => required(validationId("task_colors")),
+            'color'       => required(validationString()),
+            'description' => required(validationString()),
         ];
     }
 

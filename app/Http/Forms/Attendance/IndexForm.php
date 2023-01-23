@@ -3,25 +3,24 @@
 namespace App\Http\Forms\Attendance;
 
 use App\Http\Forms\BaseForm;
-use App\Http\Forms\ValidationRule as Rule;
 
 class IndexForm extends BaseForm
 {
-    public $month;
     public $page;
+    public $month;
 
     protected function validationRule(): array
     {
         return [
-            'month' => 'nullable|' . Rule::MONTH,
-            'page'  => 'nullable|' . Rule::INTEGER,
+            'page'  => nullable(validationInteger()),
+            'month' => nullable(validationMonth()),
         ];
     }
 
     protected function bind(array $input): void
     {
-        $this->month = isset($input['month']) ? strval($input['month']) : null;
         $this->page  = isset($input['page']) ? intval($input['page']) : 1;
+        $this->month = isset($input['month']) ? strval($input['month']) : null;
     }
     
     protected function validateAfterBinding(): void

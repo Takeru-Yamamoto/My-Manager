@@ -3,7 +3,6 @@
 namespace App\Http\Forms\Attendance;
 
 use App\Http\Forms\BaseForm;
-use App\Http\Forms\ValidationRule as Rule;
 
 class AdminIndexForm extends BaseForm
 {
@@ -15,10 +14,10 @@ class AdminIndexForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'page'  => 'nullable|' . Rule::INTEGER,
-            'name'  => 'nullable|' . Rule::STRING,
-            'month' => 'nullable|' . Rule::MONTH,
-            'is_valid'   => 'nullable|' . Rule::INTEGER,
+            'page'     => nullable(validationInteger()),
+            'name'     => nullable(validationString()),
+            'month'    => nullable(validationMonth()),
+            'is_valid' => nullable(validationTinyInteger()),
         ];
     }
 

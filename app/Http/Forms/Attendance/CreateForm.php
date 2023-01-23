@@ -3,7 +3,6 @@
 namespace App\Http\Forms\Attendance;
 
 use App\Http\Forms\BaseForm;
-use App\Http\Forms\ValidationRule as Rule;
 
 class CreateForm extends BaseForm
 {
@@ -13,8 +12,8 @@ class CreateForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'type'     => 'required|' . Rule::STRING,
-            'relation' => 'nullable|' . Rule::INTEGER,
+            'type'     => required(validationString()),
+            'relation' => nullable(validationInteger()),
         ];
     }
 

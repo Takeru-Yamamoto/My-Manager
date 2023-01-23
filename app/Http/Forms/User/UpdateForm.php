@@ -3,7 +3,6 @@
 namespace App\Http\Forms\User;
 
 use App\Http\Forms\BaseForm;
-use App\Http\Forms\ValidationRule as Rule;
 
 class UpdateForm extends BaseForm
 {
@@ -15,10 +14,10 @@ class UpdateForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'id'       => 'required|' . Rule::INTEGER,
-            'email'    => 'required|' . Rule::EMAIL,
-            'password' => 'nullable|confirmed|' . Rule::STRING,
-            'role'     => 'required|' . Rule::INTEGER,
+            'id'       => required(validationUserId()),
+            'email'    => required(validationEmail()),
+            'password' => nullable(validationPasswordConfirmed()),
+            'role'     => required(validationInteger()),
         ];
     }
 

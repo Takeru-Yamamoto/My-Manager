@@ -3,7 +3,6 @@
 namespace App\Http\Forms\User;
 
 use App\Http\Forms\BaseForm;
-use App\Http\Forms\ValidationRule as Rule;
 
 class ChangeIsValidForm extends BaseForm
 {
@@ -13,8 +12,8 @@ class ChangeIsValidForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'id'  => 'required|' . Rule::POSITIVE_INTEGER,
-            'flg' => 'required|' . Rule::FLG_INTEGER,
+            'id'  => required(validationUserId()),
+            'flg' => required(validationTinyInteger()),
         ];
     }
 

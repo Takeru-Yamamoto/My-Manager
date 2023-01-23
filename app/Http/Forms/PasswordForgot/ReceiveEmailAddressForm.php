@@ -3,7 +3,6 @@
 namespace App\Http\Forms\PasswordForgot;
 
 use App\Http\Forms\BaseForm;
-use App\Http\Forms\ValidationRule as Rule;
 
 class ReceiveEmailAddressForm extends BaseForm
 {
@@ -12,7 +11,7 @@ class ReceiveEmailAddressForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'email' => 'required|' . Rule::EMAIL,
+            'email' => required(validationEmail()),
         ];
     }
 
