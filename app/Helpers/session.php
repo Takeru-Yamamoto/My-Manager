@@ -36,8 +36,8 @@ if (!function_exists('sessionGet')) {
     }
 }
 
-if (!function_exists('sessionGetDelete')) {
-    function sessionGetDelete(string|array $key, mixed $default = null): mixed
+if (!function_exists('sessionGetRemove')) {
+    function sessionGetRemove(string|array $key, mixed $default = null): mixed
     {
         if (is_array($key)) $key = implode(".", $key);
         return session()->pull($key, $default);
@@ -65,15 +65,15 @@ if (!function_exists('sessionDecrement')) {
     }
 }
 
-if (!function_exists('sessionDelete')) {
-    function sessionDelete(string|array $key): void
+if (!function_exists('sessionRemove')) {
+    function sessionRemove(string|array $key): void
     {
         session()->forget($key);
     }
 }
 
-if (!function_exists('sessionDeleteAll')) {
-    function sessionDeleteAll(): void
+if (!function_exists('sessionRemoveAll')) {
+    function sessionRemoveAll(): void
     {
         session()->flush();
     }
