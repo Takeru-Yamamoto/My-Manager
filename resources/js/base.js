@@ -148,7 +148,18 @@ $(function ($) {
             $(MODAL).modal("show");
         }
 
-        f.ajaxRequest(url, type, { id: id }, callback);
+        var setting = {
+            url: url,
+            type: type,
+            cache: false,
+            dataType: "html",
+            data: { id: id },
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        };
+
+        f.fullSettingAjaxRequest(setting, callback);
     });
 
     $(document).on("click", ACCORDION_HEADER, function () {
@@ -186,7 +197,17 @@ $(function ($) {
                 }
             }
 
-            f.ajaxRequest(url, "POST", { id: id }, callback);
+            var setting = {
+                url: url,
+                type: "POST",
+                cache: false,
+                data: { id: id },
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+            };
+
+            f.fullSettingAjaxRequest(setting, callback);
         }
     });
 
@@ -199,6 +220,16 @@ $(function ($) {
             location.reload();
         }
 
-        f.ajaxRequest(url, "POST", { id: id, flg: flg }, callback);
+        var setting = {
+            url: url,
+            type: "POST",
+            cache: false,
+            data: { id: id, flg: flg },
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        };
+
+        f.fullSettingAjaxRequest(setting, callback);
     });
 });
