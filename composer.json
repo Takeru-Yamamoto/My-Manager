@@ -44,6 +44,7 @@
             "app/Helpers/paginate.php",
             "app/Helpers/prefecture.php",
             "app/Helpers/redirect.php",
+            "app/Helpers/session.php",
             "app/Helpers/sns.php",
             "app/Helpers/text.php",
             "app/Helpers/tooltip.php",
