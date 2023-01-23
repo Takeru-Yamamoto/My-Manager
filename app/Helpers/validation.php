@@ -62,8 +62,15 @@ if (!function_exists("validationPasswordConfirmed")) {
     }
 }
 
+if (!function_exists("validationPostCode")) {
+    function validationPostCode(): array
+    {
+        return ["string", "regex:/^[0-9]{3}-[0-9]{4}$/"];
+    }
+}
+
 if (!function_exists("validationCode")) {
-    function validationCode(int $digit): array
+    function validationCode(mixed $digit): array
     {
         return ["string", "regex:/^[0-9]{" . $digit . "}$/"];
     }
@@ -131,7 +138,7 @@ if (!function_exists("validationDate")) {
 if (!function_exists("validationTime")) {
     function validationTime(): array
     {
-        return ["string", "regex:/^[0-9]{2}:[0-9]{2}:[0-9]{2}$/"];
+        return ["string", "regex:/^([0-9]{2}:[0-9]{2}|[0-9]{2}:[0-9]{2}:[0-9]{2})$/"];
     }
 }
 

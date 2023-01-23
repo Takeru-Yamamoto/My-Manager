@@ -24,7 +24,7 @@ $(function ($) {
 
                 var result = response.results[0];
 
-                $("#" + postCodeInput).val(result.zipcode);
+                $("#" + postCodeInput).val(result.zipcode.slice(0, 3) + "-" + result.zipcode.slice(-4));
                 $("#" + addressInput).val(result.address1 + result.address2 + result.address3);
                 if (prefectureSelect) $("#" + prefectureSelect).prop('selectedIndex', result.prefcode);
             }
