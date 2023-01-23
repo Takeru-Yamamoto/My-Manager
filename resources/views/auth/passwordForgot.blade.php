@@ -8,7 +8,7 @@
     </div>
 
     <div class="card-body login-card-body">
-        @include("layouts.alert")
+        @include("components.alert")
 
         <form action="{{ url('password_forgot') }}" method="post">
             @csrf
@@ -17,13 +17,13 @@
                     autofocus>
                 <div class="input-group-append">
                     <div class="input-group-text">
-                        <span class="fas fa-envelope"></span>
+                        <span class="fa-solid fa-envelope"></span>
                     </div>
                 </div>
             </div>
 
             <button type="submit" class="btn btn-block btn-flat btn-primary">
-                <span class="fas fa-share-square"></span>
+                <span class="fa-solid fa-share-from-square"></span>
                 リセットリンクを送信する。
             </button>
         </form>

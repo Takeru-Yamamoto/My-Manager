@@ -55,20 +55,20 @@ if (!function_exists('isAdminHigher')) {
 if (!function_exists('authUserId')) {
     function authUserId(): int
     {
-        return auth()->user()->id;
+        return authUser()->id;
     }
 }
 
 if (!function_exists('authUserName')) {
     function authUserName(): string
     {
-        return auth()->user()->name;
+        return authUser()->name;
     }
 }
 
 if (!function_exists('authUserRole')) {
     function authUserRole(): int
     {
-        return auth()->user()->role;
+        return authUser()->role;
     }
 }

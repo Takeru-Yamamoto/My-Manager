@@ -13,7 +13,7 @@
         @if ($errors->has('email') || $errors->has('password'))
             <div class="alert alert-danger alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h5><i class="icon fas fa-times"></i> Failure</h5>
+                <h5><i class="icon fa-solid fa-xmark"></i> Failure</h5>
                 {!! enl2br(implode("\n", $errors->all())) !!}
             </div>
         @endif
@@ -24,7 +24,7 @@
                     autofocus>
                 <div class="input-group-append">
                     <div class="input-group-text">
-                        <span class="fas fa-envelope"></span>
+                        <span class="fa-solid fa-envelope"></span>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                 <input type="password" name="password" class="form-control" placeholder="パスワード">
                 <div class="input-group-append">
                     <div class="input-group-text">
-                        <span class="fas fa-lock"></span>
+                        <span class="fa-solid fa-lock"></span>
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-5">
                     <button type=submit class="btn btn-block btn-flat btn-primary">
-                        <span class="fas fa-sign-in-alt"></span>
+                        <span class="fa-solid fa-right-to-bracket"></span>
                         ログイン
                     </button>
                 </div>

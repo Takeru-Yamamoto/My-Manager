@@ -56,6 +56,19 @@ class ContentConst
         ],
     ];
 
+    public const SIDEBAR_ICONS = [
+        self::USER       => "fa-solid fa-user",
+        self::LOGIN_INFO => "fa-solid fa-gear",
+        self::ATTENDANCE => "fa-solid fa-clock",
+        self::TASK       => "fa-solid fa-calendar-days",
+    ];
+
+    public const SIDEBAR_CLASSES = [
+        GateConst::SYSTEM => [],
+        GateConst::ADMIN => [],
+        GateConst::USER => [],
+    ];
+
     public const BOOTSTRAP_COLORS = [
         "blue",
         "indigo",

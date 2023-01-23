@@ -4,8 +4,8 @@
             id="header-{{ $type }}" data-toggle="collapse" data-target="#card-{{ $type }}"
             aria-expanded="false" aria-controls="card-{{ $type }}">
             <p class="m-0">{{ $title }}</p>
-            <i class="fas fa-chevron-down accordion-close accordion-nav active"></i>
-            <i class="fas fa-chevron-up accordion-open accordion-nav"></i>
+            <i class="fa-solid fa-chevron-down accordion-close accordion-nav active"></i>
+            <i class="fa-solid fa-chevron-up accordion-open accordion-nav"></i>
         </div>
         <div id="card-{{ $type }}" class="collapse" aria-labelledby="header-{{ $type }}"
             data-parent="#accordion">

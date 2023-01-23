@@ -6,7 +6,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu">
-                        <i class="fas fa-bars"></i>
+                        <i class="fa-solid fa-bars"></i>
                         <span class="sr-only">ナビゲーションを開閉</span>
                     </a>
                 </li>
@@ -14,7 +14,8 @@
 
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown user-menu">
-                    <a class="nav-link dropdown-toggle pointer" data-toggle="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle pointer" data-toggle="dropdown" data-bs-toggle="dropdown"
+                        aria-expanded="false">
                         <span>{{ authUserName() }}</span>
                     </a>
 
@@ -45,18 +46,18 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        @foreach (array_keys(GateConst::ROLES) as $role)
-                            @can($role)
-                                @foreach (ContentConst::SIDEBARS[$role] as $name)
-                                    <li class="nav-item">
-                                        <a href="{{ url(ContentConst::URLS[$name]) }}" class="nav-link ">
-                                            <p>
-                                                {{ contentHeader($name) }}
-                                            </p>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            @endcan
+                        @foreach (ContentConst::SIDEBARS[role()] as $name)
+                            <li class="nav-item">
+                                <a href="{{ url(ContentConst::URLS[$name]) }}"
+                                    class="nav-link {{ isset(ContentConst::SIDEBAR_CLASSES[role()][$name]) ? ContentConst::SIDEBAR_CLASSES[role()][$name] : '' }}">
+                                    @if (isset(ContentConst::SIDEBAR_ICONS[$name]))
+                                        <i class="{{ ContentConst::SIDEBAR_ICONS[$name] }}"></i>
+                                    @endif
+                                    <p>
+                                        {{ contentHeader($name) }}
+                                    </p>
+                                </a>
+                            </li>
                         @endforeach
                     </ul>
                 </nav>
