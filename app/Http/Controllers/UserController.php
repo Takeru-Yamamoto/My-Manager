@@ -55,7 +55,7 @@ class UserController extends Controller
 	{
 		$form = new Forms\UpdateForm($request->all());
 
-		if ($form->hasError()) return $form->redirect("user/update");
+		if ($form->hasError()) return $form->redirect("user/update/" . $request->id);
 
 		return successRedirect("user", $this->service->update($form));
 	}
