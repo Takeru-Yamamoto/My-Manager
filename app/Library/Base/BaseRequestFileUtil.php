@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\File;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
+use Intervention\Image\Facades\Image;
 
 class BaseRequestFileUtil
 {
@@ -162,6 +163,28 @@ class BaseRequestFileUtil
             $this->downloadPath = str_replace($oldName, $newName, $this->downloadPath);
             $this->fullPath     = str_replace($oldName, $newName, $this->fullPath);
             $this->deletePath   = str_replace($oldName, $newName, $this->deletePath);
+        } catch (\Exception $ex) {
+            return false;
+        }
+    }
+
+    public function convertToJPG(): bool
+    {
+        if (!$this->isUploaded()) return false;
+
+        try {
+            $oldName = $this->name;
+            $newName = str_replace("." . $this->extension, ".jpg", $this->name);
+
+            Image::make($this->file)->encode("jpg")->save($this->uploadDirectory . "/" . $newName);
+
+            $this->delete();
+
+            $this->isExistFile = true;
+            $this->extension   = "jpg";
+            $this->name        = $newName;
+            $this->fullPath    = str_replace($oldName, $newName, $this->fullPath);
+            $this->deletePath  = str_replace($oldName, $newName, $this->deletePath);
         } catch (\Exception $ex) {
             return false;
         }
