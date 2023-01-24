@@ -7,5 +7,11 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
+// Font Awesome
+@import '/node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css';
+@import '/node_modules/@fortawesome/fontawesome-free/css/solid.min.css';
+@import '/node_modules/@fortawesome/fontawesome-free/css/brands.min.css';
+@import '/node_modules/@fortawesome/fontawesome-free/css/regular.min.css';
+
 // original
-@import 'original.scss';
+@import 'original';
