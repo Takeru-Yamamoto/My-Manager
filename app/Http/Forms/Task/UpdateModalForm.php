@@ -11,7 +11,7 @@ class UpdateModalForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'id' => required(validationId("tasks")),
+            'id' => $this->required($this->id("tasks")),
         ];
     }
 

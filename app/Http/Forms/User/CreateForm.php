@@ -17,10 +17,10 @@ class CreateForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'name'     => required(validationString()),
-            'email'    => required(validationEmail()),
-            'password' => required(validationPasswordConfirmed()),
-            'role'     => required(validationInteger()),
+            'name'     => $this->required($this->string()),
+            'email'    => $this->required($this->email()),
+            'password' => $this->required($this->passwordConfirmed()),
+            'role'     => $this->required($this->integer()),
         ];
     }
 

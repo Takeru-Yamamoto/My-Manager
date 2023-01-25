@@ -52,7 +52,6 @@
             "app/Helpers/unique.php",
             "app/Helpers/useful.php",
             "app/Helpers/utils.php",
-            "app/Helpers/validation.php",
             "app/Helpers/view.php"
         ],
         "psr-4": {

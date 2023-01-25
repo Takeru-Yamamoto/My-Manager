@@ -12,8 +12,8 @@ class ChangeEmailForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'user_id'             => required(validationUserId()),
-            'authentication_code' => required(validationCode(6)),
+            'user_id'             => $this->required($this->userId()),
+            'authentication_code' => $this->required($this->code(6)),
         ];
     }
 

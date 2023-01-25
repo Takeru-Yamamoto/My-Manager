@@ -13,9 +13,9 @@ class PasswordResetForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'password' => required(validationPasswordConfirmed()),
-            'email'    => required(validationEmail()),
-            'token'    => required(validationString()),
+            'password' => $this->required($this->passwordConfirmed()),
+            'email'    => $this->required($this->email()),
+            'token'    => $this->required($this->string()),
         ];
     }
 

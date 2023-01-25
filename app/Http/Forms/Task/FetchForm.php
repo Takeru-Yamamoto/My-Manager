@@ -12,8 +12,8 @@ class FetchForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'start_date' => required(validationDate()),
-            'end_date'   => required(validationDate()),
+            'start_date' => $this->required($this->date()),
+            'end_date'   => $this->required($this->date()),
         ];
     }
 

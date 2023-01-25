@@ -17,13 +17,13 @@ class SearchForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'value'      => required(),
-            'model'      => required(validationString()),
-            'eloquent'   => required(validationString()),
-            'from'       => required(validationString()),
-            'to'         => required(validationString()),
-            'limit'      => required(validationInteger()),
-            'additional' => nullable(validationJson()),
+            'value'      => $this->required(),
+            'model'      => $this->required($this->string()),
+            'eloquent'   => $this->required($this->string()),
+            'from'       => $this->required($this->string()),
+            'to'         => $this->required($this->string()),
+            'limit'      => $this->required($this->integer()),
+            'additional' => $this->nullable($this->json()),
         ];
     }
 

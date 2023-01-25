@@ -12,8 +12,8 @@ class ChangeIsValidForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'id'  => required(validationUserId()),
-            'flg' => required(validationTinyInteger()),
+            'id'  => $this->required($this->userId()),
+            'flg' => $this->required($this->tinyInteger()),
         ];
     }
 

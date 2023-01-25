@@ -14,10 +14,10 @@ class UpdateForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'id'       => required(validationUserId()),
-            'email'    => required(validationEmail()),
-            'password' => nullable(validationPasswordConfirmed()),
-            'role'     => required(validationInteger()),
+            'id'       => $this->required($this->userId()),
+            'email'    => $this->required($this->email()),
+            'password' => $this->nullable($this->passwordConfirmed()),
+            'role'     => $this->required($this->integer()),
         ];
     }
 

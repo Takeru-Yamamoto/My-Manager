@@ -12,8 +12,8 @@ class CreateTaskColorForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'color'       => required(validationString()),
-            'description' => required(validationString()),
+            'color'       => $this->required($this->string()),
+            'description' => $this->required($this->string()),
         ];
     }
 

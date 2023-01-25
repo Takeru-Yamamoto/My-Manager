@@ -12,8 +12,8 @@ class AuthenticationCodeForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'user_id' => required(validationUserId()),
-            'email'   => required(validationEmail()),
+            'user_id' => $this->required($this->userId()),
+            'email'   => $this->required($this->email()),
         ];
     }
 

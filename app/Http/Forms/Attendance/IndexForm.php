@@ -12,8 +12,8 @@ class IndexForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'page'  => nullable(validationInteger()),
-            'month' => nullable(validationMonth()),
+            'page'  => $this->nullable($this->integer()),
+            'month' => $this->nullable($this->month()),
         ];
     }
 

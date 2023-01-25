@@ -13,9 +13,9 @@ class UpdateTaskColorForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'id'          => required(validationId("task_colors")),
-            'color'       => required(validationString()),
-            'description' => required(validationString()),
+            'id'          => $this->required($this->id("task_colors")),
+            'color'       => $this->required($this->string()),
+            'description' => $this->required($this->string()),
         ];
     }
 

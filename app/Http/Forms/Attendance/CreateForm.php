@@ -12,8 +12,8 @@ class CreateForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'type'     => required(validationString()),
-            'relation' => nullable(validationInteger()),
+            'type'     => $this->required($this->string()),
+            'relation' => $this->nullable($this->integer()),
         ];
     }
 

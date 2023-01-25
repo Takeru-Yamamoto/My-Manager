@@ -11,7 +11,7 @@ class DeleteTaskColorForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'id' => required(validationId("task_colors")),
+            'id' => $this->required($this->id("task_colors")),
         ];
     }
 

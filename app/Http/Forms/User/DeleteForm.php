@@ -11,7 +11,7 @@ class DeleteForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'id' => required(validationUserId()),
+            'id' => $this->required($this->userId()),
         ];
     }
 

@@ -13,9 +13,9 @@ class IndexForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'page'     => nullable(validationInteger()),
-            'name'     => nullable(validationString()),
-            'is_valid' => nullable(validationTinyInteger()),
+            'page'     => $this->nullable($this->integer()),
+            'name'     => $this->nullable($this->string()),
+            'is_valid' => $this->nullable($this->tinyInteger()),
         ];
     }
 

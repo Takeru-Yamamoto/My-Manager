@@ -17,11 +17,11 @@ class CreateForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'start_date'    => required(validationDate()),
-            'end_date'      => required(validationDate()),
-            'title'         => required(validationString()),
-            'comment'       => nullable(validationString()),
-            'task_color_id' => nullable(validationId("task_colors")),
+            'start_date'    => $this->required($this->date()),
+            'end_date'      => $this->required($this->date()),
+            'title'         => $this->required($this->string()),
+            'comment'       => $this->nullable($this->string()),
+            'task_color_id' => $this->nullable($this->id("task_colors")),
         ];
     }
 
