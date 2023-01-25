@@ -11,8 +11,8 @@ class TaskColor extends Model
  
     public $timestamps = false;
 
-    public function task()
+    public function tasks()
     {
-        return $this->hasOne(Task::class);
+        return $this->hasMany(Task::class);
     }
 }
