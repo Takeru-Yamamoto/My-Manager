@@ -22,7 +22,7 @@ class EmailResetRepository extends BaseRepository
         int $userId,
         int $authenticationCode,
         string $newEmail,
-        string $expirationDate,
+        string $expirationDate
     ): EmailReset {
         $entity = new EmailReset();
 

@@ -22,7 +22,7 @@ class TaskColorRepository extends BaseRepository
 
     public function createEntity(
         string $color,
-        string $description,
+        string $description
     ): TaskColor {
         $entity = new TaskColor();
 

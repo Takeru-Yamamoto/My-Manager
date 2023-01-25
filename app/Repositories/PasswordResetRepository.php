@@ -21,7 +21,7 @@ class PasswordResetRepository extends BaseRepository
     public function createEntity(
         string $email,
         string $token,
-        string $expiration_date,
+        string $expiration_date
     ): PasswordReset {
         $entity = new PasswordReset();
 

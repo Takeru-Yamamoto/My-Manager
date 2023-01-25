@@ -5,6 +5,7 @@ namespace App\Repositories;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Closure;
 use stdClass;
@@ -25,7 +26,7 @@ abstract class BaseRepository
         $this->initialize();
     }
 
-    abstract protected function model(): Model;
+    abstract protected function model(): Model|Authenticatable;
     abstract public function toResult(object $entity): JsonResult;
 
     final private function initialize(): void
