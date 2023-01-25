@@ -2,19 +2,12 @@
 
 namespace App\Exceptions;
 
+use App\Http\Forms\BaseForm;
+
 class InvalidFormException extends \Exception
 {
-    public function __construct(\App\Http\Forms\BaseForm $form)
+    public function __construct(BaseForm $form)
     {
-        $errorText = "";
-        $errors = $form->errors;
-
-        foreach ($errors as $error) {
-            $errorText .= $error . "\n";
-        }
-
-        if (!empty($errorText)) $errorText = removeFromEnd($errorText, 2);
-
-        parent::__construct($errorText);
+        parent::__construct(implode("\n", $form->errors));
     }
 }
