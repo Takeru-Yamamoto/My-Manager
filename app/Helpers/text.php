@@ -1,6 +1,7 @@
 <?php
 
 use App\Consts\TextConst;
+use Illuminate\Support\Str;
 
 if (!function_exists('getTextFromConst')) {
     function getTextFromConst(?string $textKey): string
@@ -42,6 +43,55 @@ if (!function_exists('zeroPadding')) {
     function zeroPadding(int $digit, int $num): string
     {
         return sprintf('%0' . $digit . 'd', $num);
+    }
+}
+
+if (!function_exists('toKebab')) {
+    function toKebab(string $text): string
+    {
+        return Str::kebab($text);
+    }
+}
+
+if (!function_exists('toSnake')) {
+    function toSnake(string $text): string
+    {
+        return Str::snake($text);
+    }
+}
+
+if (!function_exists('toCamel')) {
+    function toCamel(string $text): string
+    {
+        return Str::camel($text);
+    }
+}
+
+if (!function_exists('toPascal')) {
+    function toPascal(string $text): string
+    {
+        return Str::studly($text);
+    }
+}
+
+if (!function_exists('toPlural')) {
+    function toPlural(string $text): string
+    {
+        return Str::plural($text);
+    }
+}
+
+if (!function_exists('toSingular')) {
+    function toSingular(string $text): string
+    {
+        return Str::singular($text);
+    }
+}
+
+if (!function_exists('toSlug')) {
+    function toSlug(string $text): string
+    {
+        return Str::slug($text);
     }
 }
 
