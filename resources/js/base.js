@@ -147,18 +147,13 @@ $(function ($) {
     });
 
     $(document).on("click", ACCORDION_HEADER, function () {
-        var flg = $(this).attr("aria-expanded");
+        $(this).children(ACCORDION_CLOSE).removeClass("active");
+        $(this).children(ACCORDION_OPEN).removeClass("active");
 
-        $(ACCORDION_CLOSE).addClass("active");
-        $(ACCORDION_OPEN).removeClass("active");
-
-        if (flg === "false") {
-            $(this)
-                .children(".accordion-close")
-                .removeClass("active");
-            $(this)
-                .children(".accordion-open")
-                .addClass("active");
+        if ($(this).attr("aria-expanded") === "true") {
+            $(this).children(ACCORDION_CLOSE).addClass("active");
+        } else {
+            $(this).children(ACCORDION_OPEN).addClass("active");
         }
     });
 
