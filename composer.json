@@ -21,6 +21,7 @@
         "twilio/sdk": "^6.44"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.7",
         "fakerphp/faker": "^1.9.1",
         "laravel-lang/lang": "^12.9",
         "laravel/pint": "^1.0",
