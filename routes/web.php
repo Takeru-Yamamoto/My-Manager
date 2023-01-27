@@ -31,7 +31,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     // ユーザ
     Route::group(['middleware' => ['can:' . GateConst::USER_HIGHER]], function () {
-
         Route::get('/login_info', [Controller\LoginInfoController::class, 'index'])->name('login_info');
         Route::post('/login_info/update', [Controller\LoginInfoController::class, 'update'])->name('login_info-update');
         Route::get('/login_info/change_email/', [Controller\LoginInfoController::class, 'changeEmailForm'])->name('login_info-changeEmailForm');
