@@ -8,9 +8,7 @@
     </div>
 
     <div class="card-body login-card-body">
-        @include('components.alert')
-
-        @if ($errors->has('email') || $errors->has('password'))
+        @if ($errors->any())
             <div class="alert alert-danger alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                 <h5><i class="icon fa-solid fa-xmark"></i> Failure</h5>

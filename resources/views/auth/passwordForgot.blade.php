@@ -8,8 +8,6 @@
     </div>
 
     <div class="card-body login-card-body">
-        @include("components.alert")
-
         <form action="{{ url('password_forgot') }}" method="post">
             @csrf
             <div class="input-group mb-3">

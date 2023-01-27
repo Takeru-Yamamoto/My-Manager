@@ -15,8 +15,17 @@
     {{-- css --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/css/adminlte.min.css" integrity="sha512-mxrUXSjrxl8vm5GwafxcqTrEwO1/oBNU25l20GODsysHReZo4uhVISzAKzaABH6/tTfAxZrY2FprmeAP5UZY8A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    @include("components.role.css")
+
+    @auth
+        @if (isSystem())
+            <style></style>
+        @elseif (isAdmin())
+            <style></style>
+        @elseif (isUser())
+            <style></style>
+        @endif
+    @endauth
+
     @yield('local_css')
 
 
@@ -26,11 +35,63 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js" integrity="sha512-0bEtK0USNd96MnO4XhH8jhv3nyRF0eK87pJke6pkYf3cM0uDIhNJy9ltuzqgypoIFXw3JSuiy04tVk4AjpZdZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    @include("components.role.js")
+    @auth
+        @if (isSystem())
+            <script></script>
+        @elseif (isAdmin())
+            <script></script>
+        @elseif (isUser())
+            <script></script>
+        @endif
+    @endauth
+
     @yield('local_js')
 </head>
 
 <body class="{{ isset($bodyClass) ? $bodyClass : 'sidebar-mini' }}">
+    @if (sessionHas('alert_message'))
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fa-solid fa-ban"></i> Error</h5>
+            @if (is_array(sessionGet('alert_message')))
+                {!! enl2br(implode("\n", sessionGet('alert_message'))) !!}
+            @else
+                {!! enl2br(sessionGet('alert_message')) !!}
+            @endif
+        </div>
+    @endif
+    @if (sessionHas('success_message'))
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fa-solid fa-check"></i> Success</h5>
+            @if (is_array(sessionGet('success_message')))
+                {!! enl2br(implode("\n", sessionGet('success_message'))) !!}
+            @else
+                {!! enl2br(sessionGet('success_message')) !!}
+            @endif
+        </div>
+    @endif
+    @if (sessionHas('danger_message'))
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fa-solid fa-xmark"></i> Failure</h5>
+            @if (is_array(sessionGet('danger_message')))
+                {!! enl2br(implode("\n", sessionGet('danger_message'))) !!}
+            @else
+                {!! enl2br(sessionGet('danger_message')) !!}
+            @endif
+        </div>
+    @endif
+
+    <div id="cv-spinner-overlay" class="cv-spinner-overlay">
+        <div class="cv-spinner">
+            <span class="spinner"></span>
+            <p class="spinner-text">しばらくお待ちください。</p>
+        </div>
+    </div>
+
+    <div class="modal-marks"></div>
+    
     @yield('body')
 </body>
 

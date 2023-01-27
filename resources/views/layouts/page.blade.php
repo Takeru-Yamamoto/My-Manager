@@ -73,19 +73,7 @@
 
             <div class="content">
                 <div class="container-fluid">
-                    @include('components.alert')
-
-                    <div id="cv-spinner-overlay" class="cv-spinner-overlay">
-                        <div class="cv-spinner">
-                            <span class="spinner"></span>
-                            <p class="spinner-text">しばらくお待ちください。</p>
-                        </div>
-                    </div>
-
-                    <div class="modal-marks"></div>
-
                     @yield('modal')
-
                     @yield('contents')
                 </div>
             </div>

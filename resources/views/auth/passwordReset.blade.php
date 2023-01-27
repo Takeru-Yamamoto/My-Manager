@@ -2,8 +2,6 @@
 
 @section('auth-card')
     <div class="card-body login-card-body">
-        @include('components.alert')
-
         <form action="{{ url('password_reset') }}" method="post">
             @csrf
             <input type="email" name="email" class="form-control" value="{{ $email }}" hidden>

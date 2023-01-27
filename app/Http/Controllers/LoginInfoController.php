@@ -38,7 +38,7 @@ class LoginInfoController extends Controller
 
     public function changeEmailForm(): View|Factory
     {
-        return view('auth.changeEmail', ['user' => authUserResult()]);
+        return view('pages.user.changeEmail', ['user' => authUserResult()]);
     }
 
     public function authenticationCodeForm(Request $request): View|Factory|Redirector|RedirectResponse
@@ -50,7 +50,7 @@ class LoginInfoController extends Controller
         $textKey = $this->service->authenticationCodeForm($form);
 
         if (is_null($textKey)) {
-            return view('auth.authenticationCode', ['user' => authUserResult()]);
+            return view('pages.user.authenticationCode', ['user' => authUserResult()]);
         }
 
         return failureRedirect("login_info/change_email_preparation", $textKey);
@@ -65,7 +65,7 @@ class LoginInfoController extends Controller
         $textKey = $this->service->changeEmail($form);
 
         if (is_null($textKey)) {
-            return view('auth.authenticationCode', ["auth" => false, 'user' => authUserResult()]);
+            return view('pages.user.authenticationCode', ["auth" => false, 'user' => authUserResult()]);
         }
      
         return divergeRedirect($textKey === TextConst::EMAIL_CHANGED_SUCCESS, "login_info", $textKey);
