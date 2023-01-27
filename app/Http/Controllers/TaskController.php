@@ -53,7 +53,7 @@ class TaskController extends Controller
 	{
 		$form = new Forms\CreateForm($request->all());
 
-		if ($form->hasError()) return $form->redirect("task");
+		if ($form->hasError()) return $form->redirect();
 
 		return successRedirect("task", $this->service->create($form));
 	}
@@ -74,7 +74,7 @@ class TaskController extends Controller
 	{
 		$form = new Forms\UpdateForm($request->all());
 
-		if ($form->hasError()) return $form->redirect("task");
+		if ($form->hasError()) return $form->redirect();
 
 		return successRedirect("task", $this->service->update($form));
 	}

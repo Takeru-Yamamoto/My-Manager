@@ -8,13 +8,6 @@
     </div>
 
     <div class="card-body login-card-body">
-        @if ($errors->any())
-            <div class="alert alert-danger alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h5><i class="icon fa-solid fa-xmark"></i> Failure</h5>
-                {!! enl2br(implode("\n", $errors->all())) !!}
-            </div>
-        @endif
         <form action="{{ url('login') }}" method="post">
             @csrf
             <div class="input-group mb-3">

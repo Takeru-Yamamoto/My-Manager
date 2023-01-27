@@ -41,7 +41,7 @@ class UserController extends Controller
 	{
 		$form = new Forms\CreateForm($request->all());
 
-		if ($form->hasError()) return $form->redirect("user/create");
+		if ($form->hasError()) return $form->redirect();
 
 		return successRedirect("user", $this->service->create($form));
 	}
@@ -55,7 +55,7 @@ class UserController extends Controller
 	{
 		$form = new Forms\UpdateForm($request->all());
 
-		if ($form->hasError()) return $form->redirect("user/update/" . $request->id);
+		if ($form->hasError()) return $form->redirect();
 
 		return successRedirect("user", $this->service->update($form));
 	}

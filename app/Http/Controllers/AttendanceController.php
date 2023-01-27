@@ -43,7 +43,7 @@ class AttendanceController extends Controller
 	{
 		$form = new Forms\CreateForm($request->all());
 
-		if ($form->hasError()) return $form->redirect("attendance");
+		if ($form->hasError()) return $form->redirect();
 
 		return successRedirect("attendance", $this->service->create($form), "勤怠種別: " . getAttendanceTypeText($form->type));
 	}

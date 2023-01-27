@@ -31,7 +31,7 @@ class LoginInfoController extends Controller
     {
         $form = new Forms\UpdateForm($request->all());
 
-        if ($form->hasError()) return $form->redirect("login_info");
+        if ($form->hasError()) return $form->redirect();
 
         return successRedirect("login_info", $this->service->update($form));
     }
@@ -45,7 +45,7 @@ class LoginInfoController extends Controller
     {
         $form = new Forms\AuthenticationCodeForm($request->all());
 
-        if ($form->hasError()) return $form->redirect("login_info/change_email");
+        if ($form->hasError()) return $form->redirect();
 
         $textKey = $this->service->authenticationCodeForm($form);
 
@@ -53,14 +53,14 @@ class LoginInfoController extends Controller
             return view('pages.user.authenticationCode', ['user' => authUserResult()]);
         }
 
-        return failureRedirect("login_info/change_email_preparation", $textKey);
+        return failureRedirect("login_info/change_email", $textKey);
     }
 
     public function changeEmail(Request $request): View|Factory|Redirector|RedirectResponse
     {
         $form = new Forms\ChangeEmailForm($request->all());
 
-        if ($form->hasError()) return $form->redirect("login_info/change_email_preparation");
+        if ($form->hasError()) return $form->redirect("login_info/change_email");
 
         $textKey = $this->service->changeEmail($form);
 

@@ -32,7 +32,7 @@ class PasswordForgotController extends Controller
     {
         $form = new Forms\ReceiveEmailAddressForm($request->all());
 
-		if ($form->hasError()) return $form->redirect("password_forgot");
+		if ($form->hasError()) return $form->redirect();
 
         $textKey = $this->service->sendPasswordResetMail($form);
 
@@ -58,7 +58,7 @@ class PasswordForgotController extends Controller
     {
         $form = new Forms\PasswordResetForm($request->all());
 
-		if ($form->hasError()) return $form->redirect("password_reset/" . $request->token . "/" . $request->email);
+		if ($form->hasError()) return $form->redirect();
 
         return successRedirect("login", $this->service->resetPassword($form));
     }
