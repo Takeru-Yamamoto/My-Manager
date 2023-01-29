@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Library\Entity;
+namespace App\Library\CalendarUtil;
 
 class Calendar
 {

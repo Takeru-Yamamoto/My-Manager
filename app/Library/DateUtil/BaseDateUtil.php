@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Library\Base;
+namespace App\Library\DateUtil;
 
 use Carbon\Carbon;
 
-class BaseDateUtil
+abstract class BaseDateUtil
 {
     public static string $FORMAT_ZERO_DATE              = '0000-00-00';
     public static string $FORMAT_DAY_START_TIME         = '00:00:00';
