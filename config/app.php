@@ -195,6 +195,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Intervention\Image\ImageServiceProvider::class,
+        ProtoneMedia\LaravelFFMpeg\Support\ServiceProvider::class,
+
         App\Providers\DataBaseQueryServiceProvider::class,
         App\Providers\BlueprintServiceProvider::class,
     ],
