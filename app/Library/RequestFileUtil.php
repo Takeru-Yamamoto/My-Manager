@@ -2,7 +2,7 @@
 
 namespace App\Library;
 
-use App\Library\Base\BaseRequestFileUtil;
+use App\Library\RequestFileUtil\BaseRequestFileUtil;
 
 class RequestFileUtil extends BaseRequestFileUtil
 {

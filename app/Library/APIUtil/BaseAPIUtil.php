@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Library\Base;
+namespace App\Library\APIUtil;
 
 use Illuminate\Support\Facades\Http;
-use \Illuminate\Http\Client\Response;
+use Illuminate\Http\Client\Response;
 
-class BaseAPIUtil
+abstract class BaseAPIUtil
 {
     private string $url;
     private array $params;

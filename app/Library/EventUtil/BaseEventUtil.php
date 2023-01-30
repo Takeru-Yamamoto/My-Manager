@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Library\Base;
+namespace App\Library\EventUtil;
 
 use App\Events as Event;
 
-class BaseEventUtil
+abstract class BaseEventUtil
 {
     final private function event(string $method, $event): void
     {

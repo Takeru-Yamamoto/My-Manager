@@ -2,7 +2,7 @@
 
 namespace App\Library;
 
-use App\Library\Base\BaseCalendarUtil;
+use App\Library\CalendarUtil\BaseCalendarUtil;
 
 class CalendarUtil extends BaseCalendarUtil
 {

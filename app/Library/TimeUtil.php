@@ -2,7 +2,7 @@
 
 namespace App\Library;
 
-use App\Library\Base\BaseTimeUtil;
+use App\Library\TimeUtil\BaseTimeUtil;
 
 class TimeUtil extends BaseTimeUtil
 {

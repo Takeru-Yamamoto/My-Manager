@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Library\Base;
+namespace App\Library\TimeUtil;
 
-class BaseTimeUtil
+abstract class BaseTimeUtil
 {
     private string $method;
     private string $process;

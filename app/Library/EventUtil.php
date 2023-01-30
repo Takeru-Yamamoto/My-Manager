@@ -2,7 +2,7 @@
 
 namespace App\Library;
 
-use App\Library\Base\BaseEventUtil;
+use App\Library\EventUtil\BaseEventUtil;
 
 class EventUtil extends BaseEventUtil
 {

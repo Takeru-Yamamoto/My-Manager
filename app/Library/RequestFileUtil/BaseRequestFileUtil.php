@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Library\Base;
+namespace App\Library\RequestFileUtil;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -12,7 +12,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 use Intervention\Image\Facades\Image;
 
-class BaseRequestFileUtil
+abstract class BaseRequestFileUtil
 {
     public UploadedFile $file;
 

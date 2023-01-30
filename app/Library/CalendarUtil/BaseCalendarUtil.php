@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Library\Base;
+namespace App\Library\CalendarUtil;
 
 use Carbon\Carbon;
 use App\Consts\DayOfWeekConst;
-use App\Library\Entity\Calendar;
+use App\Library\CalendarUtil\Calendar;
 
-class BaseCalendarUtil
+abstract class BaseCalendarUtil
 {
     /* bootstrap 推奨 */
 
