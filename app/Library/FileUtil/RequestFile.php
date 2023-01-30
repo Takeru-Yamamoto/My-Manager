@@ -38,7 +38,7 @@ abstract class RequestFile
 
         $this->isNameDuplicate();
 
-        $this->filePath = storage_path("app/" . $this->uploadDirectory . "/" . $this->fileName);
+        $this->filePath = $this->uploadDirectory . "/" . $this->fileName;
 
         $this->storageFile = null;
     }
@@ -59,7 +59,7 @@ abstract class RequestFile
             $this->storageFile = new StorageFile\ExcelStorageFile($this->uploadDirectory, $this->fileName);
         } else {
             $this->delete();
-            throw new StorageFileNotSupportedException($this->filePath, $this->mimeType);
+            throw new StorageFileNotSupportedException($this->filePath, $this->mimeType, $this->extension);
         }
 
         return $this;
@@ -151,7 +151,7 @@ abstract class RequestFile
             $this->fileName = $exploded[0] . "." . $this->extension;
         }
 
-        for ($i = 1; Storage::exists($this->uploadDirectory . "/" . $this->fileName); $i++) {
+        for ($i = 1; Storage::exists($this->filePath); $i++) {
             if (strpos($this->fileName, "(" . $i . ")") !== false) {
                 $this->fileName = str_replace("(" . $i . ")", "(" . ($i + 1) . ")", $this->fileName);
             } else {

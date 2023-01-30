@@ -4,6 +4,7 @@ namespace App\Library\FileUtil;
 
 use App\Library\FileUtil\Exceptions\RequestFileNotFoundException;
 use App\Library\FileUtil\Exceptions\RequestFileNotSupportedException;
+use App\Library\FileUtil\Exceptions\StorageFileNotSupportedException;
 use App\Library\FileUtil\RequestFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -57,6 +58,20 @@ abstract class BaseFileUtil
 
     public function addStorageFile(string $uploadDirectory, string $fileName): self
     {
+        $mimeType = Storage::mimeType($uploadDirectory . "/" . $fileName);
+        $extension = Storage::extension($uploadDirectory . "/" . $fileName);
+
+        if (strpos($mimeType, 'image') !== false) {
+            $this->files["storage"][] = new StorageFile\ImageStorageFile($uploadDirectory, $fileName);
+        } elseif (strpos($mimeType, 'video') !== false) {
+            $this->files["storage"][] = new StorageFile\VideoStorageFile($uploadDirectory, $fileName);
+        } elseif (strpos($mimeType, 'text') !== false) {
+            $this->files["storage"][] = new StorageFile\TextStorageFile($uploadDirectory, $fileName);
+        } elseif (in_array($extension, config("library.file.accept_excel", []))) {
+            $this->files["storage"][] = new StorageFile\ExcelStorageFile($uploadDirectory, $fileName);
+        } else {
+            throw new StorageFileNotSupportedException($uploadDirectory . "/" . $fileName, $mimeType, $extension);
+        }
 
         return $this;
     }
