@@ -5,9 +5,9 @@
         {{ tableCardHeader() }}
         <div>
             <a class="{{ btnLinkClass() }}"
-                href="{{ url('attendance/admin?month=' . $subMonth->format(DateUtil::$FORMAT_MONTH)) }}&name={{ $form->name }}">{{ $subMonth->format(DateUtil::$FORMAT_MONTH_JP) }}</a>
+                href="{{ url('attendance/admin?month=' . $subMonth->format(config("library.date.format.year_month"))) }}&name={{ $form->name }}">{{ $subMonth->format(config("library.date.format.year_month_jp")) }}</a>
             <a class="{{ btnLinkClass() }}"
-                href="{{ url('attendance/admin?month=' . $addMonth->format(DateUtil::$FORMAT_MONTH)) }}&name={{ $form->name }}">{{ $addMonth->format(DateUtil::$FORMAT_MONTH_JP) }}</a>
+                href="{{ url('attendance/admin?month=' . $addMonth->format(config("library.date.format.year_month"))) }}&name={{ $form->name }}">{{ $addMonth->format(config("library.date.format.year_month_jp")) }}</a>
         </div>
     </div>
     <div class="card">
@@ -49,7 +49,7 @@
     @if (is_null($attendanceInMonths))
         <p class="m-0">ユーザがいません。</p>
     @else
-        <p class="h4 m-0">{{ $dateUtil->format(DateUtil::$FORMAT_MONTH_JP) }}</p>
+        <p class="h4 m-0">{{ $dateUtil->format(config("library.date.format.year_month_jp")) }}</p>
         <table class="table table-hover">
             <thead>
                 <th width="20%">ユーザ名</th>
