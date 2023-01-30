@@ -7,5 +7,4 @@ return [
     "user_agent" => env("ACCESS_USER_AGENT", false),
     "ip"         => env("ACCESS_IP", false),
     "memory"     => env("ACCESS_MEMORY", false),
-    "event"      => env("ACCESS_EVENT", false),
 ];

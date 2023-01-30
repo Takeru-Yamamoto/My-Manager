@@ -12,6 +12,15 @@ if (!function_exists('varDump')) {
     }
 }
 
+if (!function_exists('arrayMergeUnique')) {
+    function arrayMergeUnique(array $array1, array $array2): array
+    {
+        $array = array_merge($array1, $array2);
+        $array = array_unique($array);
+        return array_values($array);
+    }
+}
+
 if (!function_exists('arraySearchKey')) {
     function arraySearchKey(array $haystack, mixed $column, mixed $needle): mixed
     {

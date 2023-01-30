@@ -18,7 +18,6 @@ class AccessAnalysisMiddleware
     {
         if (!config("access.time") && !config("access.path") && !config("access.method") && !config("access.user_agent") && !config("access.ip") && !config("access.memory")) return $next($request);
         if (strpos($request->getRequestUri(), "_debugbar") !== false) return $next($request);
-        // if (!config("access.event") && strpos($request->getRequestUri(), "api/event") !== false) return $next($request);
 
         dividerLog();
         infoLog("アクセス解析開始");

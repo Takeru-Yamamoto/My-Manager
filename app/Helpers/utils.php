@@ -2,7 +2,6 @@
 
 use App\Library;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 if (!function_exists('apiUtil')) {
     function apiUtil(string $url, array $params = array()): Library\APIUtil
@@ -32,10 +31,10 @@ if (!function_exists('eventUtil')) {
     }
 }
 
-if (!function_exists('requestFileUtil')) {
-    function requestFileUtil(Request $request, string $fileName, ?string $additionalUploadDirectory, ?string $registerName): Library\RequestFileUtil
+if (!function_exists('fileUtil')) {
+    function fileUtil(): Library\FileUtil
     {
-        return new Library\RequestFileUtil($request, $fileName, $additionalUploadDirectory, $registerName);
+        return new Library\FileUtil();
     }
 }
 
