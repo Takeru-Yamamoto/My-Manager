@@ -6,6 +6,7 @@ use App\Library\FileUtil\Exceptions\RequestFileNotFoundException;
 use App\Library\FileUtil\Exceptions\RequestFileNotSupportedException;
 use App\Library\FileUtil\RequestFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 abstract class BaseFileUtil
 {
@@ -54,7 +55,7 @@ abstract class BaseFileUtil
         return $this;
     }
 
-    public function addStorageFile(): self
+    public function addStorageFile(string $uploadDirectory, string $fileName): self
     {
 
         return $this;

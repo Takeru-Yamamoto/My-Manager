@@ -14,7 +14,7 @@ final class ImageStorageFile extends StorageFile
     private int $width;
     private int $height;
     private int $size;
-    private string $mineType;
+    private string $mimeType;
 
     private array $positions;
 
@@ -51,7 +51,7 @@ final class ImageStorageFile extends StorageFile
         $this->width    = $this->file->width();
         $this->height   = $this->file->height();
         $this->size     = $this->file->filesize();
-        $this->mineType = $this->file->mime();
+        $this->mimeType = $this->file->mime();
     }
 
     protected function childParams(): array
@@ -60,7 +60,7 @@ final class ImageStorageFile extends StorageFile
             "width"    => $this->width(),
             "height"   => $this->height(),
             "size"     => $this->size(),
-            "mineType" => $this->mineType(),
+            "mimeType" => $this->mimeType(),
         ];
     }
 
@@ -79,9 +79,9 @@ final class ImageStorageFile extends StorageFile
         return $this->size;
     }
 
-    public function mineType(): string
+    public function mimeType(): string
     {
-        return $this->mineType;
+        return $this->mimeType;
     }
 
 

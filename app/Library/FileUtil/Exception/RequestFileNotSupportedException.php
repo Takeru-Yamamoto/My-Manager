@@ -4,8 +4,8 @@ namespace App\Library\FileUtil\Exceptions;
 
 class RequestFileNotSupportedException extends \Exception
 {
-    public function __construct(string $fileName, string $mineType)
+    public function __construct(string $fileName, string $mimeType)
     {
-        parent::__construct("このファイルがサポートされているリクエストファイルがありません。 fileName: " . $fileName . " mineType: " . $mineType);
+        parent::__construct("このファイルがサポートされているリクエストファイルがありません。 fileName: " . $fileName . " mimeType: " . $mimeType);
     }
 }

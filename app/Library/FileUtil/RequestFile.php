@@ -14,7 +14,7 @@ abstract class RequestFile
 
     protected string $fileName;
     protected string $extension;
-    protected string $mineType;
+    protected string $mimeType;
     protected int $size;
 
     protected string $uploadDirectory;
@@ -28,7 +28,7 @@ abstract class RequestFile
 
         $this->fileName  = is_null($registerName) ? $this->file->getClientOriginalName() : $registerName;
         $this->extension = $this->file->extension();
-        $this->mineType  = $this->file->getClientMimeType();
+        $this->mimeType  = $this->file->getClientMimeType();
         $this->size      = $this->file->getSize();
 
         $this->uploadDirectory = self::BASE_UPLOAD_DIRECTORY;
@@ -59,7 +59,7 @@ abstract class RequestFile
             $this->storageFile = new StorageFile\ExcelStorageFile($this->uploadDirectory, $this->fileName);
         } else {
             $this->delete();
-            throw new StorageFileNotSupportedException($this->filePath, $this->mineType);
+            throw new StorageFileNotSupportedException($this->filePath, $this->mimeType);
         }
 
         return $this;
@@ -87,17 +87,17 @@ abstract class RequestFile
 
     final public function isImageFile(): bool
     {
-        return strpos($this->mineType(), 'image') !== false;
+        return strpos($this->mimeType(), 'image') !== false;
     }
 
     final public function isVideoFile(): bool
     {
-        return strpos($this->mineType(), 'image') !== false;
+        return strpos($this->mimeType(), 'image') !== false;
     }
 
     final public function isTextFile(): bool
     {
-        return strpos($this->mineType(), 'text') !== false;
+        return strpos($this->mimeType(), 'text') !== false;
     }
 
     final public function isExcelFile(): bool
@@ -110,7 +110,7 @@ abstract class RequestFile
         $params = [
             "fileName"  => $this->fileName(),
             "extension" => $this->extension(),
-            "mineType"  => $this->mineType(),
+            "mimeType"  => $this->mimeType(),
             "size"      => $this->size(),
             "filePath"  => $this->filePath(),
         ];
@@ -128,9 +128,9 @@ abstract class RequestFile
         return $this->extension;
     }
 
-    final public function mineType(): string
+    final public function mimeType(): string
     {
-        return $this->mineType;
+        return $this->mimeType;
     }
 
     final public function size(): int
