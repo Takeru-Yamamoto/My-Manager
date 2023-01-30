@@ -17,7 +17,7 @@ abstract class BaseCalendarUtil
 
     /* CSS変数 */
     private string $classCalendar;
-    private string $classCalendarTable;
+    private string $classTable;
     private string $classDay;
     private string $classSaturday;
     private string $classSunday;
@@ -35,13 +35,13 @@ abstract class BaseCalendarUtil
         $this->data    = [];
         $this->cellUrl = "";
 
-        $this->classCalendar      = "calendar";
-        $this->classCalendarTable = "table table-bordered";
-        $this->classDay           = "calendar-cell position-relative";
-        $this->classSaturday      = "table-primary";
-        $this->classSunday        = "table-danger";
-        $this->classOutRange      = "table-active invalid";
-        $this->classEvent         = "calendar-event rounded px-1 position-relative";
+        $this->classCalendar = config("library.calendar.class.calendar");
+        $this->classTable    = config("library.calendar.class.table");
+        $this->classDay      = config("library.calendar.class.day");
+        $this->classSaturday = config("library.calendar.class.saturday");
+        $this->classSunday   = config("library.calendar.class.sunday");
+        $this->classOutRange = config("library.calendar.class.out_range");
+        $this->classEvent    = config("library.calendar.class.event");
 
         $this->calendarHeight  = 750;
         $this->dayOfWeekUpperCase();
@@ -79,7 +79,7 @@ abstract class BaseCalendarUtil
     {
         $html = "";
         $html .= "<div class='" . $this->classCalendar . "'>";
-        $html .= "<table class='" . $this->classCalendarTable . "'>";
+        $html .= "<table class='" . $this->classTable . "'>";
         $html .= $this->tableHeader();
         $html .= $this->tableBody();
         $html .= "</table></div>";

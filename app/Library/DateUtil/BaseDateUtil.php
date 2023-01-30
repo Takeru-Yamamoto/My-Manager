@@ -6,20 +6,6 @@ use Carbon\Carbon;
 
 abstract class BaseDateUtil
 {
-    public static string $FORMAT_ZERO_DATE              = '0000-00-00';
-    public static string $FORMAT_DAY_START_TIME         = '00:00:00';
-    public static string $FORMAT_DAY_END_TIME           = '23:59:59';
-    public static string $FORMAT_DATE                   = 'Y-m-d';
-    public static string $FORMAT_MONTH                  = 'Y-m';
-    public static string $FORMAT_DATE_JP                = 'Y年n月j日';
-    public static string $FORMAT_MONTH_JP               = 'Y年n月';
-    public static string $FORMAT_DATE_CHAR              = 'Ymd';
-    public static string $FORMAT_DATE_FORMAT_CHAR_SHORT = 'ymd';
-    public static string $FORMAT_TIME                   = 'H:i:s';
-    public static string $FORMAT_DATETIME               = 'Y-m-d H:i:s';
-    public static string $FORMAT_DATETIME_JP            = 'Y年n月j日 G時i分';
-    public static string $FORMAT_DATETIME_CHAR          = 'YmdHis';
-
     private Carbon $carbon;
     private $any;
 
@@ -71,17 +57,17 @@ abstract class BaseDateUtil
 
     final public function toDate(): string
     {
-        return $this->carbon->format(self::$FORMAT_DATE);
+        return $this->carbon->format(config("library.date.format.date"));
     }
 
     final public function toDatetime(): string
     {
-        return $this->carbon->format(self::$FORMAT_DATETIME);
+        return $this->carbon->format(config("library.date.format.datetime"));
     }
 
     final public function toTime(): string
     {
-        return $this->carbon->format(self::$FORMAT_TIME);
+        return $this->carbon->format(config("library.date.format.time"));
     }
 
 

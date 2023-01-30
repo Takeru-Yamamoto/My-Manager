@@ -17,16 +17,13 @@ abstract class BaseAPIUtil
     private bool $isReceivedResponse;
     private bool $hasError;
 
-    private const ERROR_MESSAGE = "通信に失敗しました。";
-    private const SUCCESS_MESSAGE = "通信に成功しました。";
-
     function __construct(string $url, array $params = array())
     {
         $this->http   = new Http;
         $this->url    = $url;
         $this->params = $params;
-        $this->setErrorMessage(self::ERROR_MESSAGE);
-        $this->setSuccessMessage(self::SUCCESS_MESSAGE);
+        $this->setSuccessMessage(config("library.api.message.success"));
+        $this->setErrorMessage(config("library.api.message.failure"));
 
         $this->isReceivedResponse = false;
         $this->hasError          = false;

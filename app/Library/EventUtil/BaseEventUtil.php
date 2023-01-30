@@ -8,30 +8,33 @@ abstract class BaseEventUtil
 {
     final private function event(string $method, $event): void
     {
-        if (config("access.event")) {
+        if (config("library.event.log")) {
             infoLog("");
             infoLog("=== EVENT " . $method . " PUBLISHING START ===");
             infoLog("");
+        }
 
-            try {
+        try {
+            if (config("library.event.log")) {
                 if (method_exists($event, "parameters")) {
                     foreach ($event->parameters() as $key => $parameter) {
                         infoLog("EVENT PARAMS " . $key . ": " . json_encode($parameter, JSON_UNESCAPED_UNICODE));
                     }
                 }
-
-                event($event);
-                infoLog("EVENT " . $method . " IS PUBLISHED");
-            } catch (\Exception $e) {
-                infoLog("EVENT " . $method . " PUBLISHING FAILURE");
-                infoLog("ERROR: " . $e->getMessage());
             }
 
+            event($event);
+
+            if (config("library.event.log")) infoLog("EVENT " . $method . " IS PUBLISHED");
+        } catch (\Exception $e) {
+            errorLog("EVENT " . $method . " PUBLISHING FAILURE");
+            errorLog("ERROR: " . $e->getMessage());
+        }
+
+        if (config("library.event.log")) {
             infoLog("");
             infoLog("=== EVENT " . $method . " PUBLISHING END ===");
             infoLog("");
-        } else {
-            event($event);
         }
     }
 
