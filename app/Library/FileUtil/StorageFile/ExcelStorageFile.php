@@ -13,9 +13,8 @@ final class ExcelStorageFile extends StorageFile
 
     private int $count;
 
-    private array $names;
+    private array $sheets;
     private array $data;
-    private array $totalRows;
 
     function __construct(string $uploadDirectory, string $fileName)
     {
@@ -36,29 +35,30 @@ final class ExcelStorageFile extends StorageFile
 
         $this->count = $this->file->getSheetCount();
 
-        $this->names     = [];
+        $this->sheets    = [];
         $this->data      = [];
-        $this->totalRows = [];
 
         for ($i = 0; $i < $this->count; $i++) {
             $sheet = $this->file->getSheet($i);
-            $range     = $sheet->calculateWorksheetDimension();
 
-            if ($range === "A1:A1") continue;
-
-            $this->names[]                       = $sheet->getTitle();
-            $this->data[$sheet->getTitle()]      = $sheet->rangeToArray($range);
-            $this->totalRows[$sheet->getTitle()] = $sheet->getHighestRow();
+            $this->sheets[] = $sheet;
+            $this->data[] = [
+                "sheet" => $sheet,
+                "name" => $sheet->getTitle(),
+                "rows" => $sheet->getHighestRow(),
+                "columns" => $sheet->getHighestRow(),
+                "range" => $sheet->calculateWorksheetDimension(),
+                "cells" => $sheet->rangeToArray($sheet->calculateWorksheetDimension(), null, true, true, false),
+            ];
         }
     }
 
     protected function childParams(): array
     {
         return [
-            "count"     => $this->count(),
-            "names"     => $this->names(),
-            "data"      => $this->data(),
-            "totalRows" => $this->totalRows(),
+            "count" => $this->count(),
+            "sheets" => $this->sheets(),
+            "data" => $this->data(),
         ];
     }
 
@@ -67,18 +67,13 @@ final class ExcelStorageFile extends StorageFile
         return $this->count;
     }
 
-    public function names(): array
+    public function sheets(): array
     {
-        return $this->names;
+        return $this->sheets;
     }
 
     public function data(): array
     {
         return $this->data;
-    }
-
-    public function totalRows(): array
-    {
-        return $this->totalRows;
     }
 }
