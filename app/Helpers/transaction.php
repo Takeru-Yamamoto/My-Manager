@@ -30,10 +30,10 @@ if (!function_exists('Transaction')) {
                 // ROLLBACK
                 DB::rollback();
 
-                $message .= "ロールバックに成功しています。";
+                $message .= " ロールバックに成功しています。";
                 infoLog("ROLLBACK: success");
             } catch (\Exception $e2) {
-                $message .= "ロールバックに失敗しました。 Caused By " . $e2->getMessage();
+                $message .= " ロールバックに失敗しました。 Caused By " . $e2->getMessage();
                 infoLog("ROLLBACK: success");
                 infoLog("CAUSED: " . $e2->getMessage());
             }
