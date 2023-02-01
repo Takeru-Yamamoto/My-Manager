@@ -157,14 +157,6 @@ $(function ($) {
         }
     });
 
-    $(document).on("click", INPUT_FILE_DESTROY, function () {
-        var type = $(this).data("type");
-
-        var elem = $("#input-file-" + type);
-        elem.val(null);
-        elem.trigger("change");
-    });
-
     $(document).on("click", DELETE_BTN, function () {
         var url = $(this).data("url");
         var id = $(this).data("id");

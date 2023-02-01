@@ -13,8 +13,8 @@
                 for="input-file-{{ $type }}">ファイルを選択してください。</label>
         </div>
         <div class="input-group-append">
-            <button type="button" class="btn btn-outline-secondary input-group-text input-file-destroy"
-                data-type="{{ $type }}">取消</button>
+            <button type="button" id="input-file-destroy-{{ $type }}"
+                class="btn btn-outline-secondary input-group-text">取消</button>
         </div>
     </div>
 </div>
@@ -22,4 +22,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
 <script>
     bsCustomFileInput.init("input#input-file-{{ $type }}");
+    document.getElementById('input-file-destroy-{{ $type }}').addEventListener('click', function() {
+        var elem = document.getElementById('input-file-{{ $type }}');
+        elem.value = '';
+        elem.dispatchEvent(new Event('change'));
+    });
 </script>

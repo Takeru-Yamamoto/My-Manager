@@ -40,9 +40,6 @@ define("ACCORDION_HEADER", ".accordion-header");
 define("ACCORDION_OPEN", ".accordion-open");
 define("ACCORDION_CLOSE", ".accordion-close");
 
-/* input file */
-define("INPUT_FILE_DESTROY", ".input-file-destroy");
-
 /* common button */
 define("DELETE_BTN", ".delete-btn");
 define("FLG_CHANGE_BTN", ".flg-change-btn");
