@@ -5,6 +5,13 @@ use App\Repositories\UserRepository;
 use App\Repositories\Results\UserResult;
 use App\Consts\GateConst;
 
+if (!function_exists('isLoggedIn')) {
+    function isLoggedIn(): bool
+    {
+        return auth()->check();
+    }
+}
+
 if (!function_exists('authUser')) {
     function authUser(): User
     {

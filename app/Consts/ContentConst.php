@@ -54,6 +54,8 @@ class ContentConst
             self::ATTENDANCE,
             self::TASK,
         ],
+        GateConst::GUEST => [
+        ],
     ];
 
     public const SIDEBAR_ICONS = [
@@ -65,8 +67,9 @@ class ContentConst
 
     public const SIDEBAR_CLASSES = [
         GateConst::SYSTEM => [],
-        GateConst::ADMIN => [],
-        GateConst::USER => [],
+        GateConst::ADMIN  => [],
+        GateConst::USER   => [],
+        GateConst::GUEST  => [],
     ];
 
     public const BOOTSTRAP_COLORS = [

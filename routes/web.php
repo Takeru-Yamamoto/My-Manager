@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers as Controller;
+use App\Consts\ApplicationConst;
 use App\Consts\GateConst;
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,11 @@ use App\Consts\GateConst;
 |
 */
 
-Route::redirect('/', '/login');
+if (ApplicationConst::REQUIRED_LOGIN) {
+    Route::redirect('/', '/login');
+} else {
+    Route::redirect('/', '/home');
+}
 
 Route::get('/login', [Controller\Auth\LoginController::class, 'showLoginForm'])->name('showLoginForm');
 Route::post('/login', [Controller\Auth\LoginController::class, 'login'])->name('login');
@@ -25,8 +30,15 @@ Route::post('/password_forgot', [Controller\PasswordForgotController::class, 're
 Route::get('/password_reset/{token}/{email}', [Controller\PasswordForgotController::class, 'passwordResetForm'])->name('passwordResetForm');
 Route::post('/password_reset', [Controller\PasswordForgotController::class, 'passwordReset'])->name('passwordReset');
 
-Route::group(['middleware' => 'auth'], function () {
+if (!ApplicationConst::REQUIRED_LOGIN) {
     Route::get('/home', [Controller\HomeController::class, 'index'])->name('home');
+}
+
+Route::group(['middleware' => 'auth'], function () {
+    if (ApplicationConst::REQUIRED_LOGIN) {
+        Route::get('/home', [Controller\HomeController::class, 'index'])->name('home');
+    }
+
     Route::post('/search', [Controller\SearchController::class, 'search'])->name('search');
 
     // ユーザ

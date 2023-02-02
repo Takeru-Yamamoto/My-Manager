@@ -16,15 +16,22 @@
                 <li class="nav-item dropdown user-menu">
                     <a class="nav-link dropdown-toggle pointer" data-toggle="dropdown" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <span>{{ authUserName() }}</span>
+                        <span>{{ isLoggedIn() ? authUserName() : 'ゲスト' }}</span>
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuLink">
                         <li class="user-footer">
-                            <a class="btn btn-default btn-flat float-right btn-block logout-btn">
-                                <i class="fa fa-fw fa-power-off"></i>
-                                ログアウト
-                            </a>
+                            @if (isLoggedIn())
+                                <a class="btn btn-default btn-flat float-right btn-block logout-btn">
+                                    <i class="fa fa-fw fa-power-off"></i>
+                                    ログアウト
+                                </a>
+                            @else
+                                <a class="btn btn-default btn-flat float-right btn-block" href="{{ url('login') }}">
+                                    <i class="fa fa-fw fa-power-on"></i>
+                                    ログイン
+                                </a>
+                            @endif
                             <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                             </form>

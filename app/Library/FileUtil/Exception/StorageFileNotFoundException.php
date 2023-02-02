@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Library\FileUtil\Exceptions;
+namespace App\Library\FileUtil\Exception;
 
 class StorageFileNotFoundException extends \Exception
 {

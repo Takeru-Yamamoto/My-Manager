@@ -9,6 +9,7 @@ class GateConst
     public const SYSTEM        = "system";
     public const ADMIN         = "admin";
     public const USER          = "user";
+    public const GUEST         = "guest";
 
     public const ADMIN_HIGHER  = "admin-higher";
     public const USER_HIGHER   = "user-higher";

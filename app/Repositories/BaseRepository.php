@@ -28,7 +28,7 @@ abstract class BaseRepository
     abstract protected function model(): Model;
     abstract public function toResult(object $entity): JsonResult;
 
-    final private function initialize(): void
+    private function initialize(): void
     {
         $this->model = $this->model();
         $this->query = $this->model::query();

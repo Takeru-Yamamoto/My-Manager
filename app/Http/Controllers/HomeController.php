@@ -19,6 +19,7 @@ class HomeController extends Controller
 
     public function index(): View|Factory
     {
+        if (!isLoggedIn()) return $this->guestIndex();
         if (isSystem()) return $this->systemIndex();
         if (isAdmin()) return $this->adminIndex();
         if (isUser()) return $this->userIndex();
@@ -39,5 +40,10 @@ class HomeController extends Controller
         $attendance = $this->service->getAttendance();
         $tasks = $this->service->getTodaysTask();
         return view("pages.user", compact("attendance", "tasks"));
+    }
+    
+    public function guestIndex(): View|Factory
+    {
+        return view("pages.guest");
     }
 }

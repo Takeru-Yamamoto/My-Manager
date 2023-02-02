@@ -7,6 +7,8 @@ use App\Consts\ApplicationConst;
 if (!function_exists('role')) {
     function role(): string
     {
+        if (!isLoggedIn()) return GateConst::GUEST;
+
         $role = authUserRole();
 
         if ($role === GateConst::SYSTEM_NUMBER) return GateConst::SYSTEM;
@@ -18,6 +20,8 @@ if (!function_exists('role')) {
 if (!function_exists('roleNum')) {
     function roleNum(): int
     {
+        if (!isLoggedIn()) return 0;
+
         $role = authUserRole();
 
         if ($role === GateConst::SYSTEM_NUMBER) return GateConst::SYSTEM_NUMBER;
@@ -63,7 +67,7 @@ if (!function_exists('urlSegment')) {
 if (!function_exists('contentHeader')) {
     function contentHeader(string $content = null): string
     {
-        if(is_null($content))$content = urlSegment();
+        if (is_null($content)) $content = urlSegment();
         return isset(ContentConst::TITLES[$content]) ? ContentConst::TITLES[$content] . ContentConst::IS_TITLE : "";
     }
 }
