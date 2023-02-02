@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Forms\Task;
+namespace App\Http\Forms\TaskColor;
 
 use App\Http\Forms\BaseForm;
 
-class DeleteTaskColorForm extends BaseForm
+class DeleteForm extends BaseForm
 {
     public $id;
 

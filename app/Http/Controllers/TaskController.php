@@ -13,7 +13,6 @@ use App\Http\Forms\Task as Forms;
 use App\Services\TaskService;
 
 use Illuminate\Http\JsonResponse;
-use App\Consts\ContentConst;
 
 class TaskController extends Controller
 {
@@ -86,40 +85,5 @@ class TaskController extends Controller
 		if ($form->hasError()) throw $form->exception();
 
 		$this->service->delete($form);
-	}
-
-	public function taskColorModal(): View|Factory
-	{
-		$taskColors = $this->service->TaskColorRepository->get();
-		$bootstrapColors = ContentConst::BOOTSTRAP_COLORS;
-
-		return view("pages.task.taskColorModal", compact("taskColors", "bootstrapColors"));
-	}
-
-	public function createTaskColor(Request $request): string
-	{
-		$form = new Forms\CreateTaskColorForm($request->all());
-
-		if ($form->hasError()) throw $form->exception();
-
-		return getTextFromConst($this->service->createTaskColor($form));
-	}
-
-	public function updateTaskColor(Request $request): string
-	{
-		$form = new Forms\UpdateTaskColorForm($request->all());
-
-		if ($form->hasError()) throw $form->exception();
-
-		return getTextFromConst($this->service->updateTaskColor($form));
-	}
-
-	public function deleteTaskColor(Request $request): void
-	{
-		$form = new Forms\DeleteTaskColorForm($request->all());
-
-		if ($form->hasError()) throw $form->exception();
-
-		$this->service->deleteTaskColor($form);
 	}
 }

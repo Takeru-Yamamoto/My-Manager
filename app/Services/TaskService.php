@@ -77,39 +77,4 @@ class TaskService extends BaseService
 
         $task->safeDelete();
     }
-
-    public function createTaskColor(Forms\CreateTaskColorForm $form): string
-    {
-        $taskColor = $this->TaskColorRepository->createEntity(
-            $form->color,
-            $form->description
-        );
-
-        $taskColor->safeCreate();
-
-        return TextConst::TASK_COLOR_CREATED;
-    }
-
-    public function updateTaskColor(Forms\UpdateTaskColorForm $form): string
-    {
-        $taskColor = $this->TaskColorRepository->findRawById($form->id);
-
-        if (is_null($taskColor)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
-
-        $taskColor->color       = $form->color;
-        $taskColor->description = $form->description;
-
-        $taskColor->safeUpdate();
-
-        return TextConst::TASK_COLOR_UPDATED;
-    }
-
-    public function deleteTaskColor(Forms\DeleteTaskColorForm $form): void
-    {
-        $taskColor = $this->TaskColorRepository->findRawById($form->id);
-
-        if (is_null($taskColor)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
-
-        $taskColor->safeDelete();
-    }
 }

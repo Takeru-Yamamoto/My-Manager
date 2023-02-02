@@ -7,7 +7,7 @@
         'id'       => 0,
         'text'     => 'タスク分類',
         'type'     => 'GET',
-        'url'      => url('task/task_color'),
+        'url'      => url('task_color'),
     ])
 @stop
 

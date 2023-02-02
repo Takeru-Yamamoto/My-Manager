@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Http\Forms\Task;
+namespace App\Http\Forms\TaskColor;
 
 use App\Http\Forms\BaseForm;
 
-class UpdateTaskColorForm extends BaseForm
+class CreateForm extends BaseForm
 {
-    public $id;
     public $color;
     public $description;
 
     protected function validationRule(): array
     {
         return [
-            'id'          => $this->required($this->id("task_colors")),
             'color'       => $this->required($this->string()),
             'description' => $this->required($this->string()),
         ];
@@ -21,7 +19,6 @@ class UpdateTaskColorForm extends BaseForm
 
     protected function bind(array $input): void
     {
-        $this->id          = intval($input['id']);
         $this->color       = strval($input['color']);
         $this->description = strval($input['description']);
     }
