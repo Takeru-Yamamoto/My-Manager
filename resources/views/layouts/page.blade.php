@@ -23,12 +23,12 @@
                         <li class="user-footer">
                             @if (isLoggedIn())
                                 <a class="btn btn-default btn-flat float-right btn-block logout-btn">
-                                    <i class="fa fa-fw fa-power-off"></i>
+                                    <i class="fa-solid fa-power-off"></i>
                                     ログアウト
                                 </a>
                             @else
                                 <a class="btn btn-default btn-flat float-right btn-block" href="{{ url('login') }}">
-                                    <i class="fa fa-fw fa-power-on"></i>
+                                    <i class="fa-solid fa-right-to-bracket"></i>
                                     ログイン
                                 </a>
                             @endif
