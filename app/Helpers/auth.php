@@ -27,22 +27,22 @@ if (!function_exists('authUserResult')) {
 if (!function_exists('isSystem')) {
     function isSystem(User $user = null): bool
     {
-        $role = is_null($user) ? authUserRole() : $user->role;
-        return $role === GateConst::SYSTEM_NUMBER;
+        $roleNum = is_null($user) ? roleNum(authUser()) : roleNum($user);
+        return $roleNum === GateConst::SYSTEM_NUMBER;
     }
 }
 if (!function_exists('isAdmin')) {
     function isAdmin(User $user = null): bool
     {
-        $role = is_null($user) ? authUserRole() : $user->role;
-        return $role > GateConst::SYSTEM_NUMBER && $role <= GateConst::ADMIN_NUMBER;
+        $roleNum = is_null($user) ? roleNum(authUser()) : roleNum($user);
+        return $roleNum === GateConst::ADMIN_NUMBER;
     }
 }
 if (!function_exists('isUser')) {
     function isUser(User $user = null): bool
     {
-        $role = is_null($user) ? authUserRole() : $user->role;
-        return $role > GateConst::ADMIN_NUMBER && $role <= GateConst::USER_NUMBER;
+        $roleNum = is_null($user) ? roleNum(authUser()) : roleNum($user);
+        return $roleNum === GateConst::USER_NUMBER;
     }
 }
 if (!function_exists('isAdminHigher')) {
