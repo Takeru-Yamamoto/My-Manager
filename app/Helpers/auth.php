@@ -11,14 +11,12 @@ if (!function_exists('isLoggedIn')) {
         return auth()->check();
     }
 }
-
 if (!function_exists('authUser')) {
     function authUser(): User
     {
         return auth()->user();
     }
 }
-
 if (!function_exists('authUserResult')) {
     function authUserResult(): UserResult
     {
@@ -26,7 +24,6 @@ if (!function_exists('authUserResult')) {
         return $UserRepository->toResult(authUser());
     }
 }
-
 if (!function_exists('isSystem')) {
     function isSystem(User $user = null): bool
     {
@@ -34,7 +31,6 @@ if (!function_exists('isSystem')) {
         return $role === GateConst::SYSTEM_NUMBER;
     }
 }
-
 if (!function_exists('isAdmin')) {
     function isAdmin(User $user = null): bool
     {
@@ -42,7 +38,6 @@ if (!function_exists('isAdmin')) {
         return $role > GateConst::SYSTEM_NUMBER && $role <= GateConst::ADMIN_NUMBER;
     }
 }
-
 if (!function_exists('isUser')) {
     function isUser(User $user = null): bool
     {
@@ -50,7 +45,6 @@ if (!function_exists('isUser')) {
         return $role > GateConst::ADMIN_NUMBER && $role <= GateConst::USER_NUMBER;
     }
 }
-
 if (!function_exists('isAdminHigher')) {
     function isAdminHigher(User $user = null): bool
     {
@@ -58,21 +52,18 @@ if (!function_exists('isAdminHigher')) {
         return isSystem($user) || isAdmin($user);
     }
 }
-
 if (!function_exists('authUserId')) {
     function authUserId(): int
     {
         return authUser()->id;
     }
 }
-
 if (!function_exists('authUserName')) {
     function authUserName(): string
     {
         return authUser()->name;
     }
 }
-
 if (!function_exists('authUserRole')) {
     function authUserRole(): int
     {

@@ -27,7 +27,6 @@ final class TextStorageFile extends StorageFile
         $this->reset($uploadDirectory, $fileName);
         return $this;
     }
-
     protected function setChild(): void
     {
         $csv = new Csv;
@@ -36,7 +35,6 @@ final class TextStorageFile extends StorageFile
         $this->file          = $csv->setInputEncoding($this->characterCode)->load($this->filePath)->getSheet(0);
         $this->data          = $this->file->rangeToArray($this->file->calculateWorksheetDimension());
     }
-
     protected function childParams(): array
     {
         return [
@@ -49,7 +47,6 @@ final class TextStorageFile extends StorageFile
     {
         return $this->characterCode;
     }
-
     public function data(): array
     {
         return $this->data;

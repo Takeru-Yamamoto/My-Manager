@@ -48,7 +48,6 @@
             "app/Helpers/session.php",
             "app/Helpers/sns.php",
             "app/Helpers/text.php",
-            "app/Helpers/tooltip.php",
             "app/Helpers/transaction.php",
             "app/Helpers/unique.php",
             "app/Helpers/useful.php",

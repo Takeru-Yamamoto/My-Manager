@@ -43,7 +43,6 @@ final class ImageStorageFile extends StorageFile
         $this->reset($uploadDirectory, $fileName);
         return $this;
     }
-
     protected function setChild(): void
     {
         $this->file = FacadeImage::make(storage_path("app/" . $this->filePath));
@@ -53,7 +52,6 @@ final class ImageStorageFile extends StorageFile
         $this->size     = $this->file->filesize();
         $this->mimeType = $this->file->mime();
     }
-
     protected function childParams(): array
     {
         return [
@@ -68,22 +66,18 @@ final class ImageStorageFile extends StorageFile
     {
         return $this->width;
     }
-
     public function height(): int
     {
         return $this->height;
     }
-
     public function size(): int
     {
         return $this->size;
     }
-
     public function mimeType(): string
     {
         return $this->mimeType;
     }
-
 
     // 画像の形式を変更する
     private function encode(string $extension, int $quality = 100): self
@@ -109,7 +103,6 @@ final class ImageStorageFile extends StorageFile
         return $this->encode("webp");
     }
 
-
     // 画像編集
     /* 
         画像をトリミングする
@@ -123,7 +116,6 @@ final class ImageStorageFile extends StorageFile
         $this->file = $this->file->crop($width, $height, $x, $y);
         return $this;
     }
-
 
     /* 
         画像のサイズを変更する
@@ -146,7 +138,6 @@ final class ImageStorageFile extends StorageFile
         return $this->resize($width, null);
     }
 
-
     /* 
         キャンバスサイズを変更する
         width   : 変更後のキャンバスサイズの横幅
@@ -161,7 +152,6 @@ final class ImageStorageFile extends StorageFile
         return $this;
     }
 
-
     /* 
         画像を歪まないようにトリミングする
         width   : トリミングする範囲の横幅
@@ -175,7 +165,6 @@ final class ImageStorageFile extends StorageFile
         $this->file = $this->file->fit($width, $height, null, $position);
         return $this;
     }
-
 
     /* 
         画像を重ねる
@@ -194,7 +183,6 @@ final class ImageStorageFile extends StorageFile
         return $this;
     }
 
-
     /* 
         画像を反転させる
         v: 上下
@@ -211,7 +199,6 @@ final class ImageStorageFile extends StorageFile
         return $this;
     }
 
-
     /* 
         画像をモノクロにする
     */
@@ -221,7 +208,6 @@ final class ImageStorageFile extends StorageFile
         return $this;
     }
 
-
     /* 
         画像の色を反転させる
     */
@@ -230,7 +216,6 @@ final class ImageStorageFile extends StorageFile
         $this->file = $this->file->invert();
         return $this;
     }
-
 
     /* 
         画像の色数を変更する
@@ -243,7 +228,6 @@ final class ImageStorageFile extends StorageFile
         return $this;
     }
 
-
     /* 
         画像をぼやけさせる
         0  : ほとんどぼやけさせない
@@ -255,7 +239,6 @@ final class ImageStorageFile extends StorageFile
         $this->file = $this->file->blur($amount);
         return $this;
     }
-
 
     /* 
         画像を透過させる
@@ -270,7 +253,6 @@ final class ImageStorageFile extends StorageFile
         return $this;
     }
 
-
     /* 
         画像にガンマ補正をする
         correction: ガンマ補正値
@@ -281,7 +263,6 @@ final class ImageStorageFile extends StorageFile
         return $this;
     }
 
-
     /* 
         画像にモザイク処理をする
         size: 大きいほどモザイク処理がきつくなる
@@ -291,7 +272,6 @@ final class ImageStorageFile extends StorageFile
         $this->file = $this->file->pixelate($size);
         return $this;
     }
-
 
     /* 
         画像を鮮明にする
@@ -304,7 +284,6 @@ final class ImageStorageFile extends StorageFile
         $this->file = $this->file->sharpen($amount);
         return $this;
     }
-
 
     /* 
         画像の明るさを変更する
@@ -320,7 +299,6 @@ final class ImageStorageFile extends StorageFile
         return $this;
     }
 
-
     /* 
         画像のコントラストを変更する
         -100: 最大限コントラストを減らす
@@ -334,7 +312,6 @@ final class ImageStorageFile extends StorageFile
         $this->file = $this->file->brightness($level);
         return $this;
     }
-
 
     /* 
         画像の色調を変更する
@@ -351,7 +328,6 @@ final class ImageStorageFile extends StorageFile
         $this->file = $this->file->colorize($red, $green, $blue);
         return $this;
     }
-
 
     /* 
         画像を回転する

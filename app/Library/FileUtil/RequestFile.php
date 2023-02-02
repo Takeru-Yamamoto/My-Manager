@@ -143,7 +143,7 @@ abstract class RequestFile
         return $this->filePath;
     }
 
-    final private function isNameDuplicate()
+    final private function isNameDuplicate(): void
     {
         $exploded = explode(".", $this->fileName);
 

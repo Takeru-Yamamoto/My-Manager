@@ -6,15 +6,19 @@ use App\Library\FileUtil\StorageFile;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 final class ExcelStorageFile extends StorageFile
 {
     public Spreadsheet $file;
 
-    private int $count;
+    private int $sheetCount;
 
     private array $sheets;
-    private array $data;
+    private array $sheetData;
+
+    private Worksheet $targetSheet;
+    private int $targetSheetPage;
 
     function __construct(string $uploadDirectory, string $fileName)
     {
@@ -33,47 +37,95 @@ final class ExcelStorageFile extends StorageFile
     {
         $this->file = IOFactory::load($this->filePath);
 
-        $this->count = $this->file->getSheetCount();
+        $this->sheetCount = $this->file->getSheetCount();
 
         $this->sheets    = [];
-        $this->data      = [];
+        $this->sheetData = [];
 
-        for ($i = 0; $i < $this->count; $i++) {
+        for ($i = 0; $i < $this->sheetCount; $i++) {
             $sheet = $this->file->getSheet($i);
 
-            $this->sheets[] = $sheet;
-            $this->data[] = [
-                "sheet" => $sheet,
-                "name" => $sheet->getTitle(),
-                "rows" => $sheet->getHighestRow(),
+            $this->sheets[]    = $sheet;
+            $this->sheetData[] = [
+                "page"    => $i,
+                "name"    => $sheet->getTitle(),
+                "rows"    => $sheet->getHighestRow(),
                 "columns" => $sheet->getHighestRow(),
-                "range" => $sheet->calculateWorksheetDimension(),
-                "cells" => $sheet->rangeToArray($sheet->calculateWorksheetDimension(), null, true, true, false),
+                "range"   => $sheet->calculateWorksheetDimension(),
             ];
         }
+
+        $this->pivotFirst();
     }
 
     protected function childParams(): array
     {
         return [
-            "count" => $this->count(),
-            "sheets" => $this->sheets(),
-            "data" => $this->data(),
+            "sheets"          => $this->sheets(),
+            "sheetCount"      => $this->sheetCount(),
+            "sheetData"       => $this->sheetData(),
+            "targetSheet"     => $this->targetSheet(),
+            "targetSheetPage" => $this->targetSheetPage(),
         ];
     }
-
-    public function count(): int
-    {
-        return $this->count;
-    }
-
     public function sheets(): array
     {
         return $this->sheets;
     }
-
-    public function data(): array
+    public function sheetCount(): int
     {
-        return $this->data;
+        return $this->sheetCount;
+    }
+    public function sheetData(): array
+    {
+        return $this->sheetData;
+    }
+    public function targetSheet(): Worksheet
+    {
+        return $this->targetSheet;
+    }
+    public function targetSheetPage(): int
+    {
+        return $this->targetSheetPage;
+    }
+
+    public function setSheet(int $page = null): self
+    {
+        if (is_null($page)) $page = $this->targetSheetPage;
+        if ($page > 0 && $page <= $this->sheetCount) $this->targetSheet = $this->file->getSheet($page);
+        return $this;
+    }
+    public function pivotPrev(): self
+    {
+        if ($this->targetSheetPage !== 0) $this->targetSheetPage--;
+        return $this->setSheet();
+    }
+    public function pivotNext(): self
+    {
+        if ($this->targetSheetPage < $this->sheetCount) $this->targetSheetPage++;
+        return $this->setSheet();
+    }
+    public function pivotFirst(): self
+    {
+        $this->targetSheetPage = 0;
+        return $this->setSheet();
+    }
+    public function pivotLast(): self
+    {
+        $this->targetSheetPage = $this->sheetCount;
+        return $this->setSheet();
+    }
+
+    public function allCellValue(): array
+    {
+        return $this->targetSheet->rangeToArray($this->targetSheet->calculateWorksheetDimension(), null, true, true, false);
+    }
+    public function cellValue(string $cell): mixed
+    {
+        return $this->targetSheet->getCell($cell)->getValue();
+    }
+    public function cellIsNull(string $cell): bool
+    {
+        return is_null($this->cellValue($cell));
     }
 }

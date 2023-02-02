@@ -24,13 +24,9 @@ if (!function_exists('sendMail')) {
         }
 
         emphasisLog('MAIL SEND TO ' . $to);
-
-        $result = Mail::to($to)->send(new MyMail($viewName, $data));
-
-        return !is_null($result);
+        return !is_null(Mail::to($to)->send(new MyMail($viewName, $data)));
     }
 }
-
 if (!function_exists('sendLine')) {
     function sendLine(string $to, string $message, ?string $accessToken = null, ?string $channelSecret = null): bool
     {
@@ -60,8 +56,6 @@ if (!function_exists('sendLine')) {
         return $response->isSucceeded();
     }
 }
-
-
 if (!function_exists('sendSMS')) {
     function sendSMS(string $to, string $message, ?string $from = null, ?string $accountSid = null, ?string $authToken = null, ?string $statusCallback = null): bool
     {

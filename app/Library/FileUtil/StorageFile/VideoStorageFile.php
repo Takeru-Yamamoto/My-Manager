@@ -31,7 +31,6 @@ final class VideoStorageFile extends StorageFile
         $this->reset($uploadDirectory, $fileName);
         return $this;
     }
-
     protected function setChild(): void
     {
         $ffmpeg     = FFMpeg::fromdisk("local")->open($this->filePath);
@@ -42,7 +41,6 @@ final class VideoStorageFile extends StorageFile
         $this->height  = $stream->get("height");
         $this->seconds = $stream->getDurationInSeconds();
     }
-
     protected function childParams(): array
     {
         return [
@@ -56,12 +54,10 @@ final class VideoStorageFile extends StorageFile
     {
         return $this->width;
     }
-
     public function height(): int
     {
         return $this->height;
     }
-
     public function seconds(): int
     {
         return $this->seconds;

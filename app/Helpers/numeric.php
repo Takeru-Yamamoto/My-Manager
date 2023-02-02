@@ -6,14 +6,12 @@ if (!function_exists('squared')) {
         return pow($num, 2);
     }
 }
-
 if (!function_exists('cubed')) {
     function cubed(int|float $num): int|float|object
     {
         return pow($num, 3);
     }
 }
-
 if (!function_exists('isPrime')) {
     function isPrime(int $num): bool
     {
@@ -27,17 +25,14 @@ if (!function_exists('isPrime')) {
         if (is_int(sqrt($num))) return false;
 
         $max = floor(sqrt($num));
-
         for ($i = 3; $i <= $max; $i += 2) {
             if ($num % $i == 0) {
                 return false;
             }
         }
-
         return true;
     }
 }
-
 if (!function_exists('fibonacci')) {
     function fibonacci(int $num): int
     {
