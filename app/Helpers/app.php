@@ -3,22 +3,23 @@
 use App\Consts\GateConst;
 use App\Consts\ContentConst;
 use App\Consts\ApplicationConst;
+use App\Models\User;
 
 if (!function_exists('role')) {
-    function role(): string
+    function role(User $user = null): string
     {
         if (!isLoggedIn()) return GateConst::GUEST;
-        $role = authUserRole();
+        $role = is_null($user) ? authUserRole() : $user->role;
         if ($role === GateConst::SYSTEM_NUMBER) return GateConst::SYSTEM;
         if ($role > GateConst::SYSTEM_NUMBER && $role <= GateConst::ADMIN_NUMBER) return GateConst::ADMIN;
         if ($role > GateConst::ADMIN_NUMBER && $role <= GateConst::USER_NUMBER) return GateConst::USER;
     }
 }
 if (!function_exists('roleNum')) {
-    function roleNum(): int
+    function roleNum(User $user = null): int
     {
         if (!isLoggedIn()) return 0;
-        $role = authUserRole();
+        $role = is_null($user) ? authUserRole() : $user->role;
         if ($role === GateConst::SYSTEM_NUMBER) return GateConst::SYSTEM_NUMBER;
         if ($role > GateConst::SYSTEM_NUMBER && $role <= GateConst::ADMIN_NUMBER) return GateConst::ADMIN_NUMBER;
         if ($role > GateConst::ADMIN_NUMBER && $role <= GateConst::USER_NUMBER) return GateConst::USER_NUMBER;
