@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Services\BaseService;
 
 use App\Http\Forms\Task as Forms;
-use App\Consts\TextConst;
 use Illuminate\Http\JsonResponse;
 
 class TaskService extends BaseService
@@ -36,7 +35,7 @@ class TaskService extends BaseService
         return responseJson($events);
     }
 
-    public function create(Forms\CreateForm $form): string
+    public function create(Forms\CreateForm $form): bool
     {
         $task = $this->TaskRepository->createEntity(
             authUserId(),
@@ -49,14 +48,12 @@ class TaskService extends BaseService
 
         $task->safeCreate();
 
-        return TextConst::TASK_CREATED;
+        return true;
     }
 
-    public function update(Forms\UpdateForm $form): string
+    public function update(Forms\UpdateForm $form): bool
     {
         $task = $this->TaskRepository->findRawById($form->id);
-
-        if (is_null($task)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
         $task->start_date    = $form->startDate;
         $task->end_date      = $form->endDate;
@@ -66,14 +63,12 @@ class TaskService extends BaseService
 
         $task->safeUpdate();
 
-        return TextConst::TASK_UPDATED;
+        return true;
     }
 
     public function delete(Forms\DeleteForm $form): void
     {
         $task = $this->TaskRepository->findRawById($form->id);
-
-        if (is_null($task)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
         $task->safeDelete();
     }

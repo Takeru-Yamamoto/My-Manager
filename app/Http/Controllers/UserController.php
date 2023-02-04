@@ -25,8 +25,6 @@ class UserController extends Controller
 	{
 		$form = new Forms\IndexForm($request->all());
 
-		if ($form->hasError()) throw $form->exception();
-
 		$users = $this->service->getLowerThanRole($form);
 
 		return view('pages.user.index', compact("form", "users"));
@@ -39,42 +37,30 @@ class UserController extends Controller
 
 	public function create(Request $request): Redirector|RedirectResponse
 	{
-		$form = new Forms\CreateForm($request->all());
+		$this->service->create(new Forms\CreateForm($request->all()));
 
-		if ($form->hasError()) return $form->redirect();
-
-		return successRedirect("user", $this->service->create($form));
+		return successRedirect("user", configText("user_created"));
 	}
 
 	public function updateForm(int $id): View|Factory
 	{
-		return view('pages.user.update', ['user' => $this->service->findById($id)]);
+		return view('pages.user.update', ['user' => $this->service->findById(new Forms\UpdatePreparationForm(compact("id")))]);
 	}
 
 	public function update(Request $request): Redirector|RedirectResponse
 	{
-		$form = new Forms\UpdateForm($request->all());
+		$this->service->update(new Forms\UpdateForm($request->all()));
 
-		if ($form->hasError()) return $form->redirect();
-
-		return successRedirect("user", $this->service->update($form));
+		return successRedirect("user", configText("user_updated"));
 	}
 
 	public function delete(Request $request): void
 	{
-		$form = new Forms\DeleteForm($request->all());
-
-		if ($form->hasError()) throw $form->exception();
-
-		$this->service->delete($form);
+		$this->service->delete(new Forms\DeleteForm($request->all()));
 	}
 
 	public function changeIsValid(Request $request): void
 	{
-		$form = new Forms\ChangeIsValidForm($request->all());
-
-		if ($form->hasError()) throw $form->exception();
-
-		$this->service->changeIsValid($form);
+		$this->service->changeIsValid(new Forms\ChangeIsValidForm($request->all()));
 	}
 }

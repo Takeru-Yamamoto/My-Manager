@@ -19,10 +19,6 @@ class SearchController extends Controller
 
     public function search(Request $request): array|null
     {
-        $form = new Forms\SearchForm($request->all());
-
-        if ($form->hasError()) throw $form->exception();
-
-        return $this->service->search($form);
+        return $this->service->search(new Forms\SearchForm($request->all()));
     }
 }

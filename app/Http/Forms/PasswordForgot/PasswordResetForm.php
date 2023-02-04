@@ -10,23 +10,27 @@ class PasswordResetForm extends BaseForm
     public $email;
     public $token;
 
+    protected function prepareForValidation(): void
+    {
+    }
+
     protected function validationRule(): array
     {
         return [
-            'password' => $this->required($this->passwordConfirmed()),
-            'email'    => $this->required($this->email()),
-            'token'    => $this->required($this->string()),
+            "password" => $this->required($this->passwordConfirmed()),
+            "email"    => $this->required($this->email(), $this->exists("users")),
+            "token"    => $this->required($this->string()),
         ];
     }
 
-    protected function bind(array $input): void
+    protected function bind(): void
     {
-        $this->password = strval($input['password']);
-        $this->email    = strval($input['email']);
-        $this->token    = strval($input['token']);
+        $this->password = strval($this->input["password"]);
+        $this->email    = strval($this->input["email"]);
+        $this->token    = strval($this->input["token"]);
     }
 
-    protected function validateAfterBinding(): void
+    protected function afterBinding(): void
     {
     }
 }

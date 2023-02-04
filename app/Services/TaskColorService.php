@@ -5,11 +5,10 @@ namespace App\Services;
 use App\Services\BaseService;
 
 use App\Http\Forms\TaskColor as Forms;
-use App\Consts\TextConst;
 
 class TaskColorService extends BaseService
 {
-    public function create(Forms\CreateForm $form): string
+    public function create(Forms\CreateForm $form): bool
     {
         $taskColor = $this->TaskColorRepository->createEntity(
             $form->color,
@@ -18,28 +17,24 @@ class TaskColorService extends BaseService
 
         $taskColor->safeCreate();
 
-        return TextConst::TASK_COLOR_CREATED;
+        return true;
     }
 
-    public function update(Forms\UpdateForm $form): string
+    public function update(Forms\UpdateForm $form): bool
     {
         $taskColor = $this->TaskColorRepository->findRawById($form->id);
-
-        if (is_null($taskColor)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
         $taskColor->color       = $form->color;
         $taskColor->description = $form->description;
 
         $taskColor->safeUpdate();
 
-        return TextConst::TASK_COLOR_UPDATED;
+        return true;
     }
 
     public function delete(Forms\DeleteForm $form): void
     {
         $taskColor = $this->TaskColorRepository->findRawById($form->id);
-
-        if (is_null($taskColor)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
         $taskColor->safeDelete();
     }

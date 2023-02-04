@@ -9,21 +9,25 @@ class AuthenticationCodeForm extends BaseForm
     public $userId;
     public $email;
 
+    protected function prepareForValidation(): void
+    {
+    }
+
     protected function validationRule(): array
     {
         return [
-            'user_id' => $this->required($this->userId()),
-            'email'   => $this->required($this->email()),
+            "user_id" => $this->required($this->userId()),
+            "email"   => $this->required($this->email(), $this->unique("users")),
         ];
     }
 
-    protected function bind(array $input): void
+    protected function bind(): void
     {
-        $this->userId = strval($input['user_id']);
-        $this->email  = strval($input['email']);
+        $this->userId = strval($this->input["user_id"]);
+        $this->email  = strval($this->input["email"]);
     }
 
-    protected function validateAfterBinding(): void
+    protected function afterBinding(): void
     {
     }
 }

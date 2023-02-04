@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Forms\Task;
+namespace App\Http\Forms\User;
 
 use App\Http\Forms\BaseForm;
 
-class DeleteForm extends BaseForm
+class UpdatePreparationForm extends BaseForm
 {
     public $id;
 
@@ -15,15 +15,15 @@ class DeleteForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            'id' => $this->required($this->id("tasks")),
+            "id" => $this->required($this->userId()),
         ];
     }
 
     protected function bind(): void
     {
-        $this->id = intval($this->input['id']);
+        $this->id = intval($this->input["id"]);
     }
-
+    
     protected function afterBinding(): void
     {
     }

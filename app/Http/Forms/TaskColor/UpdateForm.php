@@ -10,6 +10,10 @@ class UpdateForm extends BaseForm
     public $color;
     public $description;
 
+    protected function prepareForValidation(): void
+    {
+    }
+
     protected function validationRule(): array
     {
         return [
@@ -19,14 +23,14 @@ class UpdateForm extends BaseForm
         ];
     }
 
-    protected function bind(array $input): void
+    protected function bind(): void
     {
-        $this->id          = intval($input['id']);
-        $this->color       = strval($input['color']);
-        $this->description = strval($input['description']);
+        $this->id          = intval($this->input['id']);
+        $this->color       = strval($this->input['color']);
+        $this->description = strval($this->input['description']);
     }
 
-    protected function validateAfterBinding(): void
+    protected function afterBinding(): void
     {
     }
 }

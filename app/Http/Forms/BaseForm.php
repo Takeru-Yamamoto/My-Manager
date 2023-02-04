@@ -2,68 +2,33 @@
 
 namespace App\Http\Forms;
 
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Routing\Redirector;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\MessageBag;
-
-use App\Exceptions\InvalidFormException;
+use Illuminate\Support\Facades\Validator as Validation;
+use Illuminate\Validation\Validator;
 
 abstract class BaseForm extends ValidationRule
 {
-    public array $errors = [];
+    protected Validator $validator;
+    protected array $input;
 
     public function __construct(array $input)
     {
-        $this->validate($input);
+        $this->input = $input;
 
-        if (!$this->hasError()) {
-            $this->bind($input);
+        $this->prepareForValidation();
 
-            $this->validateAfterBinding();
-        }
+        $this->validator = Validation::make($input, $this->validationRule());
+
+        if ($this->validator->fails()) $this->validator->validate();
+
+        $this->input = $this->validator->validated();
+
+        $this->bind();
+
+        $this->afterBinding();
     }
 
-    abstract protected function bind(array $input): void;
+    abstract protected function prepareForValidation(): void;
+    abstract protected function bind(): void;
     abstract protected function validationRule(): array;
-    abstract protected function validateAfterBinding(): void;
-
-
-    protected function validate(array $input): void
-    {
-        $validation = Validator::make($input, $this->validationRule());
-
-        if ($validation->fails()) {
-            $messages = $validation->errors()->getMessages();
-
-            foreach ($messages as $message) {
-                foreach ($message as $row) {
-                    $this->addError($row);
-                }
-            }
-        }
-    }
-
-
-    public function hasError(): bool
-    {
-        return !empty($this->errors);
-    }
-
-    public function addError(string $errorText): void
-    {
-        $this->errors[] = $errorText;
-    }
-
-    public function redirect(string $path = null): Redirector|RedirectResponse
-    {
-        if(is_null($path)) $path = url()->previous();
-        return redirect($path)->with('errors', new MessageBag($this->errors))->withInput();
-    }
-
-    public function exception(string $errorText = null): InvalidFormException
-    {
-        if (!is_null($errorText)) $this->addError($errorText);
-        return new InvalidFormException($this);
-    }
+    abstract protected function afterBinding(): void;
 }

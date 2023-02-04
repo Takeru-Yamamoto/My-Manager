@@ -223,7 +223,6 @@ return [
         'MailConst' => App\Consts\MailConst::class,
         'NameConst' => App\Consts\NameConst::class,
         'PrefectureConst' => App\Consts\PrefectureConst::class,
-        'TextConst' => App\Consts\TextConst::class,
 
         /* Util追加 */
         'APIUtil' => App\Library\APIUtil::class,

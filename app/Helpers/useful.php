@@ -11,6 +11,20 @@ if (!function_exists('varDump')) {
         echo "</pre>";
     }
 }
+if (!function_exists('multiDimensionsArrayMergeUnique')) {
+    function multiDimensionsArrayMergeUnique(array $array): array
+    {
+        $merged = [];
+        foreach ($array as $value) {
+            if (is_array($value)) {
+                $merged = arrayMergeUnique($merged, multiDimensionsArrayMergeUnique($value));
+            } else {
+                $merged[] = $value;
+            }
+        }
+        return $merged;
+    }
+}
 if (!function_exists('arrayMergeUnique')) {
     function arrayMergeUnique(array $array1, array $array2): array
     {

@@ -9,6 +9,10 @@ class CreateForm extends BaseForm
     public $type;
     public $relation;
 
+    protected function prepareForValidation(): void
+    {
+    }
+
     protected function validationRule(): array
     {
         return [
@@ -17,13 +21,13 @@ class CreateForm extends BaseForm
         ];
     }
 
-    protected function bind(array $input): void
+    protected function bind(): void
     {
-        $this->type     = strval($input['type']);
-        $this->relation = isset($input['relation']) ? intval($input['relation']) : null;
+        $this->type     = strval($this->input['type']);
+        $this->relation = isset($this->input['relation']) ? intval($this->input['relation']) : null;
     }
 
-    protected function validateAfterBinding(): void
+    protected function afterBinding(): void
     {
     }
 }

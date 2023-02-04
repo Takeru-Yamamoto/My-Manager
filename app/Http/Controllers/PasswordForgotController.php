@@ -12,8 +12,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Forms\PasswordForgot as Forms;
 use App\Services\PasswordForgotService;
 
-use App\Consts\TextConst;
-
 class PasswordForgotController extends Controller
 {
     private $service;
@@ -30,36 +28,22 @@ class PasswordForgotController extends Controller
 
     public function receiveEmailAddress(Request $request): Redirector|RedirectResponse
     {
-        $form = new Forms\ReceiveEmailAddressForm($request->all());
+        $sendPasswordResetMailResult = $this->service->sendPasswordResetMail(new Forms\ReceiveEmailAddressForm($request->all()));
 
-		if ($form->hasError()) return $form->redirect();
-
-        $textKey = $this->service->sendPasswordResetMail($form);
-
-        return divergeRedirect($textKey === TextConst::EMAIL_SEND_SUCCESS, "password_forgot", $textKey);
+        return $sendPasswordResetMailResult ? successRedirect("password_forgot", configText("email_send_success")) : successRedirect("password_forgot", configText("email_send_failure"));
     }
 
     public function passwordResetForm(string $token, string $email): View|Factory|Redirector|RedirectResponse
     {
         $form = new Forms\PasswordResetPreparationForm(compact("token", "email"));
 
-		if ($form->hasError()) throw $form->exception();
-
-        $textKey = $this->service->checkTokenAndEmailExist($form);
-
-        if (is_null($textKey)) {
-            return view('auth.passwordReset', ["email" => $form->email, "token" => $form->token]);
-        }
-     
-        return failureRedirect("password_forgot", $textKey);
+        return view('auth.passwordReset', ["email" => $form->email, "token" => $form->token]);
     }
 
     public function passwordReset(Request $request): Redirector|RedirectResponse
     {
-        $form = new Forms\PasswordResetForm($request->all());
+        $this->service->resetPassword(new Forms\PasswordResetForm($request->all()));
 
-		if ($form->hasError()) return $form->redirect();
-
-        return successRedirect("login", $this->service->resetPassword($form));
+        return successRedirect("login", configText("password_reset_success"));
     }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('email_resets', function (Blueprint $table) {
             $table->id();
-            $table->integer("user_id");
+            $table->unsignedBigInteger("user_id");
             $table->string("authentication_code");
             $table->string("new_email");
             $table->timestamp("expiration_date")->nullable();

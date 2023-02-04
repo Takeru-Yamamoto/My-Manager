@@ -11,6 +11,10 @@ class AdminIndexForm extends BaseForm
     public $month;
     public $isValid;
 
+    protected function prepareForValidation(): void
+    {
+    }
+
     protected function validationRule(): array
     {
         return [
@@ -21,15 +25,15 @@ class AdminIndexForm extends BaseForm
         ];
     }
 
-    protected function bind(array $input): void
+    protected function bind(): void
     {
-        $this->page    = isset($input['page']) ? intval($input['page']) : 1;
-        $this->name    = isset($input['name']) ? strval($input['name']) : null;
-        $this->month   = isset($input['month']) ? strval($input['month']) : null;
-        $this->isValid = isset($input['is_valid']) ? intval($input['is_valid']) : null;
+        $this->page    = isset($this->input['page']) ? intval($this->input['page']) : 1;
+        $this->name    = isset($this->input['name']) ? strval($this->input['name']) : null;
+        $this->month   = isset($this->input['month']) ? strval($this->input['month']) : null;
+        $this->isValid = isset($this->input['is_valid']) ? intval($this->input['is_valid']) : null;
     }
-    
-    protected function validateAfterBinding(): void
+
+    protected function afterBinding(): void
     {
     }
 }

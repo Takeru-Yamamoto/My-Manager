@@ -11,25 +11,29 @@ class UpdateForm extends BaseForm
     public $password;
     public $role;
 
+    protected function prepareForValidation(): void
+    {
+    }
+
     protected function validationRule(): array
     {
         return [
-            'id'       => $this->required($this->userId()),
-            'email'    => $this->required($this->email()),
-            'password' => $this->nullable($this->passwordConfirmed()),
-            'role'     => $this->required($this->integer()),
+            "id"       => $this->required($this->userId()),
+            "email"    => $this->required($this->email()),
+            "password" => $this->nullable($this->passwordConfirmed()),
+            "role"     => $this->required($this->integer()),
         ];
     }
 
-    protected function bind(array $input): void
+    protected function bind(): void
     {
-        $this->id       = intval($input['id']);
-        $this->email    = strval($input['email']);
-        $this->password = isset($input['password']) ? strval($input['password']) : null;
-        $this->role     = intval($input['role']);
+        $this->id       = intval($this->input["id"]);
+        $this->email    = strval($this->input["email"]);
+        $this->password = isset($this->input["password"]) ? strval($this->input["password"]) : null;
+        $this->role     = intval($this->input["role"]);
     }
     
-    protected function validateAfterBinding(): void
+    protected function afterBinding(): void
     {
     }
 }

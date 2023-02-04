@@ -9,22 +9,26 @@ class ChangeEmailForm extends BaseForm
     public $userId;
     public $authenticationCode;
 
+    protected function prepareForValidation(): void
+    {
+    }
+
     protected function validationRule(): array
     {
         return [
-            'user_id'             => $this->required($this->userId()),
-            'authentication_code' => $this->required($this->code(6)),
+            "user_id"             => $this->required($this->userId(), $this->exists("email_resets")->where("authentication_code", $this->input["authentication_code"])),
+            "authentication_code" => $this->required($this->code(6), $this->exists("email_resets")->where("authentication_code", $this->input["authentication_code"])),
         ];
     }
 
-    protected function bind(array $input): void
+    protected function bind(): void
     {
-        $this->userId             = strval($input['user_id']);
-        $this->authenticationCode = strval($input['authentication_code']);
+        $this->userId             = strval($this->input["user_id"]);
+        $this->authenticationCode = strval($this->input["authentication_code"]);
     }
 
 
-    protected function validateAfterBinding(): void
+    protected function afterBinding(): void
     {
     }
 }

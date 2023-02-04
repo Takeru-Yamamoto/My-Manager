@@ -8,6 +8,10 @@ class UpdateModalForm extends BaseForm
 {
     public $id;
 
+    protected function prepareForValidation(): void
+    {
+    }
+
     protected function validationRule(): array
     {
         return [
@@ -15,12 +19,12 @@ class UpdateModalForm extends BaseForm
         ];
     }
 
-    protected function bind(array $input): void
+    protected function bind(): void
     {
-        $this->id = intval($input['id']);
+        $this->id = intval($this->input['id']);
     }
     
-    protected function validateAfterBinding(): void
+    protected function afterBinding(): void
     {
     }
 }

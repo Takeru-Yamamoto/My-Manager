@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Services\BaseService;
 
 use App\Http\Forms\Search as Forms;
-use App\Consts\TextConst;
 
 class SearchService extends BaseService
 {
@@ -25,8 +24,6 @@ class SearchService extends BaseService
                 break;
         }
 
-        if (is_null($repository)) throw $form->exception(getTextFromConst(TextConst::SEARCH_MODEL_INJUSTICE));
-
         $results = null;
         $from    = $form->from;
         $to      = $form->to;
@@ -45,9 +42,6 @@ class SearchService extends BaseService
                 break;
             case "like":
                 $results = $repository->whereLike($from, $form->value)->getRaw();
-                break;
-            default:
-                throw $form->exception(getTextFromConst(TextConst::SEARCH_ELOQUENT_INJUSTICE));
                 break;
         }
 

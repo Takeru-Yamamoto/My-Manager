@@ -2,7 +2,6 @@
 
 namespace App\Imports;
 
-use App\Consts\TextConst;
 use App\Errors\ImportError;
 use App\Exceptions\ImportException;
 
@@ -88,12 +87,12 @@ abstract class BaseImport
                 if ($this->isFirstRow($row)) continue;
 
                 if (!$this->isValid($row)) {
-                    $this->catchError($row, getTextFromConst(TextConst::IMPORT_VALIDATION_INVALID));
+                    $this->catchError($row, configText("import_validation_invalid"));
                     continue;
                 }
 
                 if ($this->isExist($row)) {
-                    $this->catchError($row, getTextFromConst(TextConst::IMPORT_DATA_EXIST));
+                    $this->catchError($row, configText("import_data_exist"));
                     continue;
                 }
 
@@ -112,14 +111,14 @@ abstract class BaseImport
 
         if (count($this->importedData) > 0) $this->insert($this->importedData);
 
-        emphasisLogEnd("IMPORT " . $this->className);
+        emphasisLogEnd("IMPORT " . className($this));
 
         if (!empty($this->errors)) $this->throwException();
     }
 
     final public function upsertStart(): void
     {
-        emphasisLogStart("IMPORT " . $this->className);
+        emphasisLogStart("IMPORT " . className($this));
 
         foreach ($this->originData as $row) {
             try {
@@ -131,12 +130,12 @@ abstract class BaseImport
                 if ($this->isFirstRow($row)) continue;
 
                 if (!$this->isValid($row)) {
-                    $this->catchError($row, getTextFromConst(TextConst::IMPORT_VALIDATION_INVALID));
+                    $this->catchError($row, configText("import_validation_invalid"));
                     continue;
                 }
 
                 if ($this->isExist($row)) {
-                    $this->catchError($row, getTextFromConst(TextConst::IMPORT_DATA_EXIST));
+                    $this->catchError($row, configText("import_data_exist"));
                     continue;
                 }
 
@@ -155,7 +154,7 @@ abstract class BaseImport
 
         if (count($this->importedData) > 0) $this->upsert($this->importedData);
 
-        emphasisLogEnd("IMPORT " . $this->className);
+        emphasisLogEnd("IMPORT " . className($this));
 
         if (!empty($this->errors)) $this->throwException();
     }
@@ -195,7 +194,7 @@ abstract class BaseImport
     {
         if (!$this->writeErrorLogFlg) return;
 
-        errorLog(getTextFromConst(TextConst::IMPORT_ERROR));
+        errorLog(configText("import_error"));
         errorLog("caused: " . $error->errorText);
         errorLog("params: " . json_encode($error->row, JSON_UNESCAPED_UNICODE));
     }
@@ -204,7 +203,7 @@ abstract class BaseImport
     {
         if (!$this->throwExceptionFlg) return;
 
-        throw new ImportException(getTextFromConst(TextConst::IMPORT_ERROR), $this->errors);
+        throw new ImportException(configText("import_error"), $this->errors);
     }
 
     final public function count(): int

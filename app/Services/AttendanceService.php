@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Services\BaseService;
 
 use App\Http\Forms\Attendance as Forms;
-use App\Consts\TextConst;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use stdClass;
@@ -82,7 +81,7 @@ class AttendanceService extends BaseService
         return $result;
     }
 
-    public function create(Forms\CreateForm $form): string
+    public function create(Forms\CreateForm $form): bool
     {
         $attendance = $this->AttendanceRepository->createEntity(
             authUserId(),
@@ -93,7 +92,7 @@ class AttendanceService extends BaseService
 
         $attendance->safeCreate();
 
-        return TextConst::ATTENDANCE_CREATED;
+        return true;
     }
 
     public function getUserAttendanceInMonth(Forms\AdminIndexForm $form): LengthAwarePaginator|null

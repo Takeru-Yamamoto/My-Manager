@@ -9,10 +9,6 @@
     <p>メールに記載された認証コードを入力してください。</p>
     <p>有効期限は30分です。</p>
 
-    @if (isset($auth) && !$auth)
-        <p class="text-danger">認証に失敗しました。</p>
-        <p class="text-danger">もう一度入力しなおしてください。</p>
-    @endif
     <form method="post" action="{{ url('login_info/change_email') }}" id="{{ formId() }}">
         @csrf
         <input type="number" name="user_id" value="{{ $user->id }}" hidden />

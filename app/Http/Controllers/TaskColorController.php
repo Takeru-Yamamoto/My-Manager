@@ -31,28 +31,20 @@ class TaskColorController extends Controller
 
 	public function create(Request $request): string
 	{
-		$form = new Forms\CreateForm($request->all());
+		$this->service->create(new Forms\CreateForm($request->all()));
 
-		if ($form->hasError()) throw $form->exception();
-
-		return getTextFromConst($this->service->create($form));
+		return configText("task_color_created");
 	}
 
 	public function update(Request $request): string
 	{
-		$form = new Forms\UpdateForm($request->all());
+		$this->service->update(new Forms\UpdateForm($request->all()));
 
-		if ($form->hasError()) throw $form->exception();
-
-		return getTextFromConst($this->service->update($form));
+		return configText("task_color_updated");
 	}
 
 	public function delete(Request $request): void
 	{
-		$form = new Forms\DeleteForm($request->all());
-
-		if ($form->hasError()) throw $form->exception();
-
-		$this->service->delete($form);
+		$this->service->delete(new Forms\DeleteForm($request->all()));
 	}
 }

@@ -9,6 +9,10 @@ class IndexForm extends BaseForm
     public $page;
     public $month;
 
+    protected function prepareForValidation(): void
+    {
+    }
+
     protected function validationRule(): array
     {
         return [
@@ -17,13 +21,13 @@ class IndexForm extends BaseForm
         ];
     }
 
-    protected function bind(array $input): void
+    protected function bind(): void
     {
-        $this->page  = isset($input['page']) ? intval($input['page']) : 1;
-        $this->month = isset($input['month']) ? strval($input['month']) : null;
+        $this->page  = isset($this->input['page']) ? intval($this->input['page']) : 1;
+        $this->month = isset($this->input['month']) ? strval($this->input['month']) : null;
     }
     
-    protected function validateAfterBinding(): void
+    protected function afterBinding(): void
     {
     }
 }

@@ -32,16 +32,12 @@ class TaskController extends Controller
 	{
 		$form = new Forms\FetchForm($request->all());
 
-		if ($form->hasError()) throw $form->exception();
-
 		return $this->service->fetch($form);
 	}
 
 	public function createModal(Request $request): View|Factory
 	{
 		$form = new Forms\CreateModalForm($request->all());
-
-		if ($form->hasError()) throw $form->exception();
 
 		$taskColors = $this->service->TaskColorRepository->get();
 
@@ -50,18 +46,14 @@ class TaskController extends Controller
 
 	public function create(Request $request): Redirector|RedirectResponse
 	{
-		$form = new Forms\CreateForm($request->all());
+		$this->service->create(new Forms\CreateForm($request->all()));
 
-		if ($form->hasError()) return $form->redirect();
-
-		return successRedirect("task", $this->service->create($form));
+		return successRedirect("task", configText("task_created"));
 	}
 
 	public function updateModal(Request $request): View|Factory
 	{
 		$form = new Forms\UpdateModalForm($request->all());
-
-		if ($form->hasError()) throw $form->exception();
 
 		$task       = $this->service->TaskRepository->findById($form->id);
 		$taskColors = $this->service->TaskColorRepository->get();
@@ -71,18 +63,14 @@ class TaskController extends Controller
 
 	public function update(Request $request): Redirector|RedirectResponse
 	{
-		$form = new Forms\UpdateForm($request->all());
+		$this->service->update(new Forms\UpdateForm($request->all()));
 
-		if ($form->hasError()) return $form->redirect();
-
-		return successRedirect("task", $this->service->update($form));
+		return successRedirect("task", configText("task_updated"));
 	}
 
 	public function delete(Request $request): void
 	{
 		$form = new Forms\DeleteForm($request->all());
-
-		if ($form->hasError()) throw $form->exception();
 
 		$this->service->delete($form);
 	}

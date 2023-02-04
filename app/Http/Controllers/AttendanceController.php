@@ -27,8 +27,6 @@ class AttendanceController extends Controller
 
 		$form = new Forms\IndexForm($request->all());
 
-		if ($form->hasError()) throw $form->exception();
-
 		$attendances       = $this->service->getPaginatedAttendances($form);
 		$attendanceInMonth = $this->service->getAttendanceInMonth(authUserId(), $form->month);
 
@@ -43,16 +41,14 @@ class AttendanceController extends Controller
 	{
 		$form = new Forms\CreateForm($request->all());
 
-		if ($form->hasError()) return $form->redirect();
+		$this->service->create($form);
 
-		return successRedirect("attendance", $this->service->create($form), "勤怠種別: " . getAttendanceTypeText($form->type));
+		return successRedirect("attendance", configText("attendance_created"), "勤怠種別: " . getAttendanceTypeText($form->type));
 	}
 
 	public function adminIndex(Request $request): View|Factory
 	{
 		$form = new Forms\AdminIndexForm($request->all());
-
-		if ($form->hasError()) throw $form->exception();
 
 		$attendanceInMonths = $this->service->getUserAttendanceInMonth($form);
 		$dateUtil           = dateUtil($form->month);

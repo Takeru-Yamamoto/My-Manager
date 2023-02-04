@@ -1,13 +1,11 @@
 <?php
 
-use App\Consts\TextConst;
 use Illuminate\Support\Str;
 
-if (!function_exists('getTextFromConst')) {
-    function getTextFromConst(?string $textKey): string
+if (!function_exists('configText')) {
+    function configText(?string $textKey): string
     {
-        if (is_null($textKey)) return TextConst::TEXTS[TextConst::KEY_NULL];
-        return isset(TextConst::TEXTS[$textKey]) ? TextConst::TEXTS[$textKey] : TextConst::TEXTS[TextConst::KEY_NOT_EXIST];
+        return is_null($textKey) ? config("text.key_null") : config("text." . $textKey, "設定されたテキストが存在しません。 textKey: " . $textKey);
     }
 }
 if (!function_exists('enl2br')) {

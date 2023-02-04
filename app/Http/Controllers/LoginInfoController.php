@@ -11,7 +11,6 @@ use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use App\Http\Forms\LoginInfo as Forms;
 use App\Services\LoginInfoService;
-use App\Consts\TextConst;
 
 class LoginInfoController extends Controller
 {
@@ -29,45 +28,29 @@ class LoginInfoController extends Controller
 
     public function update(Request $request): Redirector|RedirectResponse
     {
-        $form = new Forms\UpdateForm($request->all());
+        $this->service->update(new Forms\UpdateForm($request->all()));
 
-        if ($form->hasError()) return $form->redirect();
-
-        return successRedirect("login_info", $this->service->update($form));
+        return successRedirect("login_info", configText("login_info_updated"));
     }
 
     public function changeEmailForm(): View|Factory
     {
-        return view('pages.user.changeEmail', ['user' => authUserResult()]);
+        return view('pages.loginInfo.changeEmail', ['user' => authUserResult()]);
     }
 
     public function authenticationCodeForm(Request $request): View|Factory|Redirector|RedirectResponse
     {
-        $form = new Forms\AuthenticationCodeForm($request->all());
+        $isSendEmailReset = $this->service->authenticationCodeForm(new Forms\AuthenticationCodeForm($request->all()));
 
-        if ($form->hasError()) return $form->redirect();
-
-        $textKey = $this->service->authenticationCodeForm($form);
-
-        if (is_null($textKey)) {
-            return view('pages.user.authenticationCode', ['user' => authUserResult()]);
-        }
-
-        return failureRedirect("login_info/change_email", $textKey);
+        return $isSendEmailReset ? view('pages.loginInfo.authenticationCode', ['user' => authUserResult()]) : failureRedirect("login_info/change_email", configText("email_send_failure"));
     }
 
-    public function changeEmail(Request $request): View|Factory|Redirector|RedirectResponse
+    public function changeEmail(Request $request): Redirector|RedirectResponse
     {
         $form = new Forms\ChangeEmailForm($request->all());
 
-        if ($form->hasError()) return $form->redirect("login_info/change_email");
+        $changeEmailResult = $this->service->changeEmail($form);
 
-        $textKey = $this->service->changeEmail($form);
-
-        if (is_null($textKey)) {
-            return view('pages.user.authenticationCode', ["auth" => false, 'user' => authUserResult()]);
-        }
-     
-        return divergeRedirect($textKey === TextConst::EMAIL_CHANGED_SUCCESS, "login_info", $textKey);
+        return $changeEmailResult ? successRedirect("login_info", configText("email_changed_success")) : failureRedirect("login_info", "email_changed_expired");
     }
 }

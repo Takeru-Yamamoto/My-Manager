@@ -5,17 +5,12 @@ namespace App\Services;
 use App\Services\BaseService;
 
 use App\Http\Forms\PasswordForgot as Forms;
-use App\Consts\TextConst;
 use App\Consts\MailConst;
 
 class PasswordForgotService extends BaseService
 {
-    public function sendPasswordResetMail(Forms\ReceiveEmailAddressForm $form): string
+    public function sendPasswordResetMail(Forms\ReceiveEmailAddressForm $form): bool
     {
-        if (!$this->UserRepository->where("email", $form->email)->isExist()) {
-            return TextConst::EMAIL_ADDRESS_NOT_EXIST;
-        }
-
         $token = hashedRandomText(40);
 
         $entity = $this->PasswordResetRepository->createEntity(
@@ -28,24 +23,17 @@ class PasswordForgotService extends BaseService
 
         $data["url"] = url("password_reset/" . $token . "/" . $form->email);
 
-        return sendMail(MailConst::PASSWORD_FORGOT, $data, $form->email) ? TextConst::EMAIL_SEND_SUCCESS : TextConst::EMAIL_SEND_FAILURE;
+        return sendMail(MailConst::PASSWORD_FORGOT, $data, $form->email);
     }
 
-    public function checkTokenAndEmailExist(Forms\PasswordResetPreparationForm $form): ?string
-    {
-        return $this->PasswordResetRepository->where('token', $form->token)->where('email', $form->email)->isExist() ? null : TextConst::AUTHENTICATION_FAILURE;
-    }
-
-    public function resetPassword(Forms\PasswordResetForm $form): string
+    public function resetPassword(Forms\PasswordResetForm $form): bool
     {
         $user = $this->UserRepository->where("email", $form->email)->findRaw();
-
-        if (is_null($user)) throw $form->exception(TextConst::FORM_EMAIL_INJUSTICE);
 
         $user->password = makeHash($form->password);
 
         $user->safeUpdate();
 
-        return TextConst::PASSWORD_RESET_SUCCESS;
+        return true;
     }
 }

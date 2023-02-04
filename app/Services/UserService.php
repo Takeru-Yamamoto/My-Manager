@@ -6,7 +6,6 @@ use App\Services\BaseService;
 
 use App\Http\Forms\User as Forms;
 use App\Repositories\Results;
-use App\Consts\TextConst;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -24,7 +23,7 @@ class UserService extends BaseService
         return paginatorByRepository($repository, $this->limit, $form->page);
     }
 
-    public function create(Forms\CreateForm $form): string
+    public function create(Forms\CreateForm $form): bool
     {
         $user = $this->UserRepository->createEntity(
             $form->name,
@@ -35,19 +34,17 @@ class UserService extends BaseService
 
         $user->safeCreate();
 
-        return TextConst::USER_CREATED;
+        return true;
     }
 
-    public function findById(int $id): Results\UserResult
+    public function findById(Forms\UpdatePreparationForm $form): Results\UserResult
     {
-        return $this->UserRepository->findById($id);
+        return $this->UserRepository->findById($form->id);
     }
 
-    public function update(Forms\UpdateForm $form): string
+    public function update(Forms\UpdateForm $form): bool
     {
         $user = $this->UserRepository->findRawById($form->id);
-
-        if (is_null($user)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
         $user->role = $form->role;
         $user->email = $form->email;
@@ -57,14 +54,12 @@ class UserService extends BaseService
 
         $user->safeUpdate();
 
-        return TextConst::USER_UPDATED;
+        return true;
     }
 
     public function delete(Forms\DeleteForm $form): void
     {
         $user = $this->UserRepository->findRawById($form->id);
-
-        if (is_null($user)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
         $user->safeDelete();
     }
@@ -72,8 +67,6 @@ class UserService extends BaseService
     public function changeIsValid(Forms\ChangeIsValidForm $form): void
     {
         $user = $this->UserRepository->findRawById($form->id);
-
-        if (is_null($user)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
 
         $user->changeIsValid($form->isValid);
     }

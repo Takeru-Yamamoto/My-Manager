@@ -5,17 +5,14 @@ namespace App\Services;
 use App\Services\BaseService;
 
 use App\Http\Forms\LoginInfo as Forms;
-use App\Consts\TextConst;
 use App\Consts\MailConst;
 
 class LoginInfoService extends BaseService
 {
-    public function update(Forms\UpdateForm $form): string
+    public function update(Forms\UpdateForm $form): bool
     {
         $user = $this->UserRepository->findRawById($form->id);
 
-        if (is_null($user)) throw $form->exception(TextConst::FORM_ID_INJUSTICE);
-        
         $user->role = $form->role;
         if (!is_null($form->email)) {
             $user->email = $form->email;
@@ -26,15 +23,11 @@ class LoginInfoService extends BaseService
 
         $user->safeUpdate();
 
-        return TextConst::LOGIN_INFO_UPDATED;
+        return true;
     }
 
-    public function authenticationCodeForm(Forms\AuthenticationCodeForm $form): ?string
+    public function authenticationCodeForm(Forms\AuthenticationCodeForm $form): bool
     {
-        if ($this->UserRepository->where("email", $form->email)->isExist()) {
-            return TextConst::EMAIL_ADDRESS_EXIST;
-        }
-
         $authenticationCode = createRandomNumber(6);
 
         $entity = $this->EmailResetRepository->createEntity(
@@ -46,18 +39,14 @@ class LoginInfoService extends BaseService
 
         $entity->safeCreate();
 
-        $isSendEmailReset = sendMail(MailConst::EMAIL_RESET, ["authenticationCode" => $authenticationCode], $form->email);
-
-        return $isSendEmailReset ? null : TextConst::EMAIL_SEND_FAILURE;
+        return sendMail(MailConst::EMAIL_RESET, ["authenticationCode" => $authenticationCode], $form->email);
     }
 
-    public function changeEmail(Forms\ChangeEmailForm $form): ?string
+    public function changeEmail(Forms\ChangeEmailForm $form): bool
     {
         $authenticateResult = $this->EmailResetRepository->where("user_id", $form->userId)->where("authentication_code", $form->authenticationCode)->findRaw();
 
-        if (is_null($authenticateResult)) return null;
-
-        if (dateUtil($authenticateResult->expiration_date)->isPast()) return TextConst::EMAIL_CHANGED_EXPIRED;
+        if (dateUtil($authenticateResult->expiration_date)->isPast()) return false;
 
         $user = authUser();
 
@@ -65,6 +54,6 @@ class LoginInfoService extends BaseService
 
         $user->safeUpdate();
 
-        return TextConst::EMAIL_CHANGED_SUCCESS;
+        return true;
     }
 }

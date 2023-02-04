@@ -8,19 +8,23 @@ class ReceiveEmailAddressForm extends BaseForm
 {
     public $email;
 
+    protected function prepareForValidation(): void
+    {
+    }
+
     protected function validationRule(): array
     {
         return [
-            'email' => $this->required($this->email()),
+            "email" => $this->required($this->email(), $this->exists("users")),
         ];
     }
 
-    protected function bind(array $input): void
+    protected function bind(): void
     {
-        $this->email = strval($input['email']);
+        $this->email = strval($this->input["email"]);
     }
 
-    protected function validateAfterBinding(): void
+    protected function afterBinding(): void
     {
     }
 }
