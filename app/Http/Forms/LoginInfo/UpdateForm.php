@@ -19,7 +19,7 @@ class UpdateForm extends BaseForm
     {
         return [
             "id"       => $this->required($this->userId()),
-            "email"    => $this->required($this->email()),
+            "email"    => $this->required($this->email(), $this->unique("users", "email")),
             "password" => $this->nullable($this->passwordConfirmed()),
             "role"     => $this->required($this->integer()),
         ];
