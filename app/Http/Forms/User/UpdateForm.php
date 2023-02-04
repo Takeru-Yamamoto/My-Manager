@@ -19,7 +19,7 @@ class UpdateForm extends BaseForm
     {
         return [
             "id"       => $this->required($this->userId()),
-            "email"    => $this->required($this->email(), $this->unique("users", "email")),
+            "email"    => $this->required($this->email(), $this->unique("users", "email")->ignore($this->input["id"])),
             "password" => $this->nullable($this->passwordConfirmed()),
             "role"     => $this->required($this->integer()),
         ];
@@ -32,7 +32,7 @@ class UpdateForm extends BaseForm
         $this->password = isset($this->input["password"]) ? strval($this->input["password"]) : null;
         $this->role     = intval($this->input["role"]);
     }
-    
+
     protected function afterBinding(): void
     {
     }
