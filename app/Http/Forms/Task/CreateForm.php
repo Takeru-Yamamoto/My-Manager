@@ -39,8 +39,4 @@ class CreateForm extends BaseForm
     protected function afterBinding(): void
     {
     }
-
-    protected function validateAfterBinding(): void
-    {
-    }
 }
