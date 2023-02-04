@@ -11,7 +11,7 @@ abstract class ValidationRule
         field: 必須
         input: 空でない
     */
-    protected function required(array ...$rules): array
+    protected function required(mixed ...$rules): array
     {
         return arrayMergeUnique(["required"], multiDimensionsArrayMergeUnique($rules));
     }
@@ -20,7 +20,7 @@ abstract class ValidationRule
         field: 不要
         input: 空でもよい
     */
-    protected function nullable(array $rules = []): array
+    protected function nullable(mixed ...$rules): array
     {
         return arrayMergeUnique(["nullable"], multiDimensionsArrayMergeUnique($rules));
     }
@@ -29,7 +29,7 @@ abstract class ValidationRule
         field: 不要
         input: fieldあり => 空でない, fieldなし => 空でもよい
     */
-    protected function filled(array $rules = []): array
+    protected function filled(mixed ...$rules): array
     {
         return arrayMergeUnique(["filled"], multiDimensionsArrayMergeUnique($rules));
     }
@@ -38,7 +38,7 @@ abstract class ValidationRule
         field: 必須
         input: 空でもよい
     */
-    protected function present(array $rules = []): array
+    protected function present(mixed ...$rules): array
     {
         return arrayMergeUnique(["present"], multiDimensionsArrayMergeUnique($rules));
     }
