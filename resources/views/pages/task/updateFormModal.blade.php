@@ -47,8 +47,7 @@
             data-form="{{ formId() }}">{{ btnUpdateText() }}</a>
         @include('components.btn.delete', [
             'addClass' => 'ml-3',
-            'id'       => $$task->id,
-            'type'     => btnTypeShort(),
+            'id'       => $task->id,
             'url'      => url('task/delete'),
         ])
         <a class="btn btn-secondary ml-3" data-dismiss="modal">キャンセル</a>
