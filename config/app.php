@@ -218,7 +218,6 @@ return [
         'ContentConst' => App\Consts\ContentConst::class,
         'GateConst' => App\Consts\GateConst::class,
         'MailConst' => App\Consts\MailConst::class,
-        'NameConst' => App\Consts\NameConst::class,
         'PrefectureConst' => App\Consts\PrefectureConst::class,
 
         /* Util追加 */

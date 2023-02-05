@@ -1,7 +1,5 @@
 <?php
 
-use App\Consts\NameConst;
-
 return [
 
     /*
@@ -155,5 +153,5 @@ return [
     |
     */
 
-    'attributes' => NameConst::FORM_ATTRIBUTES,
+    'attributes' => config("validation.attribute"),
 ];

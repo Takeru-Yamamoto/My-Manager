@@ -1,7 +1,6 @@
 <?php
 
 use App\Consts\ContentConst;
-use App\Consts\NameConst;
 
 if (!function_exists('tooltip')) {
     function tooltip(string $place)
@@ -10,28 +9,27 @@ if (!function_exists('tooltip')) {
     }
 }
 if (!function_exists('cardHeader')) {
-    function cardHeader(?string $kind = null): string
+    function cardHeader(string $type): string
     {
-        $cardHeader = ContentConst::TITLES[urlSegment()];
-        return isset(NameConst::NAMES[NameConst::TYPE_SHORT][$kind]) ? $cardHeader . NameConst::NAMES[NameConst::TYPE_SHORT][$kind] : $cardHeader;
+        return ContentConst::TITLES[urlSegment()] . $type;
     }
 }
 if (!function_exists('createCardHeader')) {
     function createCardHeader(): string
     {
-        return cardHeader(NameConst::CREATE);
+        return cardHeader("追加");
     }
 }
 if (!function_exists('updateCardHeader')) {
     function updateCardHeader(): string
     {
-        return cardHeader(NameConst::UPDATE);
+        return cardHeader("編集");
     }
 }
 if (!function_exists('tableCardHeader')) {
     function tableCardHeader(): string
     {
-        return cardHeader() . ContentConst::IS_TABLE;
+        return cardHeader("一覧");
     }
 }
 if (!function_exists('formId')) {
