@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
-use App\Consts\GateConst;
+use App\Consts\RoleConst;
 
 class UsersTableSeeder extends Seeder
 {
@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        foreach (GateConst::ROLES as $role => $roleNum) {
+        foreach (RoleConst::ROLES as $role => $roleNum) {
             if (!empty(config("defaultUser." . $role . ".name")) && !empty(config("defaultUser." . $role . ".email")) && !empty(config("defaultUser." . $role . ".password"))) {
                 User::create([
                     'name' => config("defaultUser." . $role . ".name"),

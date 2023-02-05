@@ -2,7 +2,7 @@
 
 namespace App\Consts;
 
-class GateConst
+class RoleConst
 {
     /* Gate処理はApp\Providers\AuthServiceProvider */
 
@@ -26,5 +26,6 @@ class GateConst
     ];
 
     /* api */
-    public const API_ACCESS = "api-access";
+    public const API_ACCESS              = "api-access";
+    public const API_ACCESS_TOKEN_HEADER = "X-API-Access-Token";
 }

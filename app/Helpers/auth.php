@@ -3,7 +3,7 @@
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Repositories\Results\UserResult;
-use App\Consts\GateConst;
+use App\Consts\RoleConst;
 
 if (!function_exists('isLoggedIn')) {
     function isLoggedIn(): bool
@@ -28,21 +28,21 @@ if (!function_exists('isSystem')) {
     function isSystem(User $user = null): bool
     {
         $roleNum = is_null($user) ? roleNum(authUser()) : roleNum($user);
-        return $roleNum === GateConst::SYSTEM_NUMBER;
+        return $roleNum === RoleConst::SYSTEM_NUMBER;
     }
 }
 if (!function_exists('isAdmin')) {
     function isAdmin(User $user = null): bool
     {
         $roleNum = is_null($user) ? roleNum(authUser()) : roleNum($user);
-        return $roleNum === GateConst::ADMIN_NUMBER;
+        return $roleNum === RoleConst::ADMIN_NUMBER;
     }
 }
 if (!function_exists('isUser')) {
     function isUser(User $user = null): bool
     {
         $roleNum = is_null($user) ? roleNum(authUser()) : roleNum($user);
-        return $roleNum === GateConst::USER_NUMBER;
+        return $roleNum === RoleConst::USER_NUMBER;
     }
 }
 if (!function_exists('isAdminHigher')) {

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\JsonResponse;
-use App\Consts\ContentConst;
 
 if (!function_exists('varDump')) {
     function varDump(mixed $any): void

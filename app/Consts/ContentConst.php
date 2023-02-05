@@ -2,7 +2,7 @@
 
 namespace App\Consts;
 
-use App\Consts\GateConst;
+use App\Consts\RoleConst;
 
 class ContentConst
 {
@@ -44,22 +44,22 @@ class ContentConst
     ];
 
     public const SIDEBARS = [
-        GateConst::SYSTEM => [
+        RoleConst::SYSTEM => [
             self::USER,
             self::ATTENDANCE,
             self::TASK,
         ],
-        GateConst::ADMIN => [
+        RoleConst::ADMIN => [
             self::LOGIN_INFO,
             self::USER,
             self::TASK,
         ],
-        GateConst::USER => [
+        RoleConst::USER => [
             self::LOGIN_INFO,
             self::ATTENDANCE,
             self::TASK,
         ],
-        GateConst::GUEST => [
+        RoleConst::GUEST => [
         ],
     ];
 
@@ -71,9 +71,9 @@ class ContentConst
     ];
 
     public const SIDEBAR_CLASSES = [
-        GateConst::SYSTEM => [],
-        GateConst::ADMIN  => [],
-        GateConst::USER   => [],
-        GateConst::GUEST  => [],
+        RoleConst::SYSTEM => [],
+        RoleConst::ADMIN  => [],
+        RoleConst::USER   => [],
+        RoleConst::GUEST  => [],
     ];
 }

@@ -216,7 +216,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         /* Consts 追加 */
         'ContentConst' => App\Consts\ContentConst::class,
-        'GateConst' => App\Consts\GateConst::class,
+        'RoleConst' => App\Consts\RoleConst::class,
 
         /* Util追加 */
         'APIUtil' => App\Library\APIUtil::class,

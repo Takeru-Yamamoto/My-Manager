@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers as Controller;
 use App\Consts\ContentConst;
-use App\Consts\GateConst;
+use App\Consts\RoleConst;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,7 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/search', [Controller\SearchController::class, 'search'])->name('search');
 
     // ユーザ
-    Route::group(['middleware' => ['can:' . GateConst::USER_HIGHER]], function () {
+    Route::group(['middleware' => ['can:' . RoleConst::USER_HIGHER]], function () {
         Route::group(["prefix" => ContentConst::LOGIN_INFO_URL, "as" => ContentConst::LOGIN_INFO . "."], function () {
             Route::get('/', [Controller\LoginInfoController::class, 'index'])->name('index');
             Route::post('/update', [Controller\LoginInfoController::class, 'update'])->name('update');
@@ -75,7 +75,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     // 管理者
-    Route::group(['middleware' => ['can:' . GateConst::ADMIN_HIGHER]], function () {
+    Route::group(['middleware' => ['can:' . RoleConst::ADMIN_HIGHER]], function () {
         Route::group(["prefix" => ContentConst::USER_URL, "as" => ContentConst::USER . "."], function () {
             Route::get('/', [Controller\UserController::class, 'index'])->name('index');
             Route::get('/create', [Controller\UserController::class, 'createForm'])->name('createForm');
@@ -92,6 +92,6 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     // システム管理者
-    Route::group(['middleware' => ['can:' . GateConst::SYSTEM]], function () {
+    Route::group(['middleware' => ['can:' . RoleConst::SYSTEM]], function () {
     });
 });

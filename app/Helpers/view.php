@@ -17,7 +17,7 @@ if (!function_exists('cardHeader')) {
 if (!function_exists('createCardHeader')) {
     function createCardHeader(): string
     {
-        return cardHeader("追加");
+        return cardHeader("登録");
     }
 }
 if (!function_exists('updateCardHeader')) {
@@ -29,7 +29,7 @@ if (!function_exists('updateCardHeader')) {
 if (!function_exists('tableCardHeader')) {
     function tableCardHeader(): string
     {
-        return cardHeader("一覧");
+        return cardHeader(ContentConst::IS_TABLE);
     }
 }
 if (!function_exists('formId')) {
