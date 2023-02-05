@@ -46,7 +46,7 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            if (empty(config("mail.system_alert.to.address")) || empty(config("mail.system_alert.from.address")) || empty(config("mail.system_alert.from.name"))) {
+            if (empty(config("email.system_alert.to.address")) || empty(config("email.system_alert.from.address")) || empty(config("email.system_alert.from.name"))) {
                 dividerLog();
                 infoLog("SYSTEM ALERT CANNOT SEND");
                 infoLog("PLEASE CHECK .env AND SET ABOUT SYSTEM ALERT IF YOU WANT TO RECEIVE SYSTEM ALERT");
@@ -55,7 +55,7 @@ class Handler extends ExceptionHandler
                 return true;
             }
 
-            Mail::to(config("mail.system_alert.to.address"))->send(new SystemAlert($e));
+            Mail::to(config("email.system_alert.to.address"))->send(new SystemAlert($e));
             return true;
         });
     }

@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Services\BaseService;
 
 use App\Http\Forms\PasswordForgot as Forms;
-use App\Consts\MailConst;
 
 class PasswordForgotService extends BaseService
 {
@@ -16,14 +15,14 @@ class PasswordForgotService extends BaseService
         $entity = $this->PasswordResetRepository->createEntity(
             $form->email,
             $token,
-            expirationDate(MailConst::EXPIRATION_MINUTE)
+            expirationDate(config("email.expiration_minute"))
         );
 
         $entity->safeCreate();
 
         $data["url"] = url("password_reset/" . $token . "/" . $form->email);
 
-        return sendMail(MailConst::PASSWORD_FORGOT, $data, $form->email);
+        return sendMail("passwordForgot", $data, $form->email);
     }
 
     public function resetPassword(Forms\PasswordResetForm $form): bool

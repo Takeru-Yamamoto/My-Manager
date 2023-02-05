@@ -6,8 +6,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-use App\Consts\MailConst;
-
 class MyMail extends Mailable
 {
     use Queueable, SerializesModels;
@@ -19,13 +17,9 @@ class MyMail extends Mailable
     public function __construct(string $viewName, array $data)
     {
         $this->viewName = $viewName;
-        $this->data = $data;
+        $this->data     = $data;
 
-        if (isset(MailConst::SUBJECTS[$viewName])) {
-            $this->subject = MailConst::SUBJECTS[$viewName];
-        } else {
-            $this->subject = "";
-        }
+        $this->subject = isset(config("email.subject")[$viewName]) ? config("email.subject_head") . config("email.subject")[$viewName] : "";
     }
 
     public function build()

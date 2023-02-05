@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Services\BaseService;
 
 use App\Http\Forms\LoginInfo as Forms;
-use App\Consts\MailConst;
 
 class LoginInfoService extends BaseService
 {
@@ -34,12 +33,12 @@ class LoginInfoService extends BaseService
             $form->userId,
             $authenticationCode,
             $form->email,
-            expirationDate(MailConst::EXPIRATION_MINUTE)
+            expirationDate(config("email.expiration_minute"))
         );
 
         $entity->safeCreate();
 
-        return sendMail(MailConst::EMAIL_RESET, ["authenticationCode" => $authenticationCode], $form->email);
+        return sendMail("emailReset", ["authenticationCode" => $authenticationCode], $form->email);
     }
 
     public function changeEmail(Forms\ChangeEmailForm $form): bool

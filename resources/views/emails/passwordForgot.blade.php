@@ -3,7 +3,7 @@
 @section('text')
     <p>パスワード変更用メールです。</p>
     <p>下記URLからパスワード変更を行ってください</p>
-    <p>有効期限は{{ MailConst::EXPIRATION_MINUTE }}分です。</p>
+    <p>有効期限は{{ config('email.expiration_minute') }}分です。</p>
 
     <p>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</p>
 

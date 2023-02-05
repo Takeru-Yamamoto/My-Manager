@@ -114,14 +114,4 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
-
-    "system_alert" => [
-        "from" => [
-            "address" => env("SYSTEM_ALERT_FROM_ADDRESS"),
-            "name"    => env("SYSTEM_ALERT_FROM_NAME")
-        ],
-        "to" => [
-            "address" => env("SYSTEM_ALERT_TO_ADDRESS")
-        ]
-    ]
 ];

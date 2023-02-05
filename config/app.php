@@ -217,7 +217,6 @@ return [
         /* Consts 追加 */
         'ContentConst' => App\Consts\ContentConst::class,
         'GateConst' => App\Consts\GateConst::class,
-        'MailConst' => App\Consts\MailConst::class,
 
         /* Util追加 */
         'APIUtil' => App\Library\APIUtil::class,
