@@ -1,7 +1,7 @@
 <?php
 
 return [
-    "color" => [
+    "list" => [
         "blue",
         "indigo",
         "purple",

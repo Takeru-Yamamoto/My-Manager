@@ -1,13 +1,15 @@
 <?php
 
 return [
-    "sunday",
-    "monday",
-    "tuesday",
-    "wednesday",
-    "thursday",
-    "friday",
-    "saturday",
+    "list" => [
+        "sunday",
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+    ],
 
     "upper_case" => [
         "sunday"    => "Sunday",

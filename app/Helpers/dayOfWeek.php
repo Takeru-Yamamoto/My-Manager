@@ -3,7 +3,7 @@
 if (!function_exists('isDayOdWeek')) {
     function isDayOdWeek(string $dayOfWeek): bool
     {
-        return isset(config("dayOfWeek")[$dayOfWeek]) && is_string(config("dayOfWeek")[$dayOfWeek]);
+        return isset(config("dayOfWeek.list")[$dayOfWeek]);
     }
 }
 if (!function_exists('upperCaseDayOfWeek')) {
