@@ -28,8 +28,8 @@ if (!function_exists('btnChange')) {
 if (!function_exists('btnFlg')) {
     function btnFlg(int $flg): string
     {
-        if($flg === 0) return config("btn.class.true");
-        if($flg === 1) return config("btn.class.false");
+        if($flg === 1) return config("btn.class.true");
+        if($flg === 0) return config("btn.class.false");
         return "";
     }
 }
@@ -116,8 +116,8 @@ if (!function_exists('btnChangeText')) {
 if (!function_exists('btnFlgText')) {
     function btnFlgText(int $flg): string
     {
-        if($flg === 0) return config("btn.text.true");
-        if($flg === 1) return config("btn.text.false");
+        if($flg === 1) return config("btn.text.true");
+        if($flg === 0) return config("btn.text.false");
         return "";
     }
 }
