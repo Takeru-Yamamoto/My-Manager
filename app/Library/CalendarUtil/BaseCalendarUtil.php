@@ -3,7 +3,6 @@
 namespace App\Library\CalendarUtil;
 
 use Carbon\Carbon;
-use App\Consts\DayOfWeekConst;
 use App\Library\CalendarUtil\Calendar;
 
 abstract class BaseCalendarUtil
@@ -59,19 +58,19 @@ abstract class BaseCalendarUtil
 
     final public function dayOfWeekLowerCase(): self
     {
-        $this->dayOfWeek = DayOfWeekConst::DAY_OF_WEEK_SHORT;
+        $this->dayOfWeek = config("dayOfWeek.short");
         return $this;
     }
 
     final public function dayOfWeekUpperCase(): self
     {
-        $this->dayOfWeek = DayOfWeekConst::DAY_OF_WEEK_UPPER_CASE_SHORT;
+        $this->dayOfWeek = config("dayOfWeek.upper_case_short");
         return $this;
     }
 
     final public function dayOfWeekKanji(): self
     {
-        $this->dayOfWeek = DayOfWeekConst::DAY_OF_WEEK_KANJI;
+        $this->dayOfWeek = config("dayOfWeek.kanji");
         return $this;
     }
 
