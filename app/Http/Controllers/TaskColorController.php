@@ -22,7 +22,7 @@ class TaskColorController extends Controller
 	public function index(): View|Factory
 	{
 		$taskColors = $this->service->TaskColorRepository->get();
-		$bootstrapColors = config("color.color");
+		$bootstrapColors = config("color.list");
 
 		return view("pages.taskColor.modal", compact("taskColors", "bootstrapColors"));
 	}
