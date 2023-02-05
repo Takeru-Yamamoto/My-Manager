@@ -14,6 +14,11 @@ abstract class BaseDateUtil
         $this->set($any);
     }
 
+    function __clone()
+    {
+        $this->carbon = clone $this->carbon;
+    }
+
     final public function carbon(): Carbon
     {
         return $this->carbon;
@@ -21,8 +26,7 @@ abstract class BaseDateUtil
 
     final public function copy(): self
     {
-        $carbon = $this->carbon->copy();
-        return new BaseDateUtil($carbon);
+        return clone $this;
     }
 
     final public function isCarbon(): bool
