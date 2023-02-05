@@ -6,6 +6,7 @@ use App\Library\FileUtil\Exception\RequestFileNotFoundException;
 use App\Library\FileUtil\Exception\RequestFileNotSupportedException;
 use App\Library\FileUtil\Exception\StorageFileNotSupportedException;
 use App\Library\FileUtil\RequestFile;
+use App\Library\FileUtil\StorageFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,9 +24,19 @@ abstract class BaseFileUtil
         return $this->files;
     }
 
+    public function findRequestFile(int $key = 0): RequestFile|null
+    {
+        return isset($this->files["request"][$key]) ? $this->files["request"][$key] : null;
+    }
+
     public function getRequestFiles(): array
     {
         return isset($this->files["request"]) ? $this->files["request"] : [];
+    }
+
+    public function findStorageFile(int $key = 0): StorageFile|null
+    {
+        return isset($this->files["storage"][$key]) ? $this->files["storage"][$key] : null;
     }
 
     public function getStorageFiles(): array
@@ -56,7 +67,7 @@ abstract class BaseFileUtil
         return $this;
     }
 
-    public function addStorageFile(string $uploadDirectory, string $fileName): self
+    public function storageFile(string $uploadDirectory, string $fileName): self
     {
         $mimeType = Storage::mimeType($uploadDirectory . "/" . $fileName);
         $extension = Storage::extension($uploadDirectory . "/" . $fileName);

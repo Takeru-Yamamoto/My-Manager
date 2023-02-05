@@ -111,7 +111,7 @@ abstract class StorageFile
             "extension" => $this->extension(),
         ];
 
-        return arrayMergeUnique($params, $this->childParams());
+        return array_merge($params, $this->childParams());
     }
 
     final public function fileName(): string

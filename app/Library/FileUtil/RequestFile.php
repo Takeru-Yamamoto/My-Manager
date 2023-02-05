@@ -32,7 +32,7 @@ abstract class RequestFile
         $this->size      = $this->file->getSize();
 
         $this->uploadDirectory = self::BASE_UPLOAD_DIRECTORY;
-        if (!is_string($additionalUploadDirectory)) {
+        if (is_string($additionalUploadDirectory)) {
             $this->uploadDirectory .= "/" . $additionalUploadDirectory;
         }
 
@@ -92,7 +92,7 @@ abstract class RequestFile
 
     final public function isVideoFile(): bool
     {
-        return strpos($this->mimeType(), 'image') !== false;
+        return strpos($this->mimeType(), 'video') !== false;
     }
 
     final public function isTextFile(): bool
@@ -151,7 +151,7 @@ abstract class RequestFile
             $this->fileName = $exploded[0] . "." . $this->extension;
         }
 
-        for ($i = 1; Storage::exists($this->filePath); $i++) {
+        for ($i = 1; Storage::exists($this->uploadDirectory . "/" . $this->fileName); $i++) {
             if (strpos($this->fileName, "(" . $i . ")") !== false) {
                 $this->fileName = str_replace("(" . $i . ")", "(" . ($i + 1) . ")", $this->fileName);
             } else {

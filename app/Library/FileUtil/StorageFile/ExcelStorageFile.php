@@ -35,9 +35,11 @@ final class ExcelStorageFile extends StorageFile
 
     protected function setChild(): void
     {
-        $this->file = IOFactory::load($this->filePath);
+        $this->file = IOFactory::load(str_replace("public", "storage", $this->filePath));
 
         $this->sheetCount = $this->file->getSheetCount();
+
+        $this->pivotFirst();
 
         $this->sheets    = [];
         $this->sheetData = [];
@@ -54,8 +56,6 @@ final class ExcelStorageFile extends StorageFile
                 "range"   => $sheet->calculateWorksheetDimension(),
             ];
         }
-
-        $this->pivotFirst();
     }
 
     protected function childParams(): array
@@ -92,7 +92,7 @@ final class ExcelStorageFile extends StorageFile
     public function setSheet(int $page = null): self
     {
         if (is_null($page)) $page = $this->targetSheetPage;
-        if ($page > 0 && $page <= $this->sheetCount) $this->targetSheet = $this->file->getSheet($page);
+        if ($page >= 0 && $page <= $this->sheetCount) $this->targetSheet = $this->file->getSheet($page);
         return $this;
     }
     public function pivotPrev(): self
