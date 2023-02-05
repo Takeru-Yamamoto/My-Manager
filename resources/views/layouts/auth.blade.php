@@ -3,10 +3,10 @@
 @section('body')
     <div class="login-box">
         <div class="login-logo">
-            @if (isIconView())
-                <img src="{{ assetIcon() }}" alt="{{ siteName() }}" height="50">
+            @if (config("application.is_icon_view"))
+                <img src="{{ config("application.icon_directory") }}" alt="{{ config("application.site_name") }}" height="50">
             @endif
-            <span>{{ siteName() }}</span>
+            <span>{{ config("application.site_name") }}</span>
         </div>
 
         @if (sessionHas('success_message'))

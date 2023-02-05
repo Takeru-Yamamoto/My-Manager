@@ -5,7 +5,7 @@ namespace App\Library\FileUtil;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-use App\Library\FileUtil\Exceptions\StorageFileNotFoundException;
+use App\Library\FileUtil\Exception\StorageFileNotFoundException;
 
 abstract class StorageFile
 {

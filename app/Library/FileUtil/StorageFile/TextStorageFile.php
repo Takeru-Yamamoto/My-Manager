@@ -2,7 +2,7 @@
 
 namespace App\Library\FileUtil\StorageFile;
 
-use App\Library\FileUtil\Exceptions\CharacterCodeNotFoundException;
+use App\Library\FileUtil\Exception\CharacterCodeNotFoundException;
 use App\Library\FileUtil\StorageFile;
 
 use PhpOffice\PhpSpreadsheet\Reader\Csv;

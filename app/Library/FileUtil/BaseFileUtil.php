@@ -2,9 +2,9 @@
 
 namespace App\Library\FileUtil;
 
-use App\Library\FileUtil\Exceptions\RequestFileNotFoundException;
-use App\Library\FileUtil\Exceptions\RequestFileNotSupportedException;
-use App\Library\FileUtil\Exceptions\StorageFileNotSupportedException;
+use App\Library\FileUtil\Exception\RequestFileNotFoundException;
+use App\Library\FileUtil\Exception\RequestFileNotSupportedException;
+use App\Library\FileUtil\Exception\StorageFileNotSupportedException;
 use App\Library\FileUtil\RequestFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;

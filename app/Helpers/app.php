@@ -2,7 +2,6 @@
 
 use App\Consts\GateConst;
 use App\Consts\ContentConst;
-use App\Consts\ApplicationConst;
 use App\Models\User;
 
 if (!function_exists('role')) {
@@ -18,29 +17,11 @@ if (!function_exists('role')) {
 if (!function_exists('roleNum')) {
     function roleNum(User $user = null): int
     {
-        if (!isLoggedIn()) return 0;
+        if (!isLoggedIn()) return GateConst::GUEST_NUMBER;
         $role = is_null($user) ? authUserRole() : $user->role;
         if ($role === GateConst::SYSTEM_NUMBER) return GateConst::SYSTEM_NUMBER;
         if ($role > GateConst::SYSTEM_NUMBER && $role <= GateConst::ADMIN_NUMBER) return GateConst::ADMIN_NUMBER;
         if ($role > GateConst::ADMIN_NUMBER && $role <= GateConst::USER_NUMBER) return GateConst::USER_NUMBER;
-    }
-}
-if (!function_exists('siteName')) {
-    function siteName(): string
-    {
-        return ApplicationConst::SITE_NAME;
-    }
-}
-if (!function_exists('isIconView')) {
-    function isIconView(): bool
-    {
-        return ApplicationConst::IS_ICON_VIEW;
-    }
-}
-if (!function_exists('assetIcon')) {
-    function assetIcon(): string
-    {
-        return asset(ApplicationConst::ICON_DIRECTORY);
     }
 }
 if (!function_exists('urlSegment')) {
@@ -61,13 +42,13 @@ if (!function_exists('pageTitle')) {
     function pageTitle(): string
     {
         $contentHeader = contentHeader();
-        return empty($contentHeader) ? siteName() : $contentHeader . ' | ' . siteName();
+        return empty($contentHeader) ? config("application.site_name") : $contentHeader . ' | ' . config("application.site_name");
     }
 }
 if (!function_exists('pageFooter')) {
     function pageFooter(): string
     {
         $year = dateUtil()->year();
-        return $year === ApplicationConst::FIRST_PUBLICATION_YEAR ? "© " . $year . " " . ApplicationConst::COPYRIGHT_HOLDER_NAME : "© " . ApplicationConst::FIRST_PUBLICATION_YEAR . " - " . $year . " " . ApplicationConst::COPYRIGHT_HOLDER_NAME;
+        return $year === config("application.first_publication_year") ? "© " . $year . " " . config("application.copyright_holder_name") : "© " . config("application.first_publication_year") . " - " . $year . " " . config("application.copyright_holder_name");
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Library\FileUtil;
 
-use App\Library\FileUtil\Exceptions\StorageFileNotSupportedException;
+use App\Library\FileUtil\Exception\StorageFileNotSupportedException;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use App\Library\FileUtil\StorageFile;

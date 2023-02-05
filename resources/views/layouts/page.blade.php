@@ -43,10 +43,10 @@
 
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <a href="{{ url('home') }}" class="brand-link">
-                @if (isIconView())
-                    <img src="{{ assetIcon() }}" alt="{{ siteName() }}" class="brand-image img-circle elevation-3">
+                @if (config("application.is_icon_view"))
+                    <img src="{{ config("application.icon_directory") }}" alt="{{ config("application.site_name") }}" class="brand-image img-circle elevation-3">
                 @endif
-                <span class="brand-text font-weight-light">{{ siteName() }}</span>
+                <span class="brand-text font-weight-light">{{ config("application.site_name") }}</span>
             </a>
 
             <div class="sidebar">

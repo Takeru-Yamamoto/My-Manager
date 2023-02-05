@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Hash;
-use App\Consts\ApplicationConst;
 use Illuminate\Support\Str;
 
 if (!function_exists('encryptParams')) {
@@ -48,13 +47,13 @@ if (!function_exists('hashedRandomText')) {
 if (!function_exists('hashedAccessToken')) {
     function hashedAccessToken(): string
     {
-        return makeHash(ApplicationConst::API_ACCESS_TOKEN);
+        return makeHash(config("application.api_access_token"));
     }
 }
 if (!function_exists('checkAccessToken')) {
     function checkAccessToken($accessToken): bool
     {
-        return checkHash(ApplicationConst::API_ACCESS_TOKEN, $accessToken);
+        return checkHash(config("application.api_access_token"), $accessToken);
     }
 }
 if (!function_exists('expirationDate')) {
