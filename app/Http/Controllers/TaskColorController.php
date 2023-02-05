@@ -10,8 +10,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Forms\TaskColor as Forms;
 use App\Services\TaskColorService;
 
-use App\Consts\ContentConst;
-
 class TaskColorController extends Controller
 {
 	private $service;
@@ -24,7 +22,7 @@ class TaskColorController extends Controller
 	public function index(): View|Factory
 	{
 		$taskColors = $this->service->TaskColorRepository->get();
-		$bootstrapColors = ContentConst::BOOTSTRAP_COLORS;
+		$bootstrapColors = config("color.color");
 
 		return view("pages.taskColor.modal", compact("taskColors", "bootstrapColors"));
 	}

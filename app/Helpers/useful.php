@@ -60,10 +60,10 @@ if (!function_exists('responseJson')) {
     }
 }
 if (!function_exists('convertToBootstrapColorCode')) {
-    function convertToBootstrapColorCode(string $class): string|null
+    function convertToBootstrapColorCode(string $class): string
     {
-        if (isset(ContentConst::BOOTSTRAP_CLASS_COLORS[$class])) $class = ContentConst::BOOTSTRAP_CLASS_COLORS[$class];
-        return isset(ContentConst::BOOTSTRAP_COLOR_CODES[$class]) ? ContentConst::BOOTSTRAP_COLOR_CODES[$class] : null;
+        if (isset(config("color.class_color")[$class]) && is_string(config("color.class_color")[$class])) $class = config("color.class_color")[$class];
+        return isset(config("color.class_code")[$class]) && is_string(config("color.class_code")[$class]) ? config("color.class_code")[$class] : "";
     }
 }
 if (!function_exists('removeNullAndEmptyFromArray')) {
