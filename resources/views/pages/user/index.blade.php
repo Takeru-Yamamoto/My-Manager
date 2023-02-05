@@ -3,14 +3,14 @@
 @section('card-header')
     <div class="d-flex justify-content-between align-items-center mb-3">
         {{ tableCardHeader() }}
-        <a class="{{ btnRight() }} {{ btnCreateClass() }}" href="{{ url('user/create') }}">{{ btnCreateShortText() }}</a>
+        <a class="{{ btnRight() }} {{ btnCreate() }}" href="{{ url('user/create') }}">{{ btnCreateText() }}</a>
     </div>
     <div class="card">
         <form method="get" action="{{ url('user') }}">
             <div class="card-header">
                 <div class="d-flex justify-content-between">
                     <p class="h5 m-0">ユーザー検索</p>
-                    <button class="{{ btnInfoClass() }} {{ btnSmall() }}">検索</button>
+                    <button class="{{ btnInfo() }} {{ btnSmall() }}">検索</button>
                 </div>
             </div>
             <div class="card-body">
@@ -60,19 +60,17 @@
                                 'addClass' => btnBlock(),
                                 'flg' => $user->isValid,
                                 'id' => $user->id,
-                                'type' => btnTypeShort(),
                                 'url' => url('user/change_is_valid'),
                             ])
                         </td>
                         <td>
-                            <a class="{{ btnUpdateClass() }} {{ btnBlock() }}"
-                                href="{{ url('user/update/' . $user->id) }}">{{ btnUpdateShortText() }}</a>
+                            <a class="{{ btnUpdate() }} {{ btnBlock() }}"
+                                href="{{ url('user/update/' . $user->id) }}">{{ btnUpdateText() }}</a>
                         </td>
                         <td>
                             @include('components.btn.delete', [
                                 'addClass' => btnBlock(),
                                 'id' => $user->id,
-                                'type' => btnTypeShort(),
                                 'url' => url('user/delete'),
                             ])
                         </td>

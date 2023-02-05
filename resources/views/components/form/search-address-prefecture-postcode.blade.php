@@ -1,7 +1,7 @@
 <div class="form-group">
     <div class="d-flex align-items-center mb-2">
         <label class="m-0" for="{{ $postCode['name'] }}">{{ $postCode['title'] }}</label>
-        <a class="ml-3 {{ btnInfoClass() }} {{ btnSmall() }} search-address-prefecture-postcode-btn"
+        <a class="ml-3 {{ btnInfo() }} {{ btnSmall() }} search-address-prefecture-postcode-btn"
             data-post-code-input="{{ $postCode['name'] }}" data-address-input="{{ $address['name'] }}"
             data-prefecture-select="{{ isset($prefecture) ? $prefecture['name'] : '' }}">住所検索</a>
     </div>

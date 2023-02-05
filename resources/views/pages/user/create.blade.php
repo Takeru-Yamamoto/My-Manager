@@ -47,6 +47,6 @@
 @stop
 
 @section('card-footer')
-    <a class="{{ btnCreateClass() }} {{ btnBlock() }} {{ btnFormSubmit() }}"
-        data-form="{{ formId() }}">{{ btnCreateShortText() }}</a>
+    <a class="{{ btnCreate() }} {{ btnBlock() }} {{ btnFormSubmit() }}"
+        data-form="{{ formId() }}">{{ btnCreateText() }}</a>
 @stop

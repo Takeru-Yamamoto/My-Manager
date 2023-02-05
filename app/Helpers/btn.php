@@ -1,210 +1,123 @@
 <?php
 
-use App\Consts\BtnConst;
-use App\Consts\NameConst;
-
-/* type */
-if (!function_exists('btnTypeShort')) {
-    function btnTypeShort(): string
-    {
-        return NameConst::TYPE_SHORT;
-    }
-}
-if (!function_exists('btnTypeFull')) {
-    function btnTypeFull(): string
-    {
-        return NameConst::TYPE_FULL;
-    }
-}
-
 /* class */
-if (!function_exists('btnClass')) {
-    function btnClass(string $kind): string
+if (!function_exists('btnCreate')) {
+    function btnCreate(): string
     {
-        return BtnConst::BTN_CLASS_MAP[$kind];
+        return config("btn.class.create");
     }
 }
-if (!function_exists('btnCreateClass')) {
-    function btnCreateClass(): string
+if (!function_exists('btnUpdate')) {
+    function btnUpdate(): string
     {
-        return btnClass(NameConst::CREATE);
+        return config("btn.class.update");
     }
 }
-if (!function_exists('btnUpdateClass')) {
-    function btnUpdateClass(): string
+if (!function_exists('btnDelete')) {
+    function btnDelete(): string
     {
-        return btnClass(NameConst::UPDATE);
+        return config("btn.class.delete");
     }
 }
-if (!function_exists('btnDeleteClass')) {
-    function btnDeleteClass(): string
+if (!function_exists('btnChange')) {
+    function btnChange(): string
     {
-        return btnClass(NameConst::DELETE);
+        return config("btn.class.change");
     }
 }
-if (!function_exists('btnChangeClass')) {
-    function btnChangeClass(): string
+if (!function_exists('btnFlg')) {
+    function btnFlg(int $flg): string
     {
-        return btnClass(NameConst::CHANGE);
+        if($flg === 0) return config("btn.class.true");
+        if($flg === 1) return config("btn.class.false");
+        return "";
     }
 }
-if (!function_exists('btnFlgClass')) {
-    function btnFlgClass(int $flg): string
+if (!function_exists('btnLink')) {
+    function btnLink(): string
     {
-        return $flg === 0 || $flg === 1 ? btnClass($flg) : "";
+        return config("btn.class.link");
     }
 }
-if (!function_exists('btnLinkClass')) {
-    function btnLinkClass(): string
+if (!function_exists('btnInfo')) {
+    function btnInfo(): string
     {
-        return btnClass(BtnConst::LINK);
+        return config("btn.class.info");
     }
 }
-if (!function_exists('btnInfoClass')) {
-    function btnInfoClass(): string
+if (!function_exists('btnSpinner')) {
+    function btnSpinner(): string
     {
-        return btnClass(BtnConst::INFO);
+        return config("btn.class.spinner");
     }
 }
-if (!function_exists('btnSpinnerClass')) {
-    function btnSpinnerClass(): string
+if (!function_exists('btnModal')) {
+    function btnModal(): string
     {
-        return btnClass(BtnConst::SPINNER);
+        return config("btn.class.modal");
     }
 }
-if (!function_exists('btnModalClass')) {
-    function btnModalClass(): string
+if (!function_exists('btnModalAjax')) {
+    function btnModalAjax(): string
     {
-        return btnClass(BtnConst::MODAL);
-    }
-}
-if (!function_exists('btnModalAjaxClass')) {
-    function btnModalAjaxClass(): string
-    {
-        return btnClass(BtnConst::MODAL_AJAX);
+        return config("btn.class.modal-ajax");
     }
 }
 if (!function_exists('btnFormSubmit')) {
     function btnFormSubmit(): string
     {
-        return btnClass(BtnConst::FORM_SUBMIT);
+        return config("btn.class.form-submit");
     }
 }
 if (!function_exists('btnBlock')) {
     function btnBlock(): string
     {
-        return btnClass(BtnConst::BLOCK);
+        return config("btn.class.block");
     }
 }
 if (!function_exists('btnRight')) {
     function btnRight(): string
     {
-        return btnClass(BtnConst::RIGHT);
+        return config("btn.class.right");
     }
 }
 if (!function_exists('btnSmall')) {
     function btnSmall(): string
     {
-        return btnClass(BtnConst::SMALL);
+        return config("btn.class.small");
     }
 }
 
 /* text */
-if (!function_exists('btnText')) {
-    function btnText(string $type, string $kind): string
-    {
-        if (!in_array($type, NameConst::TYPES)) return "";
-        return NameConst::NAMES[$type][$kind];
-    }
-}
 if (!function_exists('btnCreateText')) {
-    function btnCreateText(string $type): string
+    function btnCreateText(): string
     {
-        return btnText($type, NameConst::CREATE);
-    }
-}
-if (!function_exists('btnCreateFullText')) {
-    function btnCreateFullText(): string
-    {
-        return btnCreateText(NameConst::TYPE_FULL);
-    }
-}
-if (!function_exists('btnCreateShortText')) {
-    function btnCreateShortText(): string
-    {
-        return btnCreateText(NameConst::TYPE_SHORT);
+        return config("btn.text.create");
     }
 }
 if (!function_exists('btnUpdateText')) {
-    function btnUpdateText(string $type): string
+    function btnUpdateText(): string
     {
-        return btnText($type, NameConst::UPDATE);
-    }
-}
-if (!function_exists('btnUpdateFullText')) {
-    function btnUpdateFullText(): string
-    {
-        return btnUpdateText(NameConst::TYPE_FULL);
-    }
-}
-if (!function_exists('btnUpdateShortText')) {
-    function btnUpdateShortText(): string
-    {
-        return btnUpdateText(NameConst::TYPE_SHORT);
+        return config("btn.text.update");
     }
 }
 if (!function_exists('btnDeleteText')) {
-    function btnDeleteText(string $type): string
+    function btnDeleteText(): string
     {
-        return btnText($type, NameConst::DELETE);
-    }
-}
-if (!function_exists('btnDeleteFullText')) {
-    function btnDeleteFullText(): string
-    {
-        return btnDeleteText(NameConst::TYPE_FULL);
-    }
-}
-if (!function_exists('btnDeleteShortText')) {
-    function btnDeleteShortText(): string
-    {
-        return btnDeleteText(NameConst::TYPE_SHORT);
+        return config("btn.text.delete");
     }
 }
 if (!function_exists('btnChangeText')) {
-    function btnChangeText(string $type): string
+    function btnChangeText(): string
     {
-        return btnText($type, NameConst::CHANGE);
-    }
-}
-if (!function_exists('btnChangeFullText')) {
-    function btnChangeFullText(): string
-    {
-        return btnChangeText(NameConst::TYPE_FULL);
-    }
-}
-if (!function_exists('btnChangeShortText')) {
-    function btnChangeShortText(): string
-    {
-        return btnChangeText(NameConst::TYPE_SHORT);
+        return config("btn.text.change");
     }
 }
 if (!function_exists('btnFlgText')) {
-    function btnFlgText(string $type, int $flg): string
+    function btnFlgText(int $flg): string
     {
-        if ($flg !== 0 && $flg !== 1) return "";
-        return btnText($type, $flg);
-    }
-}
-if (!function_exists('btnFlgFullText')) {
-    function btnFlgFullText(int $flg): string
-    {
-        return btnFlgText(NameConst::TYPE_FULL, $flg);
-    }
-}
-if (!function_exists('btnFlgShortText')) {
-    function btnFlgShortText(int $flg): string
-    {
-        return btnFlgText(NameConst::TYPE_SHORT, $flg);
+        if($flg === 0) return config("btn.text.true");
+        if($flg === 1) return config("btn.text.false");
+        return "";
     }
 }

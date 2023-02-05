@@ -22,6 +22,6 @@
 @stop
 
 @section('card-footer')
-    <a class="{{ btnCreateClass() }} {{ btnBlock() }} {{ btnFormSubmit() }}"
+    <a class="{{ btnCreate() }} {{ btnBlock() }} {{ btnFormSubmit() }}"
         data-form="{{ formId() }}">送信</a>
 @stop

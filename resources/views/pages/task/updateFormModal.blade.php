@@ -43,8 +43,8 @@
 
 @section('modal_footer')
     <div class="d-flex align-items-center justify-content-end">
-        <a class="{{ btnUpdateClass() }} {{ btnFormSubmit() }}"
-            data-form="{{ formId() }}">{{ btnUpdateShortText() }}</a>
+        <a class="{{ btnUpdate() }} {{ btnFormSubmit() }}"
+            data-form="{{ formId() }}">{{ btnUpdateText() }}</a>
         @include('components.btn.delete', [
             'addClass' => 'ml-3',
             'id'       => $$task->id,

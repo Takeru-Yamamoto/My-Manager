@@ -50,6 +50,6 @@
 @stop
 
 @section('card-footer')
-    <a class="{{ btnUpdateClass() }} {{ btnBlock() }} {{ btnFormSubmit() }}"
-        data-form="{{ formId() }}">{{ btnUpdateShortText() }}</a>
+    <a class="{{ btnUpdate() }} {{ btnBlock() }} {{ btnFormSubmit() }}"
+        data-form="{{ formId() }}">{{ btnUpdateText() }}</a>
 @stop

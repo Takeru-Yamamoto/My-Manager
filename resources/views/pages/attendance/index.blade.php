@@ -4,9 +4,9 @@
     <div class="d-flex justify-content-between align-items-center">
         {{ tableCardHeader() }}
         <div>
-            <a class="{{ btnLinkClass() }}"
+            <a class="{{ btnLink() }}"
                 href="{{ url('attendance') }}?month={{ $subMonth->format(config("library.date.format.year_month")) }}">{{ $subMonth->format(config("library.date.format.year_month_jp")) }}</a>
-            <a class="{{ btnLinkClass() }}"
+            <a class="{{ btnLink() }}"
                 href="{{ url('attendance') }}?month={{ $addMonth->format(config("library.date.format.year_month")) }}">{{ $addMonth->format(config("library.date.format.year_month_jp")) }}</a>
         </div>
     </div>

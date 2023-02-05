@@ -4,9 +4,9 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         {{ tableCardHeader() }}
         <div>
-            <a class="{{ btnLinkClass() }}"
+            <a class="{{ btnLink() }}"
                 href="{{ url('attendance/admin?month=' . $subMonth->format(config("library.date.format.year_month"))) }}&name={{ $form->name }}">{{ $subMonth->format(config("library.date.format.year_month_jp")) }}</a>
-            <a class="{{ btnLinkClass() }}"
+            <a class="{{ btnLink() }}"
                 href="{{ url('attendance/admin?month=' . $addMonth->format(config("library.date.format.year_month"))) }}&name={{ $form->name }}">{{ $addMonth->format(config("library.date.format.year_month_jp")) }}</a>
         </div>
     </div>
@@ -15,7 +15,7 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between">
                     <p class="h5 m-0">ユーザー検索</p>
-                    <button class="{{ btnInfoClass() }} {{ btnSmall() }}">検索</button>
+                    <button class="{{ btnInfo() }} {{ btnSmall() }}">検索</button>
                 </div>
             </div>
             <div class="card-body">

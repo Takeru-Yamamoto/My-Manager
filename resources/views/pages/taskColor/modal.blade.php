@@ -26,8 +26,8 @@
                     </select>
                 </td>
                 <td>
-                    <a class="{{ btnCreateClass() }} {{ btnBlock() }} task-color-create-btn"
-                        data-url="{{ url('task_color/create') }}">{{ btnCreateShortText() }}</a>
+                    <a class="{{ btnCreate() }} {{ btnBlock() }} task-color-create-btn"
+                        data-url="{{ url('task_color/create') }}">{{ btnCreateText() }}</a>
                 </td>
                 <td></td>
             </tr>
@@ -48,9 +48,9 @@
                         </select>
                     </td>
                     <td>
-                        <a class="{{ btnUpdateClass() }} {{ btnBlock() }} task-color-update-btn"
+                        <a class="{{ btnUpdate() }} {{ btnBlock() }} task-color-update-btn"
                             data-url="{{ url('task_color/update') }}"
-                            data-id="{{ $taskColor->id }}">{{ btnUpdateShortText() }}</a>
+                            data-id="{{ $taskColor->id }}">{{ btnUpdateText() }}</a>
                     </td>
                     <td>
                         @if (count($taskColors) > 1)

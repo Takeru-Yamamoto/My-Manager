@@ -17,7 +17,7 @@
         <div class="form-group">
             <label class="d-flex align-items-center">
                 メールアドレス
-                <a class="{{ btnLinkClass() }}" href="{{ url('login_info/change_email') }}">メールアドレス変更はこちら</a>
+                <a class="{{ btnLink() }}" href="{{ url('login_info/change_email') }}">メールアドレス変更はこちら</a>
             </label>
             <input type="email" name="email" class="form-control" value="{{ old('email', $user->email) }}" readonly>
         </div>
@@ -34,6 +34,6 @@
 @stop
 
 @section('card-footer')
-    <a class="{{ btnUpdateClass() }} {{ btnBlock() }} {{ btnFormSubmit() }}"
-        data-form="{{ formId() }}">{{ btnUpdateShortText() }}</a>
+    <a class="{{ btnUpdate() }} {{ btnBlock() }} {{ btnFormSubmit() }}"
+        data-form="{{ formId() }}">{{ btnUpdateText() }}</a>
 @stop

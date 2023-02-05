@@ -215,7 +215,6 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         /* Consts 追加 */
-        'BtnConst' => App\Consts\BtnConst::class,
         'ContentConst' => App\Consts\ContentConst::class,
         'DayOfWeekConst' => App\Consts\DayOfWeekConst::class,
         'GateConst' => App\Consts\GateConst::class,

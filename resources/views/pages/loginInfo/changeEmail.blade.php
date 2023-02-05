@@ -16,5 +16,5 @@
 @stop
 
 @section('card-footer')
-    <a class="{{ btnCreateClass() }} {{ btnBlock() }} {{ btnFormSubmit() }}" data-form="{{ formId() }}">認証画面に進む</a>
+    <a class="{{ btnCreate() }} {{ btnBlock() }} {{ btnFormSubmit() }}" data-form="{{ formId() }}">認証画面に進む</a>
 @stop

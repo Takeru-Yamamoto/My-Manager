@@ -40,8 +40,8 @@
 
 @section('modal_footer')
     <div class="d-flex align-items-center justify-content-end">
-        <a class="{{ btnCreateClass() }} {{ btnFormSubmit() }}"
-            data-form="{{ formId() }}">{{ btnCreateShortText() }}</a>
+        <a class="{{ btnCreate() }} {{ btnFormSubmit() }}"
+            data-form="{{ formId() }}">{{ btnCreateText() }}</a>
         <a class="btn btn-secondary ml-3" data-dismiss="modal">キャンセル</a>
     </div>
 @stop
