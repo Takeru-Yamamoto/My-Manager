@@ -7,8 +7,12 @@ use App\Library\FileUtil\Exception\RequestFileNotSupportedException;
 use App\Library\FileUtil\Exception\StorageFileNotSupportedException;
 use App\Library\FileUtil\RequestFile;
 use App\Library\FileUtil\StorageFile;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Csv;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 abstract class BaseFileUtil
 {
@@ -84,6 +88,26 @@ abstract class BaseFileUtil
             throw new StorageFileNotSupportedException($uploadDirectory . "/" . $fileName, $mimeType, $extension);
         }
 
+        return $this;
+    }
+
+    public function createEXCEL(string $uploadDirectory, string $fileName): self
+    {
+        if (strpos($fileName, ".xlsx") === false) $fileName .= ".xlsx";
+        $sheet = new Spreadsheet();
+        $writer = new Xlsx($sheet);
+        $writer->save($uploadDirectory . "/" . $fileName);
+        $this->files["storage"][] = new StorageFile\ExcelStorageFile($uploadDirectory, $fileName);
+        return $this;
+    }
+
+    public function createCSV(string $uploadDirectory, string $fileName): self
+    {
+        if (strpos($fileName, ".csv") === false) $fileName .= ".csv";
+        $sheet = new Spreadsheet();
+        $writer = new Csv($sheet);
+        $writer->save($uploadDirectory . "/" . $fileName);
+        $this->files["storage"][] = new StorageFile\TextStorageFile($uploadDirectory, $fileName);
         return $this;
     }
 }
