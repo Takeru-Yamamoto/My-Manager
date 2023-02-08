@@ -55,11 +55,11 @@ abstract class BaseFileUtil
         $files = is_array($request->file($fileName)) ? $request->file($fileName) : [$request->file($fileName)];
 
         foreach ($files as $file) {
-            if (strpos($file->getClientMimeType(), 'image') !== false) {
+            if (str_contains($file->getClientMimeType(), 'image')) {
                 $this->files["request"][] = new RequestFile\ImageRequestFile($file, $additionalUploadDirectory, $registerName);
-            } elseif (strpos($file->getClientMimeType(), 'video') !== false) {
+            } elseif (str_contains($file->getClientMimeType(), 'video')) {
                 $this->files["request"][] = new RequestFile\VideoRequestFile($file, $additionalUploadDirectory, $registerName);
-            } elseif (strpos($file->getClientMimeType(), 'text') !== false) {
+            } elseif (str_contains($file->getClientMimeType(), 'text')) {
                 $this->files["request"][] = new RequestFile\TextRequestFile($file, $additionalUploadDirectory, $registerName);
             } elseif (in_array($file->extension(), config("library.file.accept_excel", []))) {
                 $this->files["request"][] = new RequestFile\ExcelRequestFile($file, $additionalUploadDirectory, $registerName);
@@ -76,11 +76,11 @@ abstract class BaseFileUtil
         $mimeType = Storage::mimeType($uploadDirectory . "/" . $fileName);
         $extension = Storage::extension($uploadDirectory . "/" . $fileName);
 
-        if (strpos($mimeType, 'image') !== false) {
+        if (str_contains($mimeType, 'image')) {
             $this->files["storage"][] = new StorageFile\ImageStorageFile($uploadDirectory, $fileName);
-        } elseif (strpos($mimeType, 'video') !== false) {
+        } elseif (str_contains($mimeType, 'video')) {
             $this->files["storage"][] = new StorageFile\VideoStorageFile($uploadDirectory, $fileName);
-        } elseif (strpos($mimeType, 'text') !== false) {
+        } elseif (str_contains($mimeType, 'text')) {
             $this->files["storage"][] = new StorageFile\TextStorageFile($uploadDirectory, $fileName);
         } elseif (in_array($extension, config("library.file.accept_excel", []))) {
             $this->files["storage"][] = new StorageFile\ExcelStorageFile($uploadDirectory, $fileName);
@@ -93,7 +93,7 @@ abstract class BaseFileUtil
 
     public function createEXCEL(string $uploadDirectory, string $fileName): self
     {
-        if (strpos($fileName, ".xlsx") === false) $fileName .= ".xlsx";
+        if (str_contains($fileName, ".xlsx") === false) $fileName .= ".xlsx";
         $sheet = new Spreadsheet();
         $writer = new Xlsx($sheet);
         $writer->save($uploadDirectory . "/" . $fileName);
@@ -103,7 +103,7 @@ abstract class BaseFileUtil
 
     public function createCSV(string $uploadDirectory, string $fileName): self
     {
-        if (strpos($fileName, ".csv") === false) $fileName .= ".csv";
+        if (str_contains($fileName, ".csv") === false) $fileName .= ".csv";
         $sheet = new Spreadsheet();
         $writer = new Csv($sheet);
         $writer->save($uploadDirectory . "/" . $fileName);

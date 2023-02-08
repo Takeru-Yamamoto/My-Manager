@@ -10,19 +10,14 @@ class SearchService extends BaseService
 {
     public function search(Forms\SearchForm $form): array|null
     {
-        $repository = null;
-
-        switch ($form->model) {
-            case "user":
-                $repository = $this->UserRepository;
-                break;
-            case "emailReset":
-                $repository = $this->EmailResetRepository;
-                break;
-            case "passwordReset":
-                $repository = $this->PasswordResetRepository;
-                break;
-        }
+        $repository = match ($form->model) {
+            "user"          => $this->UserRepository,
+            "emailReset"    => $this->EmailResetRepository,
+            "passwordReset" => $this->PasswordResetRepository,
+            "attendance"    => $this->AttendanceRepository,
+            "task"          => $this->TaskRepository,
+            "taskColor"     => $this->TaskColorRepository,
+        };
 
         $results = null;
         $from    = $form->from;
@@ -36,14 +31,10 @@ class SearchService extends BaseService
             }
         }
 
-        switch ($form->eloquent) {
-            case "where":
-                $results = $repository->getRaw($from, $form->value);
-                break;
-            case "like":
-                $results = $repository->whereLike($from, $form->value)->getRaw();
-                break;
-        }
+        $results = match ($form->eloquent) {
+            "where" => $repository->getRaw($from, $form->value),
+            "like"  => $repository->whereLike($from, $form->value)->getRaw(),
+        };
 
         if (is_null($results)) return $results;
 

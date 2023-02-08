@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        if (strpos(request()->path(), "api/") !== false) {
+        if (str_contains(request()->path(), "api/")) {
             ApiGate::define();
         } else {
             UserGate::define();

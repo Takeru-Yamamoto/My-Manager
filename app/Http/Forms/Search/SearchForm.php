@@ -22,7 +22,7 @@ class SearchForm extends BaseForm
     {
         return [
             "value"      => $this->required(),
-            "model"      => $this->required($this->string(), $this->in(["user", "emailReset", "passwordReset"])),
+            "model"      => $this->required($this->string(), $this->in(["user", "emailReset", "passwordReset", "attendance", "task", "taskColor"])),
             "eloquent"   => $this->required($this->string(), $this->in(["where", "like"])),
             "from"       => $this->required($this->string()),
             "to"         => $this->required($this->string()),

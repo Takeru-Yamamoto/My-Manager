@@ -87,17 +87,17 @@ abstract class RequestFile
 
     final public function isImageFile(): bool
     {
-        return strpos($this->mimeType(), 'image') !== false;
+        return str_contains($this->mimeType(), 'image');
     }
 
     final public function isVideoFile(): bool
     {
-        return strpos($this->mimeType(), 'video') !== false;
+        return str_contains($this->mimeType(), 'video');
     }
 
     final public function isTextFile(): bool
     {
-        return strpos($this->mimeType(), 'text') !== false;
+        return str_contains($this->mimeType(), 'text');
     }
 
     final public function isExcelFile(): bool
@@ -152,7 +152,7 @@ abstract class RequestFile
         }
 
         for ($i = 1; Storage::exists($this->uploadDirectory . "/" . $this->fileName); $i++) {
-            if (strpos($this->fileName, "(" . $i . ")") !== false) {
+            if (str_contains($this->fileName, "(" . $i . ")")) {
                 $this->fileName = str_replace("(" . $i . ")", "(" . ($i + 1) . ")", $this->fileName);
             } else {
                 $this->fileName = $exploded[0] . "(" . $i . ")." . $this->extension;

@@ -31,7 +31,7 @@ final class ExcelStorageFile extends StorageFile
 
     public function save(string $uploadDirectory, string $fileName): self
     {
-        if (strpos($fileName, ".xlsx") === false) $fileName .= ".xlsx";
+        if (!str_contains($fileName, ".xlsx")) $fileName .= ".xlsx";
         $writer = new Xlsx($this->file);
         $writer->save($uploadDirectory . "/" . $fileName);
         $this->reset($uploadDirectory, $fileName);
@@ -39,7 +39,7 @@ final class ExcelStorageFile extends StorageFile
     }
     public function saveAsCSV(string $uploadDirectory, string $fileName): self
     {
-        if (strpos($fileName, ".csv") === false) $fileName .= ".csv";
+        if (!str_contains($fileName, ".csv")) $fileName .= ".csv";
         $writer = new Csv($this->file);
         $writer->save($uploadDirectory . "/" . $fileName);
         $this->reset($uploadDirectory, $fileName);

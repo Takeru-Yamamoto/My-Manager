@@ -251,7 +251,7 @@ abstract class BaseRepository
 
     final public function whereLike(string $column, mixed $value): self
     {
-        if (strpos($value, "%") === false) return $this->where($column, "%" . $value . "%", "like");
+        if (!str_contains($value, "%")) return $this->where($column, "%" . $value . "%", "like");
 
         return $this->where($column, $value, "like");
     }

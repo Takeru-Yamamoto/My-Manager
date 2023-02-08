@@ -17,7 +17,7 @@ class AccessAnalysisMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (!config("access.time") && !config("access.path") && !config("access.method") && !config("access.user_agent") && !config("access.ip") && !config("access.memory")) return $next($request);
-        if (strpos($request->getRequestUri(), "_debugbar") !== false) return $next($request);
+        if (str_contains($request->getRequestUri(), "_debugbar")) return $next($request);
 
         dividerLog();
         infoLog("アクセス解析開始");
