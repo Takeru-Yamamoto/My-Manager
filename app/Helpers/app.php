@@ -32,10 +32,11 @@ if (!function_exists('urlSegment')) {
     }
 }
 if (!function_exists('contentHeader')) {
-    function contentHeader(string $content = null): string
+    function contentHeader(string $content = null, string $type = null): string
     {
         if (is_null($content)) $content = urlSegment();
-        return isset(ContentConst::TITLES[$content]) ? ContentConst::TITLES[$content] . ContentConst::IS_TITLE : "";
+        if (is_null($type)) $type = ContentConst::IS_TITLE;
+        return isset(ContentConst::PAGES[$content]) && isset(ContentConst::PAGES[$content]["title"]) ? ContentConst::PAGES[$content]["title"] . $type : "";
     }
 }
 if (!function_exists('pageTitle')) {

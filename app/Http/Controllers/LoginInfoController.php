@@ -28,7 +28,7 @@ class LoginInfoController extends Controller
     {
         $this->service->update(new Forms\UpdateForm($request->all()));
 
-        return successRedirect("loginInfo.index", text: configText("login_info_updated"));
+        return successRedirect("login_info.index", text: configText("login_info_updated"));
     }
 
     public function changeEmailForm(): View
@@ -40,7 +40,7 @@ class LoginInfoController extends Controller
     {
         $isSendEmailReset = $this->service->authenticationCodeForm(new Forms\AuthenticationCodeForm($request->all()));
 
-        return $isSendEmailReset ? view('pages.loginInfo.authenticationCode', ['user' => authUserResult()]) : failureRedirect("loginInfo.changeEmailForm", text: configText("email_send_failure"));
+        return $isSendEmailReset ? view('pages.loginInfo.authenticationCode', ['user' => authUserResult()]) : failureRedirect("login_info.changeEmailForm", text: configText("email_send_failure"));
     }
 
     public function changeEmail(Request $request): RedirectResponse
@@ -49,6 +49,6 @@ class LoginInfoController extends Controller
 
         $changeEmailResult = $this->service->changeEmail($form);
 
-        return $changeEmailResult ? successRedirect("loginInfo.index", text: configText("email_changed_success")) : failureRedirect("loginInfo.index", text: configText("email_changed_success"));
+        return $changeEmailResult ? successRedirect("login_info.index", text: configText("email_changed_success")) : failureRedirect("login_info.index", text: configText("email_changed_success"));
     }
 }

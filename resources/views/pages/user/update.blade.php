@@ -10,8 +10,7 @@
         <input type="number" name="id" value="{{ $user->id }}" hidden />
         <div class="form-group">
             <label for="name">ユーザー名</label>
-            <input type="text" name="name" class="form-control" id="name" value="{{ old('name', $user->name) }}"
-                readonly>
+            <input type="text" name="name" class="form-control" id="name" value="{{ old('name', $user->name) }}">
         </div>
         <div class="form-group">
             <label for="email">E-Mail</label>
@@ -29,7 +28,7 @@
         </div>
         <label for="role">ロール</label>
         <div class="form-group" id="role">
-            @can('system')
+            @if(isSystem())
                 <div class="custom-control custom-radio custom-control-inline">
                     <input class="custom-control-input" type="radio" name="role" value="5" id="role-5"
                         {{ isChecked(old('role', $user->role) == 5) }}>
@@ -37,7 +36,7 @@
                         Admin
                     </label>
                 </div>
-            @endcan
+            @endif
             <div class="custom-control custom-radio custom-control-inline">
                 <input class="custom-control-input" type="radio" name="role" value="10" id="role-10"
                     {{ isChecked(old('role', $user->role) == 10) }}>

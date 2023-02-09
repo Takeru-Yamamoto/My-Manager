@@ -16,8 +16,8 @@ class PasswordResetPreparationForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            "token" => $this->required($this->string(), $this->exists("password_resets")->where("email", $this->input["email"])),
-            "email" => $this->required($this->email(), $this->exists("password_resets")->where("token", $this->input["token"])),
+            "token" => $this->required($this->string(), $this->exists("password_resets", "token")->where("email", $this->input["email"])),
+            "email" => $this->required($this->email(), $this->exists("password_resets", "email")->where("token", $this->input["token"])),
         ];
     }
 

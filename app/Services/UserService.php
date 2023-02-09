@@ -46,8 +46,9 @@ class UserService extends BaseService
     {
         $user = $this->UserRepository->findRawById($form->id);
 
-        $user->role = $form->role;
+        $user->name  = $form->name;
         $user->email = $form->email;
+        $user->role  = $form->role;
         if (!is_null($form->password)) {
             $user->password = makeHash($form->password);
         }

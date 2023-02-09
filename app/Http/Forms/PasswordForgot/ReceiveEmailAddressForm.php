@@ -15,7 +15,7 @@ class ReceiveEmailAddressForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            "email" => $this->required($this->email(), $this->exists("users")),
+            "email" => $this->required($this->email(), $this->exists("users", "email")),
         ];
     }
 

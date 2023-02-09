@@ -18,7 +18,7 @@ class PasswordResetForm extends BaseForm
     {
         return [
             "password" => $this->required($this->passwordConfirmed()),
-            "email"    => $this->required($this->email(), $this->exists("users")),
+            "email"    => $this->required($this->email(), $this->exists("users", "email")),
             "token"    => $this->required($this->string()),
         ];
     }

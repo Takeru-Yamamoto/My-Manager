@@ -43,7 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // ユーザ
     Route::group(['middleware' => ['can:' . RoleConst::USER_HIGHER]], function () {
-        Route::group(["prefix" => ContentConst::LOGIN_INFO_URL, "as" => ContentConst::LOGIN_INFO . "."], function () {
+        Route::group(["prefix" => ContentConst::LOGIN_INFO, "as" => ContentConst::LOGIN_INFO . "."], function () {
             Route::get('/', [Controller\LoginInfoController::class, 'index'])->name('index');
             Route::post('/update', [Controller\LoginInfoController::class, 'update'])->name('update');
             Route::get('/change_email', [Controller\LoginInfoController::class, 'changeEmailForm'])->name('changeEmailForm');
@@ -51,12 +51,12 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/change_email', [Controller\LoginInfoController::class, 'changeEmail'])->name('changeEmail');
         });
 
-        Route::group(["prefix" => ContentConst::ATTENDANCE_URL, "as" => ContentConst::ATTENDANCE . "."], function () {
+        Route::group(["prefix" => ContentConst::ATTENDANCE, "as" => ContentConst::ATTENDANCE . "."], function () {
             Route::get('/', [Controller\AttendanceController::class, 'index'])->name('index');
             Route::post('/create', [Controller\AttendanceController::class, 'create'])->name('create');
         });
 
-        Route::group(["prefix" => ContentConst::TASK_URL, "as" => ContentConst::TASK . "."], function () {
+        Route::group(["prefix" => ContentConst::TASK, "as" => ContentConst::TASK . "."], function () {
             Route::get('/', [Controller\TaskController::class, 'index'])->name('index');
             Route::post('/fetch', [Controller\TaskController::class, 'fetch'])->name('fetch');
             Route::get('/create', [Controller\TaskController::class, 'createModal'])->name('createModal');
@@ -66,7 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/delete', [Controller\TaskController::class, 'delete'])->name('delete');
         });
 
-        Route::group(["prefix" => ContentConst::TASK_COLOR_URL, "as" => ContentConst::TASK_COLOR . "."], function () {
+        Route::group(["prefix" => ContentConst::TASK_COLOR, "as" => ContentConst::TASK_COLOR . "."], function () {
             Route::get('/', [Controller\TaskColorController::class, 'index'])->name('index');
             Route::post('/create', [Controller\TaskColorController::class, 'create'])->name('create');
             Route::post('/update', [Controller\TaskColorController::class, 'update'])->name('update');
@@ -76,7 +76,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // 管理者
     Route::group(['middleware' => ['can:' . RoleConst::ADMIN_HIGHER]], function () {
-        Route::group(["prefix" => ContentConst::USER_URL, "as" => ContentConst::USER . "."], function () {
+        Route::group(["prefix" => ContentConst::USER, "as" => ContentConst::USER . "."], function () {
             Route::get('/', [Controller\UserController::class, 'index'])->name('index');
             Route::get('/create', [Controller\UserController::class, 'createForm'])->name('createForm');
             Route::post('/create', [Controller\UserController::class, 'create'])->name('create');
@@ -86,7 +86,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/change_is_valid', [Controller\UserController::class, 'changeIsValid'])->name('changeIsValid');
         });
 
-        Route::group(["prefix" => ContentConst::ATTENDANCE_URL, "as" => ContentConst::ATTENDANCE . "."], function () {
+        Route::group(["prefix" => ContentConst::ATTENDANCE, "as" => ContentConst::ATTENDANCE . "."], function () {
             Route::get('/admin', [Controller\AttendanceController::class, 'adminIndex'])->name('adminIndex');
         });
     });

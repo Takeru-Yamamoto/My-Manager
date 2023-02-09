@@ -26,7 +26,7 @@
         </div>
         <label for="role">ロール</label>
         <div class="form-group" id="role">
-            @can('system')
+            @if (isSystem())
                 <div class="custom-control custom-radio custom-control-inline">
                     <input class="custom-control-input" type="radio" name="role" value="5" id="role-5"
                         {{ isChecked(old('role') == '5') }}>
@@ -34,7 +34,7 @@
                         Admin
                     </label>
                 </div>
-            @endcan
+            @endif
             <div class="custom-control custom-radio custom-control-inline">
                 <input class="custom-control-input" type="radio" name="role" value="10" id="role-10"
                     {{ isChecked(empty(old('role')) || old('role') == '10') }}>

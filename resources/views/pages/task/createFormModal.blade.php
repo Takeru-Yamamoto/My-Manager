@@ -2,7 +2,6 @@
 
 @section('modal_title')
     タスク追加
-
 @stop
 
 @section('modal_body')

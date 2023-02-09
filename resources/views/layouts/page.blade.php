@@ -27,7 +27,8 @@
                                     ログアウト
                                 </a>
                             @else
-                                <a class="btn btn-default btn-flat float-right btn-block" href="{{ route('showLoginForm') }}">
+                                <a class="btn btn-default btn-flat float-right btn-block"
+                                    href="{{ route('showLoginForm') }}">
                                     <i class="fa-solid fa-right-to-bracket"></i>
                                     ログイン
                                 </a>
@@ -43,28 +44,29 @@
 
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <a href="{{ route('home') }}" class="brand-link">
-                @if (config("application.is_icon_view"))
-                    <img src="{{ config("application.icon_directory") }}" alt="{{ config("application.site_name") }}" class="brand-image img-circle elevation-3">
+                @if (config('application.is_icon_view'))
+                    <img src="{{ config('application.icon_directory') }}" alt="{{ config('application.site_name') }}"
+                        class="brand-image img-circle elevation-3">
                 @endif
-                <span class="brand-text font-weight-light">{{ config("application.site_name") }}</span>
+                <span class="brand-text font-weight-light">{{ config('application.site_name') }}</span>
             </a>
 
             <div class="sidebar">
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        @foreach (ContentConst::SIDEBARS[role()] as $name)
-                            <li class="nav-item">
-                                <a href="{{ url(ContentConst::URLS[$name]) }}"
-                                    class="nav-link {{ isset(ContentConst::SIDEBAR_CLASSES[role()][$name]) ? ContentConst::SIDEBAR_CLASSES[role()][$name] : '' }}">
-                                    @if (isset(ContentConst::SIDEBAR_ICONS[$name]))
-                                        <i class="{{ ContentConst::SIDEBAR_ICONS[$name] }}"></i>
-                                    @endif
-                                    <p>
-                                        {{ contentHeader($name) }}
-                                    </p>
-                                </a>
-                            </li>
+                        @foreach (ContentConst::PAGES as $name => $page)
+                            @if (!isset($page['can']) || (isLoggedIn() && authUser()->can($page['can'])))
+                                <li class="nav-item">
+                                    <a href="{{ isset($page['url']) ? url($page['url']) : '' }}"
+                                        class="nav-link {{ isset($page['class']) ? $page['class'] : '' }}">
+                                        <i class="{{ isset($page['icon']) ? $page['icon'] : '' }}"></i>
+                                        <p>
+                                            {{ contentHeader($name) }}
+                                        </p>
+                                    </a>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
                 </nav>

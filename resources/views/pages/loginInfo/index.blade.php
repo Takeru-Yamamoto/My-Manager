@@ -5,21 +5,24 @@
 @stop
 
 @section('card-body')
-    <form method="post" action="{{ route('loginInfo.update') }}" id="{{ formId() }}">
+    <form method="post" action="{{ route('login_info.update') }}" id="{{ formId() }}">
         @csrf
         <input type="number" name="id" value="{{ $user->id }}" hidden />
-        <input type="number" name="role" value="{{ $user->role }}" hidden />
         <div class="form-group">
             <label for="name">ユーザー名</label>
-            <input type="text" name="name" class="form-control" id="name" value="{{ old('name', $user->name) }}"
-                readonly>
+            <input type="text" name="name" class="form-control" id="name" value="{{ old('name', $user->name) }}">
         </div>
         <div class="form-group">
-            <label class="d-flex align-items-center">
-                メールアドレス
-                <a class="{{ btnLink() }}" href="{{ route('loginInfo.changeEmailForm') }}">メールアドレス変更はこちら</a>
-            </label>
-            <input type="email" name="email" class="form-control" value="{{ old('email', $user->email) }}" readonly>
+            @if (authUser()->can(RoleConst::ADMIN_HIGHER))
+                <label for="email">メールアドレス</label>
+                <input type="email" name="email" class="form-control" value="{{ old('email', $user->email) }}">
+            @else
+                <label class="d-flex align-items-center">
+                    メールアドレス
+                    <a class="{{ btnLink() }}" href="{{ route('login_info.changeEmailForm') }}">メールアドレス変更はこちら</a>
+                </label>
+                <input type="email" name="email" class="form-control" value="{{ old('email', $user->email) }}" readonly>
+            @endif
         </div>
         <div class="form-group">
             <label for="password">パスワード(変更時記入)</label>

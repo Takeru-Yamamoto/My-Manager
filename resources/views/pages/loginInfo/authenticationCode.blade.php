@@ -9,7 +9,7 @@
     <p>メールに記載された認証コードを入力してください。</p>
     <p>有効期限は30分です。</p>
 
-    <form method="post" action="{{ route('loginInfo.changeEmail') }}" id="{{ formId() }}">
+    <form method="post" action="{{ route('login_info.changeEmail') }}" id="{{ formId() }}">
         @csrf
         <input type="number" name="user_id" value="{{ $user->id }}" hidden />
         <div class="form-group">

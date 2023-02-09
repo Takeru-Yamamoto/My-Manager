@@ -17,7 +17,7 @@ class AuthenticationCodeForm extends BaseForm
     {
         return [
             "user_id" => $this->required($this->userId()),
-            "email"   => $this->required($this->email(), $this->unique("users")),
+            "email"   => $this->required($this->email(), $this->unique("users", "email")->ignore($this->input["user_id"])),
         ];
     }
 

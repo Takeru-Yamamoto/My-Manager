@@ -236,11 +236,11 @@ abstract class ValidationRule
     {
         return ["required_without_all:" . implode(",", $fields)];
     }
-    protected function exists(string $table, string $column = null): Rules\Exists
+    protected function exists(string $table, string $column): Rules\Exists
     {
         return Rule::exists($table, $column)->whereNull("deleted_at");
     }
-    protected function unique(string $table, string $column = null): Rules\Unique
+    protected function unique(string $table, string $column): Rules\Unique
     {
         return Rule::unique($table, $column)->whereNull("deleted_at");
     }

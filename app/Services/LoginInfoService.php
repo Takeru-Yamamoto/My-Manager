@@ -12,10 +12,8 @@ class LoginInfoService extends BaseService
     {
         $user = $this->UserRepository->findRawById($form->id);
 
-        $user->role = $form->role;
-        if (!is_null($form->email)) {
-            $user->email = $form->email;
-        }
+        $user->name  = $form->name;
+        $user->email = $form->email;
         if (!is_null($form->password)) {
             $user->password = makeHash($form->password);
         }

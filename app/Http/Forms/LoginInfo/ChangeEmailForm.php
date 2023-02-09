@@ -16,8 +16,8 @@ class ChangeEmailForm extends BaseForm
     protected function validationRule(): array
     {
         return [
-            "user_id"             => $this->required($this->userId(), $this->exists("email_resets")->where("authentication_code", $this->input["authentication_code"])),
-            "authentication_code" => $this->required($this->code(6), $this->exists("email_resets")->where("authentication_code", $this->input["authentication_code"])),
+            "user_id"             => $this->required($this->userId(), $this->exists("email_resets", "user_id")->where("authentication_code", $this->input["authentication_code"])),
+            "authentication_code" => $this->required($this->code(6), $this->exists("email_resets", "authentication_code")->where("user_id", $this->input["user_id"])),
         ];
     }
 
