@@ -5,7 +5,7 @@
 @stop
 
 @section('card-body')
-    <form method="post" action="{{ url('user/create') }}" id="{{ formId() }}">
+    <form method="post" action="{{ route('user.create') }}" id="{{ formId() }}">
         @csrf
         <div class="form-group">
             <label for="name">ユーザー名</label>

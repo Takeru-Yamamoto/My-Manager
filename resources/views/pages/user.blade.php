@@ -12,15 +12,15 @@
             @if (is_null($attendance) || $attendance->type !== '退勤')
                 @if (is_null($attendance))
                     <a class="btn btn-primary attendance-create-btn" data-type="start_work" data-relation=""
-                        data-url="{{ url('attendance/create') }}">出勤</a>
+                        data-url="{{ route('attendance.create') }}">出勤</a>
                 @elseif ($attendance->type === '休憩中')
                     <a class="btn btn-warning attendance-create-btn" data-type="end_break"
-                        data-relation="{{ $attendance->relation }}" data-url="{{ url('attendance/create') }}">休憩終了</a>
+                        data-relation="{{ $attendance->relation }}" data-url="{{ route('attendance.create') }}">休憩終了</a>
                 @else
                     <a class="btn btn-success attendance-create-btn" data-type="start_break"
-                        data-relation="{{ $attendance->relation }}" data-url="{{ url('attendance/create') }}">休憩開始</a>
+                        data-relation="{{ $attendance->relation }}" data-url="{{ route('attendance.create') }}">休憩開始</a>
                     <a class="btn btn-danger attendance-create-btn" data-type="end_work"
-                        data-relation="{{ $attendance->relation }}" data-url="{{ url('attendance/create') }}">退勤</a>
+                        data-relation="{{ $attendance->relation }}" data-url="{{ route('attendance.create') }}">退勤</a>
                 @endif
             @endif
         </div>

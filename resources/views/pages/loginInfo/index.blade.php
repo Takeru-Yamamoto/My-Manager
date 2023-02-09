@@ -5,7 +5,7 @@
 @stop
 
 @section('card-body')
-    <form method="post" action="{{ url('login_info/update') }}" id="{{ formId() }}">
+    <form method="post" action="{{ route('loginInfo.update') }}" id="{{ formId() }}">
         @csrf
         <input type="number" name="id" value="{{ $user->id }}" hidden />
         <input type="number" name="role" value="{{ $user->role }}" hidden />
@@ -17,7 +17,7 @@
         <div class="form-group">
             <label class="d-flex align-items-center">
                 メールアドレス
-                <a class="{{ btnLink() }}" href="{{ url('login_info/change_email') }}">メールアドレス変更はこちら</a>
+                <a class="{{ btnLink() }}" href="{{ route('loginInfo.changeEmailForm') }}">メールアドレス変更はこちら</a>
             </label>
             <input type="email" name="email" class="form-control" value="{{ old('email', $user->email) }}" readonly>
         </div>

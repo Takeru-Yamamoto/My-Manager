@@ -8,7 +8,7 @@
     </div>
 
     <div class="card-body login-card-body">
-        <form action="{{ url('login') }}" method="post">
+        <form action="{{ route('login') }}" method="post">
             @csrf
             <div class="input-group mb-3">
                 <input type="email" name="email" class="form-control" value="{{ old('email') }}" placeholder="メールアドレス"
@@ -48,7 +48,7 @@
 
     <div class="card-footer">
         <p class="my-0">
-            <a href="{{ url('password_forgot') }}">
+            <a href="{{ route('showEmailInputForm') }}">
                 パスワードを忘れた方はこちら
             </a>
         </p>

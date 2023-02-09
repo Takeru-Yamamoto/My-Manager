@@ -5,7 +5,7 @@
 @stop
 
 @section('modal_body')
-    <form method="post" action="{{ url('task/update') }}" id="{{ formId() }}">
+    <form method="post" action="{{ route('task.update') }}" id="{{ formId() }}">
         @csrf
         <input type="number" name="id" value="{{ $task->id }}" hidden>
 
@@ -43,12 +43,11 @@
 
 @section('modal_footer')
     <div class="d-flex align-items-center justify-content-end">
-        <a class="{{ btnUpdate() }} {{ btnFormSubmit() }}"
-            data-form="{{ formId() }}">{{ btnUpdateText() }}</a>
+        <a class="{{ btnUpdate() }} {{ btnFormSubmit() }}" data-form="{{ formId() }}">{{ btnUpdateText() }}</a>
         @include('components.btn.delete', [
             'addClass' => 'ml-3',
-            'id'       => $task->id,
-            'url'      => url('task/delete'),
+            'id' => $task->id,
+            'url' => route('task.delete'),
         ])
         <a class="btn btn-secondary ml-3" data-dismiss="modal">キャンセル</a>
     </div>

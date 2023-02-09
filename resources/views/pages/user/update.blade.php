@@ -5,7 +5,7 @@
 @stop
 
 @section('card-body')
-    <form method="post" action="{{ url('user/update') }}" id="{{ formId() }}">
+    <form method="post" action="{{ route('user.update') }}" id="{{ formId() }}">
         @csrf
         <input type="number" name="id" value="{{ $user->id }}" hidden />
         <div class="form-group">

@@ -5,7 +5,7 @@
 @stop
 
 @section('card-body')
-    <form method="get" action="{{ url('login_info/authentication_code') }}" id="{{ formId() }}">
+    <form method="get" action="{{ route('loginInfo.authenticationCodeForm') }}" id="{{ formId() }}">
         @csrf
         <input type="number" name="user_id" value="{{ $user->id }}" hidden />
         <div class="form-group">

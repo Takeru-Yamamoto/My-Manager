@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 use App\Http\Controllers\Controller;
 use App\Http\Forms\Attendance as Forms;
@@ -21,9 +19,9 @@ class AttendanceController extends Controller
 		$this->service = new AttendanceService;
 	}
 
-	public function index(Request $request): View|Factory|Redirector|RedirectResponse
+	public function index(Request $request): View|RedirectResponse
 	{
-		if (!isUser()) return redirect("attendance/admin");
+		if (!isUser()) return redirect()->route("attendance.adminIndex");
 
 		$form = new Forms\IndexForm($request->all());
 
@@ -37,16 +35,16 @@ class AttendanceController extends Controller
 		return view('pages.attendance.index', compact("form", "attendances", "attendanceInMonth", "dateUtil", "subMonth", "addMonth"));
 	}
 
-	public function create(Request $request): Redirector|RedirectResponse
+	public function create(Request $request): RedirectResponse
 	{
 		$form = new Forms\CreateForm($request->all());
 
 		$this->service->create($form);
 
-		return successRedirect("attendance", configText("attendance_created"), "勤怠種別: " . getAttendanceTypeText($form->type));
+		return successRedirect("attendance.index", text: configText("attendance_created"), addText: "勤怠種別: " . getAttendanceTypeText($form->type));
 	}
 
-	public function adminIndex(Request $request): View|Factory
+	public function adminIndex(Request $request): View
 	{
 		$form = new Forms\AdminIndexForm($request->all());
 

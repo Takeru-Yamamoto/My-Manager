@@ -3,10 +3,10 @@
 @section('card-header')
     <div class="d-flex justify-content-between align-items-center mb-3">
         {{ tableCardHeader() }}
-        <a class="{{ btnRight() }} {{ btnCreate() }}" href="{{ url('user/create') }}">{{ btnCreateText() }}</a>
+        <a class="{{ btnRight() }} {{ btnCreate() }}" href="{{ route('user.createForm') }}">{{ btnCreateText() }}</a>
     </div>
     <div class="card">
-        <form method="get" action="{{ url('user') }}">
+        <form method="get" action="{{ route('user.index') }}">
             <div class="card-header">
                 <div class="d-flex justify-content-between">
                     <p class="h5 m-0">ユーザー検索</p>
@@ -27,7 +27,8 @@
                             <option value="1" {{ !is_null($form->isValid) && $form->isValid === 1 ? 'selected' : '' }}>
                                 有効
                             </option>
-                            <option value="0" {{ !is_null($form->isValid) && $form->isValid === 0 ? 'selected' : '' }}>
+                            <option value="0"
+                                {{ !is_null($form->isValid) && $form->isValid === 0 ? 'selected' : '' }}>
                                 無効
                             </option>
                         </select>
@@ -60,18 +61,18 @@
                                 'addClass' => btnBlock(),
                                 'flg' => $user->isValid,
                                 'id' => $user->id,
-                                'url' => url('user/change_is_valid'),
+                                'url' => route('user.changeIsValid'),
                             ])
                         </td>
                         <td>
                             <a class="{{ btnUpdate() }} {{ btnBlock() }}"
-                                href="{{ url('user/update/' . $user->id) }}">{{ btnUpdateText() }}</a>
+                                href="{{ route('user.updateForm', ['id' => $user->id]) }}">{{ btnUpdateText() }}</a>
                         </td>
                         <td>
                             @include('components.btn.delete', [
                                 'addClass' => btnBlock(),
                                 'id' => $user->id,
-                                'url' => url('user/delete'),
+                                'url' => route('user.delete'),
                             ])
                         </td>
                     </tr>

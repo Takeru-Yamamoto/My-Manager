@@ -7,17 +7,17 @@
         'id'       => 0,
         'text'     => 'タスク分類',
         'type'     => 'GET',
-        'url'      => url('task_color'),
+        'url'      => route('taskColor.index'),
     ])
 @stop
 
 @section('card-body')
     @include('components.calendar', [
-        'createFormUrl'     => url('task/create'),
+        'createFormUrl'     => route('task.create'),
         'createFormUrlType' => 'GET',
-        'fetchUrl'          => url('task/fetch'),
+        'fetchUrl'          => route('task.fetch'),
         'fetchUrlType'      => 'POST',
-        'updateFormUrl'     => url('task/update'),
+        'updateFormUrl'     => route('task.update'),
         'updateFormUrlType' => 'GET',
     ])
 @stop

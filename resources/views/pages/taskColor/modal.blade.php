@@ -27,7 +27,7 @@
                 </td>
                 <td>
                     <a class="{{ btnCreate() }} {{ btnBlock() }} task-color-create-btn"
-                        data-url="{{ url('task_color/create') }}">{{ btnCreateText() }}</a>
+                        data-url="{{ route('taskColor.create') }}">{{ btnCreateText() }}</a>
                 </td>
                 <td></td>
             </tr>
@@ -49,7 +49,7 @@
                     </td>
                     <td>
                         <a class="{{ btnUpdate() }} {{ btnBlock() }} task-color-update-btn"
-                            data-url="{{ url('task_color/update') }}"
+                            data-url="{{ route('taskColor.update') }}"
                             data-id="{{ $taskColor->id }}">{{ btnUpdateText() }}</a>
                     </td>
                     <td>
@@ -58,7 +58,7 @@
                                 'addClass' => btnBlock(),
                                 'id'       => $taskColor->id,
                                 'type'     => btnTypeShort(),
-                                'url'      => url('task_color/delete'),
+                                'url'      => route('taskColor.delete'),
                             ])
                         @endif
                     </td>

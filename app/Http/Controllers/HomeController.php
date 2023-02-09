@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 use App\Http\Controllers\Controller;
 use App\Services\HomeService;
@@ -17,7 +16,7 @@ class HomeController extends Controller
         $this->service = new HomeService;
     }
 
-    public function index(): View|Factory
+    public function index(): View
     {
         if (!isLoggedIn()) return $this->guestIndex();
         if (isSystem()) return $this->systemIndex();
@@ -25,24 +24,22 @@ class HomeController extends Controller
         if (isUser()) return $this->userIndex();
     }
 
-    public function systemIndex(): View|Factory
+    public function systemIndex(): View
     {
         return view("pages.system");
     }
 
-    public function adminIndex(): View|Factory
+    public function adminIndex(): View
     {
         return view("pages.admin");
     }
 
-    public function userIndex(): View|Factory
+    public function userIndex(): View
     {
-        $attendance = $this->service->getAttendance();
-        $tasks = $this->service->getTodaysTask();
-        return view("pages.user", compact("attendance", "tasks"));
+        return view("pages.user");
     }
-    
-    public function guestIndex(): View|Factory
+
+    public function guestIndex(): View
     {
         return view("pages.guest");
     }

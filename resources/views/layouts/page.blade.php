@@ -27,12 +27,12 @@
                                     ログアウト
                                 </a>
                             @else
-                                <a class="btn btn-default btn-flat float-right btn-block" href="{{ url('login') }}">
+                                <a class="btn btn-default btn-flat float-right btn-block" href="{{ route('showLoginForm') }}">
                                     <i class="fa-solid fa-right-to-bracket"></i>
                                     ログイン
                                 </a>
                             @endif
-                            <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
                         </li>
@@ -42,7 +42,7 @@
         </nav>
 
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <a href="{{ url('home') }}" class="brand-link">
+            <a href="{{ route('home') }}" class="brand-link">
                 @if (config("application.is_icon_view"))
                     <img src="{{ config("application.icon_directory") }}" alt="{{ config("application.site_name") }}" class="brand-image img-circle elevation-3">
                 @endif

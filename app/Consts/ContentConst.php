@@ -7,16 +7,16 @@ use App\Consts\RoleConst;
 class ContentConst
 {
     public const USER       = "user";
-    public const LOGIN_INFO = "login_info";
+    public const LOGIN_INFO = "loginInfo";
     public const ATTENDANCE = "attendance";
     public const TASK       = "task";
-    public const TASK_COLOR = "task_color";
+    public const TASK_COLOR = "taskColor";
 
     public const USER_URL       = self::USER;
-    public const LOGIN_INFO_URL = self::LOGIN_INFO;
+    public const LOGIN_INFO_URL = "login_info";
     public const ATTENDANCE_URL = self::ATTENDANCE;
     public const TASK_URL       = self::TASK;
-    public const TASK_COLOR_URL = self::TASK_COLOR;
+    public const TASK_COLOR_URL = "task_color";
 
     public const USER_TITLE       = "ユーザー";
     public const LOGIN_INFO_TITLE = "ログイン情報";

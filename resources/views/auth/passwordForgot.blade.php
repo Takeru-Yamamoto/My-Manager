@@ -8,7 +8,7 @@
     </div>
 
     <div class="card-body login-card-body">
-        <form action="{{ url('password_forgot') }}" method="post">
+        <form action="{{ route('receiveEmailAddress') }}" method="post">
             @csrf
             <div class="input-group mb-3">
                 <input type="email" name="email" class="form-control" value="{{ old('email') }}" placeholder="メールアドレス"

@@ -20,7 +20,7 @@ class PasswordForgotService extends BaseService
 
         $entity->safeCreate();
 
-        $data["url"] = url("password_reset/" . $token . "/" . $form->email);
+        $data["url"] = route("passwordResetForm", ["token" => $token, "email" => $form->email]);
 
         return sendMail("passwordForgot", $data, $form->email);
     }

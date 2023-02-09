@@ -6,7 +6,7 @@
 @stop
 
 @section('modal_body')
-    <form method="post" action="{{ url('task/create') }}" id="{{ formId() }}">
+    <form method="post" action="{{ route('task.create') }}" id="{{ formId() }}">
         @csrf
         <div class="form-group">
             <label for="start_date">開始日</label>

@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 use App\Http\Controllers\Controller;
 use App\Http\Forms\Task as Forms;
@@ -23,7 +21,7 @@ class TaskController extends Controller
 		$this->service = new TaskService;
 	}
 
-	public function index(): View|Factory
+	public function index(): View
 	{
 		return view('pages.task.index');
 	}
@@ -35,7 +33,7 @@ class TaskController extends Controller
 		return $this->service->fetch($form);
 	}
 
-	public function createModal(Request $request): View|Factory
+	public function createModal(Request $request): View
 	{
 		$form = new Forms\CreateModalForm($request->all());
 
@@ -44,14 +42,14 @@ class TaskController extends Controller
 		return view("pages.task.createFormModal", compact("form", "taskColors"));
 	}
 
-	public function create(Request $request): Redirector|RedirectResponse
+	public function create(Request $request): RedirectResponse
 	{
 		$this->service->create(new Forms\CreateForm($request->all()));
 
-		return successRedirect("task", configText("task_created"));
+		return successRedirect("task.index", text: configText("task_created"));
 	}
 
-	public function updateModal(Request $request): View|Factory
+	public function updateModal(Request $request): View
 	{
 		$form = new Forms\UpdateModalForm($request->all());
 
@@ -61,11 +59,11 @@ class TaskController extends Controller
 		return view("pages.task.updateFormModal", compact("task", "taskColors"));
 	}
 
-	public function update(Request $request): Redirector|RedirectResponse
+	public function update(Request $request): RedirectResponse
 	{
 		$this->service->update(new Forms\UpdateForm($request->all()));
 
-		return successRedirect("task", configText("task_updated"));
+		return successRedirect("task.index", text: configText("task_updated"));
 	}
 
 	public function delete(Request $request): void

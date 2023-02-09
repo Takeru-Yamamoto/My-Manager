@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 use App\Http\Controllers\Controller;
 use App\Http\Forms\LoginInfo as Forms;
@@ -21,36 +19,36 @@ class LoginInfoController extends Controller
         $this->service = new LoginInfoService;
     }
 
-    public function index(): View|Factory
+    public function index(): View
     {
         return view('pages.loginInfo.index', ['user' => authUserResult()]);
     }
 
-    public function update(Request $request): Redirector|RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
         $this->service->update(new Forms\UpdateForm($request->all()));
 
-        return successRedirect("login_info", configText("login_info_updated"));
+        return successRedirect("loginInfo.index", text: configText("login_info_updated"));
     }
 
-    public function changeEmailForm(): View|Factory
+    public function changeEmailForm(): View
     {
         return view('pages.loginInfo.changeEmail', ['user' => authUserResult()]);
     }
 
-    public function authenticationCodeForm(Request $request): View|Factory|Redirector|RedirectResponse
+    public function authenticationCodeForm(Request $request): View|RedirectResponse
     {
         $isSendEmailReset = $this->service->authenticationCodeForm(new Forms\AuthenticationCodeForm($request->all()));
 
-        return $isSendEmailReset ? view('pages.loginInfo.authenticationCode', ['user' => authUserResult()]) : failureRedirect("login_info/change_email", configText("email_send_failure"));
+        return $isSendEmailReset ? view('pages.loginInfo.authenticationCode', ['user' => authUserResult()]) : failureRedirect("loginInfo.changeEmailForm", text: configText("email_send_failure"));
     }
 
-    public function changeEmail(Request $request): Redirector|RedirectResponse
+    public function changeEmail(Request $request): RedirectResponse
     {
         $form = new Forms\ChangeEmailForm($request->all());
 
         $changeEmailResult = $this->service->changeEmail($form);
 
-        return $changeEmailResult ? successRedirect("login_info", configText("email_changed_success")) : failureRedirect("login_info", "email_changed_expired");
+        return $changeEmailResult ? successRedirect("loginInfo.index", text: configText("email_changed_success")) : failureRedirect("loginInfo.index", text: configText("email_changed_success"));
     }
 }

@@ -9,6 +9,6 @@
         data-model="{{ $model }}" data-from="{{ $from }}" data-to="{{ $to }}"
         data-eloquent="{{ isset($eloquent) ? $eloquent : 'where' }}" data-limit="{{ isset($limit) ? $limit : 10 }}"
         data-additional="{{ isset($additional) && is_array($additional) ? json_encode($additional) : '' }}"
-        data-url="{{ url('search') }}" data-duplicate-count="{{ isset($duplicateCount) ? $duplicateCount : '' }}" />
+        data-url="{{ route('search') }}" data-duplicate-count="{{ isset($duplicateCount) ? $duplicateCount : '' }}" />
 </div>
 <div id="search-result{{ isset($duplicateCount) ? $duplicateCount : '' }}" class="mb-3"></div>

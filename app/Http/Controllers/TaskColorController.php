@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 use App\Http\Controllers\Controller;
 use App\Http\Forms\TaskColor as Forms;
@@ -19,7 +18,7 @@ class TaskColorController extends Controller
 		$this->service = new TaskColorService;
 	}
 
-	public function index(): View|Factory
+	public function index(): View
 	{
 		$taskColors = $this->service->TaskColorRepository->get();
 		$bootstrapColors = config("color.list");

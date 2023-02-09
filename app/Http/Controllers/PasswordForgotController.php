@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
 
 use App\Http\Controllers\Controller;
 use App\Http\Forms\PasswordForgot as Forms;
@@ -21,29 +19,29 @@ class PasswordForgotController extends Controller
         $this->service = new PasswordForgotService;
     }
 
-    public function showEmailInputForm(): View|Factory
+    public function showEmailInputForm(): View
     {
         return view('auth.passwordForgot');
     }
 
-    public function receiveEmailAddress(Request $request): Redirector|RedirectResponse
+    public function receiveEmailAddress(Request $request): RedirectResponse
     {
         $sendPasswordResetMailResult = $this->service->sendPasswordResetMail(new Forms\ReceiveEmailAddressForm($request->all()));
 
-        return $sendPasswordResetMailResult ? successRedirect("password_forgot", configText("email_send_success")) : successRedirect("password_forgot", configText("email_send_failure"));
+        return $sendPasswordResetMailResult ? successRedirect("showEmailInputForm", text: configText("email_send_success")) : failureRedirect("showEmailInputForm", text: configText("email_send_failure"));
     }
 
-    public function passwordResetForm(string $token, string $email): View|Factory|Redirector|RedirectResponse
+    public function passwordResetForm(string $token, string $email): View|RedirectResponse
     {
         $form = new Forms\PasswordResetPreparationForm(compact("token", "email"));
 
         return view('auth.passwordReset', ["email" => $form->email, "token" => $form->token]);
     }
 
-    public function passwordReset(Request $request): Redirector|RedirectResponse
+    public function passwordReset(Request $request): RedirectResponse
     {
         $this->service->resetPassword(new Forms\PasswordResetForm($request->all()));
 
-        return successRedirect("login", configText("password_reset_success"));
+        return successRedirect("login", text: configText("password_reset_success"));
     }
 }

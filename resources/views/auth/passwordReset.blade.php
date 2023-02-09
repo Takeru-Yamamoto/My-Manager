@@ -2,7 +2,7 @@
 
 @section('auth-card')
     <div class="card-body login-card-body">
-        <form action="{{ url('password_reset') }}" method="post">
+        <form action="{{ route('passwordReset') }}" method="post">
             @csrf
             <input type="email" name="email" class="form-control" value="{{ $email }}" hidden>
             <input type="text" name="token" class="form-control" value="{{ $token }}" hidden>

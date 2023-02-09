@@ -5,15 +5,15 @@
         {{ tableCardHeader() }}
         <div>
             <a class="{{ btnLink() }}"
-                href="{{ url('attendance') }}?month={{ $subMonth->format(config("library.date.format.year_month")) }}">{{ $subMonth->format(config("library.date.format.year_month_jp")) }}</a>
+                href="{{ route('attendance.index', ['month' => $subMonth->format(config('library.date.format.year_month'))]) }}">{{ $subMonth->format(config('library.date.format.year_month_jp')) }}</a>
             <a class="{{ btnLink() }}"
-                href="{{ url('attendance') }}?month={{ $addMonth->format(config("library.date.format.year_month")) }}">{{ $addMonth->format(config("library.date.format.year_month_jp")) }}</a>
+                href="{{ route('attendance.index', ['month' => $addMonth->format(config('library.date.format.year_month'))]) }}">{{ $addMonth->format(config('library.date.format.year_month_jp')) }}</a>
         </div>
     </div>
 @stop
 
 @section('card-body')
-    <p class="h4 m-0">{{ $dateUtil->format(config("library.date.format.year_month_jp")) }}</p>
+    <p class="h4 m-0">{{ $dateUtil->format(config('library.date.format.year_month_jp')) }}</p>
     <table class="table table-hover">
         <thead>
             <th width="25%">勤務日数</th>
