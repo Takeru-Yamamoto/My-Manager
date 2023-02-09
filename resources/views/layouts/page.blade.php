@@ -57,7 +57,7 @@
                         data-accordion="false">
                         @foreach (ContentConst::PAGES as $name => $page)
                             @if (!isset($page['can']) || (isLoggedIn() && userCan($page['can'])))
-                                <li class="nav-item">
+                                <li class="nav-item sidebar-{{ $name }}">
                                     <a href="{{ isset($page['url']) ? url($page['url']) : '' }}"
                                         class="nav-link {{ isset($page['class']) ? $page['class'] : '' }}">
                                         <i class="{{ isset($page['icon']) ? $page['icon'] : '' }}"></i>
