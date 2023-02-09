@@ -1,29 +1,7 @@
 <?php
 
-use App\Consts\RoleConst;
 use App\Consts\ContentConst;
-use App\Models\User;
 
-if (!function_exists('role')) {
-    function role(User $user = null): string
-    {
-        if (!isLoggedIn()) return RoleConst::GUEST;
-        $role = is_null($user) ? authUserRole() : $user->role;
-        if ($role === RoleConst::SYSTEM_NUMBER) return RoleConst::SYSTEM;
-        if ($role > RoleConst::SYSTEM_NUMBER && $role <= RoleConst::ADMIN_NUMBER) return RoleConst::ADMIN;
-        if ($role > RoleConst::ADMIN_NUMBER && $role <= RoleConst::USER_NUMBER) return RoleConst::USER;
-    }
-}
-if (!function_exists('roleNum')) {
-    function roleNum(User $user = null): int
-    {
-        if (!isLoggedIn()) return RoleConst::GUEST_NUMBER;
-        $role = is_null($user) ? authUserRole() : $user->role;
-        if ($role === RoleConst::SYSTEM_NUMBER) return RoleConst::SYSTEM_NUMBER;
-        if ($role > RoleConst::SYSTEM_NUMBER && $role <= RoleConst::ADMIN_NUMBER) return RoleConst::ADMIN_NUMBER;
-        if ($role > RoleConst::ADMIN_NUMBER && $role <= RoleConst::USER_NUMBER) return RoleConst::USER_NUMBER;
-    }
-}
 if (!function_exists('urlSegment')) {
     function urlSegment(): string
     {

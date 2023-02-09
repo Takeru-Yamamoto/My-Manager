@@ -56,7 +56,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         @foreach (ContentConst::PAGES as $name => $page)
-                            @if (!isset($page['can']) || (isLoggedIn() && authUser()->can($page['can'])))
+                            @if (!isset($page['can']) || (isLoggedIn() && userCan($page['can'])))
                                 <li class="nav-item">
                                     <a href="{{ isset($page['url']) ? url($page['url']) : '' }}"
                                         class="nav-link {{ isset($page['class']) ? $page['class'] : '' }}">

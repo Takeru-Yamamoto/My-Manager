@@ -24,32 +24,41 @@ if (!function_exists('authUserResult')) {
         return $UserRepository->toResult(authUser());
     }
 }
+if (!function_exists('userCan')) {
+    function userCan(string $attribute, User $user = null): bool
+    {
+        if (is_null($user)) $user = authUser();
+        return $user->can($attribute);
+    }
+}
 if (!function_exists('isSystem')) {
     function isSystem(User $user = null): bool
     {
-        $roleNum = is_null($user) ? roleNum(authUser()) : roleNum($user);
-        return $roleNum === RoleConst::SYSTEM_NUMBER;
+        return userCan(RoleConst::SYSTEM, $user);
     }
 }
 if (!function_exists('isAdmin')) {
     function isAdmin(User $user = null): bool
     {
-        $roleNum = is_null($user) ? roleNum(authUser()) : roleNum($user);
-        return $roleNum === RoleConst::ADMIN_NUMBER;
+        return userCan(RoleConst::ADMIN, $user);
     }
 }
 if (!function_exists('isUser')) {
     function isUser(User $user = null): bool
     {
-        $roleNum = is_null($user) ? roleNum(authUser()) : roleNum($user);
-        return $roleNum === RoleConst::USER_NUMBER;
+        return userCan(RoleConst::USER, $user);
     }
 }
 if (!function_exists('isAdminHigher')) {
     function isAdminHigher(User $user = null): bool
     {
-        if (is_null($user)) $user = authUser();
-        return isSystem($user) || isAdmin($user);
+        return userCan(RoleConst::ADMIN_HIGHER, $user);
+    }
+}
+if (!function_exists('isUserHigher')) {
+    function isUserHigher(User $user = null): bool
+    {
+        return userCan(RoleConst::USER_HIGHER, $user);
     }
 }
 if (!function_exists('authUserId')) {
