@@ -6,6 +6,6 @@ class StorageFileNotFoundException extends \Exception
 {
     public function __construct(string $filePath)
     {
-        parent::__construct("入力されたPathのファイルがありません。 filePath: " . $filePath);
+        parent::__construct("入力されたPathのファイルがありません。 ファイルパス: " . $filePath);
     }
 }

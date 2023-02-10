@@ -18,36 +18,39 @@ final class VideoStorageFile extends StorageFile
     private int $height;
     private int $seconds;
 
-    function __construct(string $uploadDirectory, string $fileName)
+    function __construct(string $dirName, string $baseName)
     {
-        parent::__construct($uploadDirectory, $fileName);
+        parent::__construct($dirName, $baseName);
 
         $this->setChild();
     }
 
-    public function save(string $uploadDirectory, string $fileName): self
+    public function save(string $dirName, string $baseName): self
     {
-        $this->file->save($uploadDirectory . "/" . $fileName);
-        $this->reset($uploadDirectory, $fileName);
+        $this->file->save($dirName . "/" . $baseName);
+        $this->reset($dirName, $baseName);
         return $this;
     }
     protected function setChild(): void
     {
-        $ffmpeg     = FFMpeg::fromdisk("local")->open($this->filePath);
-        $this->file = $ffmpeg->export()->toDisk("local");
+        $ffmpeg     = FFMpeg::open($this->filePath);
+        $this->file = $ffmpeg->export()->toDisk("public");
 
         $stream        = $ffmpeg->getVideoStream();
         $this->width   = $stream->get("width");
         $this->height  = $stream->get("height");
         $this->seconds = $stream->getDurationInSeconds();
     }
-    protected function childParams(): array
+
+    public function params(): array
     {
-        return [
-            "width"   => $this->width(),
-            "height"  => $this->height(),
+        $params = [
+            "width"    => $this->width(),
+            "height"   => $this->height(),
             "seconds" => $this->seconds(),
         ];
+
+        return array_merge($params, parent::params());
     }
 
     public function width(): int
@@ -68,7 +71,7 @@ final class VideoStorageFile extends StorageFile
     private function encode(FormatInterface $format, string $extension): self
     {
         $this->file = $this->file->inFormat($format);
-        $this->resetFileName($this->name . "." . $extension);
+        $this->setFileManager($this->dirName, $this->fileName . "." . $extension);
         return $this;
     }
     public function encodeMP4(): self
@@ -77,6 +80,6 @@ final class VideoStorageFile extends StorageFile
     }
     public function encodeWEBM(): self
     {
-        return $this->encode(new Format\WebM(),"webm");
+        return $this->encode(new Format\WebM(), "webm");
     }
 }

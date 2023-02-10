@@ -2,130 +2,43 @@
 
 namespace App\Library\FileUtil;
 
-use Illuminate\Support\Facades\Storage;
-use Symfony\Component\HttpFoundation\StreamedResponse;
+use App\Library\FileUtil\FileManager;
 
-use App\Library\FileUtil\Exception\StorageFileNotFoundException;
-
-abstract class StorageFile
+abstract class StorageFile extends FileManager
 {
-    protected string $uploadDirectory;
-    protected string $fileName;
-    protected string $filePath;
-
-    protected string $name;
-    protected string $extension;
-
-    function __construct(string $uploadDirectory, string $fileName)
+    function __construct(string $dirName, string $baseName)
     {
-        $this->set($uploadDirectory, $fileName);
+        $this->set($dirName, $baseName);
     }
 
-    final private function set(string $uploadDirectory, string $fileName): void
+    final private function set(string $dirName, string $baseName): void
     {
-        $this->uploadDirectory = $uploadDirectory;
-        $this->fileName        = $fileName;
-        $this->filePath        = $uploadDirectory . "/" . $fileName;
+        $this->setFileManager(
+            $dirName,
+            $baseName,
+        );
 
-        $this->setNameExtension($fileName);
-
-        if (!$this->isExist()) throw new StorageFileNotFoundException($this->filePath);
+        if (!$this->isExist()) throw $this->StorageFileNotFoundException();
     }
 
-    abstract public function save(string $uploadDirectory, string $fileName): self;
+    abstract public function save(string $dirName, string $baseName): self;
     abstract protected function setChild(): void;
-    abstract protected function childParams(): array;
+    abstract public function params(): array;
 
-    public function saveRename(string $fileName): self
+    public function saveRename(string $registerName): self
     {
-        return $this->save($this->uploadDirectory, $fileName);
+        return $this->save($this->dirName, $registerName);
     }
 
     public function saveOverride(): self
     {
-        return $this->save($this->uploadDirectory, $this->fileName);
+        return $this->save($this->dirName, $this->baseName);
     }
 
-    final protected function setNameExtension(string $fileName): void
-    {
-        $exploded        = explode(".", $fileName);
-        $this->extension = end($exploded);
-        $this->name      = str_replace("." . $this->extension, "", $fileName);
-    }
-
-    final protected function reset(string $uploadDirectory, string $fileName): void
+    final protected function reset(string $dirName, string $baseName): void
     {
         $this->delete();
-        $this->set($uploadDirectory, $fileName);
+        $this->set($dirName, $baseName);
         $this->setChild();
-    }
-
-    final protected function resetFileName(string $newFileName): void
-    {
-        $oldFileName = $this->fileName;
-
-        $this->fileName = $newFileName;
-        $this->filePath = str_replace($oldFileName, $newFileName, $this->filePath);
-
-        $this->setNameExtension($newFileName);
-    }
-
-    final protected function resetUploadDirectory(string $newUploadDirectory): void
-    {
-        $oldUploadDirectory = $this->uploadDirectory;
-
-        $this->uploadDirectory = $newUploadDirectory;
-        $this->filePath        = str_replace($oldUploadDirectory, $newUploadDirectory, $this->filePath);
-    }
-
-    final public function uploadDirectory(): string
-    {
-        return $this->uploadDirectory;
-    }
-
-    final public function filePath(): string
-    {
-        return $this->filePath;
-    }
-
-    final public function download(): StreamedResponse
-    {
-        return Storage::download($this->filePath);
-    }
-
-    final public function delete(): bool
-    {
-        return Storage::delete($this->filePath);
-    }
-
-    final public function isExist(): bool
-    {
-        return Storage::exists($this->filePath);
-    }
-
-    final public function params(): array
-    {
-        $params = [
-            "fileName"  => $this->name(),
-            "name"      => $this->name(),
-            "extension" => $this->extension(),
-        ];
-
-        return array_merge($params, $this->childParams());
-    }
-
-    final public function fileName(): string
-    {
-        return $this->fileName;
-    }
-
-    final public function name(): string
-    {
-        return $this->name;
-    }
-
-    final public function extension(): string
-    {
-        return $this->extension;
     }
 }

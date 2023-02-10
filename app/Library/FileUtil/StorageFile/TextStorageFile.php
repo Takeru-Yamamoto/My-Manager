@@ -2,7 +2,6 @@
 
 namespace App\Library\FileUtil\StorageFile;
 
-use App\Library\FileUtil\Exception\CharacterCodeNotFoundException;
 use App\Library\FileUtil\StorageFile;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -20,27 +19,27 @@ final class TextStorageFile extends StorageFile
     private string $characterCode;
     private array $data;
 
-    function __construct(string $uploadDirectory, string $fileName)
+    function __construct(string $dirName, string $baseName)
     {
-        parent::__construct($uploadDirectory, $fileName);
+        parent::__construct($dirName, $baseName);
      
         $this->setChild();
     }
 
-    public function save(string $uploadDirectory, string $fileName): self
+    public function save(string $dirName, string $baseName): self
     {
-        if (!str_contains($fileName, ".csv")) $fileName .= ".csv";
+        if (!str_contains($baseName, ".csv")) $baseName .= ".csv";
         $writer = new Csv($this->file);
-        $writer->save($uploadDirectory . "/" . $fileName);
-        $this->reset($uploadDirectory, $fileName);
+        $writer->save($dirName . "/" . $baseName);
+        $this->reset($dirName, $baseName);
         return $this;
     }
-    public function saveAsXLSX(string $uploadDirectory, string $fileName): self
+    public function saveAsXLSX(string $dirName, string $baseName): self
     {
-        if (!str_contains($fileName, ".xlsx")) $fileName .= ".xlsx";
+        if (!str_contains($baseName, ".xlsx")) $baseName .= ".xlsx";
         $writer = new Xlsx($this->file);
-        $writer->save($uploadDirectory . "/" . $fileName);
-        $this->reset($uploadDirectory, $fileName);
+        $writer->save($dirName . "/" . $baseName);
+        $this->reset($dirName, $baseName);
         return $this;
     }
     protected function setChild(): void
@@ -52,13 +51,16 @@ final class TextStorageFile extends StorageFile
         $this->targetSheet   = $this->file->getSheet(0);
         $this->data          = $this->targetSheet->rangeToArray($this->targetSheet->calculateWorksheetDimension());
     }
-    protected function childParams(): array
+
+    public function params(): array
     {
-        return [
+        $params = [
             "characterCode" => $this->characterCode(),
             "targetSheet"   => $this->targetSheet(),
             "data"          => $this->data(),
         ];
+
+        return array_merge($params, parent::params());
     }
 
     public function characterCode(): string
@@ -132,6 +134,6 @@ final class TextStorageFile extends StorageFile
             }
         }
 
-        throw new CharacterCodeNotFoundException($this->filePath);
+        throw $this->CharacterCodeNotFoundException();
     }
 }

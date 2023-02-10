@@ -22,27 +22,27 @@ final class ExcelStorageFile extends StorageFile
     private Worksheet $targetSheet;
     private int $targetSheetPage;
 
-    function __construct(string $uploadDirectory, string $fileName)
+    function __construct(string $dirName, string $baseName)
     {
-        parent::__construct($uploadDirectory, $fileName);
+        parent::__construct($dirName, $baseName);
 
         $this->setChild();
     }
 
-    public function save(string $uploadDirectory, string $fileName): self
+    public function save(string $dirName, string $baseName): self
     {
-        if (!str_contains($fileName, ".xlsx")) $fileName .= ".xlsx";
+        if (!str_contains($baseName, ".xlsx")) $baseName .= ".xlsx";
         $writer = new Xlsx($this->file);
-        $writer->save($uploadDirectory . "/" . $fileName);
-        $this->reset($uploadDirectory, $fileName);
+        $writer->save($dirName . "/" . $baseName);
+        $this->reset($dirName, $baseName);
         return $this;
     }
-    public function saveAsCSV(string $uploadDirectory, string $fileName): self
+    public function saveAsCSV(string $dirName, string $baseName): self
     {
-        if (!str_contains($fileName, ".csv")) $fileName .= ".csv";
+        if (!str_contains($baseName, ".csv")) $baseName .= ".csv";
         $writer = new Csv($this->file);
-        $writer->save($uploadDirectory . "/" . $fileName);
-        $this->reset($uploadDirectory, $fileName);
+        $writer->save($dirName . "/" . $baseName);
+        $this->reset($dirName, $baseName);
         return $this;
     }
 
@@ -71,16 +71,19 @@ final class ExcelStorageFile extends StorageFile
         }
     }
 
-    protected function childParams(): array
+    public function params(): array
     {
-        return [
+        $params = [
             "sheets"          => $this->sheets(),
             "sheetCount"      => $this->sheetCount(),
             "sheetData"       => $this->sheetData(),
             "targetSheet"     => $this->targetSheet(),
             "targetSheetPage" => $this->targetSheetPage(),
         ];
+
+        return array_merge($params, parent::params());
     }
+    
     public function sheets(): array
     {
         return $this->sheets;

@@ -2,161 +2,72 @@
 
 namespace App\Library\FileUtil;
 
-use App\Library\FileUtil\Exception\StorageFileNotSupportedException;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
+
+use App\Library\FileUtil\FileManager;
 use App\Library\FileUtil\StorageFile;
 
-abstract class RequestFile
+abstract class RequestFile extends FileManager
 {
-    public UploadedFile $file;
-    public ?StorageFile $storageFile;
+    public readonly UploadedFile $file;
 
-    protected string $fileName;
-    protected string $extension;
-    protected string $mimeType;
-    protected int $size;
-
-    protected string $uploadDirectory;
-    protected string $filePath;
-
-    const BASE_UPLOAD_DIRECTORY = "public";
-
-    function __construct(UploadedFile $file, ?string $additionalUploadDirectory, ?string $registerName)
+    function __construct(UploadedFile $file, string $dirName)
     {
         $this->file = $file;
 
-        $this->fileName  = is_null($registerName) ? $this->file->getClientOriginalName() : $registerName;
-        $this->extension = $this->file->extension();
-        $this->mimeType  = $this->file->getClientMimeType();
-        $this->size      = $this->file->getSize();
-
-        $this->uploadDirectory = self::BASE_UPLOAD_DIRECTORY;
-        if (is_string($additionalUploadDirectory)) {
-            $this->uploadDirectory .= "/" . $additionalUploadDirectory;
-        }
-
-        $this->isNameDuplicate();
-
-        $this->filePath = $this->uploadDirectory . "/" . $this->fileName;
-
-        $this->storageFile = null;
+        $this->setFileManager(
+            $dirName,
+            $this->file->getClientOriginalName(),
+            $this->file->getClientMimeType(),
+            $this->file->getSize(),
+            $this->file->extension(),
+        );
     }
 
-    final public function upload(): self
+    final public function upload(string $registerName = null): StorageFile
     {
-        if ($this->isUploaded()) return $this;
+        if (is_null($registerName)) $registerName = $this->baseName;
+        $this->fileUpload($this->file, baseName: $registerName);
 
-        $this->file->storeAs($this->uploadDirectory, $this->fileName);
+        $storageFile = match (true) {
+            $this->isImageFile() => new StorageFile\ImageStorageFile($this->dirName, $this->baseName),
+            $this->isVideoFile() => new StorageFile\VideoStorageFile($this->dirName, $this->baseName),
+            $this->isTextFile()  => new StorageFile\TextStorageFile($this->dirName, $this->baseName),
+            $this->isExcelFile() => new StorageFile\ExcelStorageFile($this->dirName, $this->baseName),
 
-        if ($this->isImageFile()) {
-            $this->storageFile = new StorageFile\ImageStorageFile($this->uploadDirectory, $this->fileName);
-        } elseif ($this->isVideoFile()) {
-            $this->storageFile = new StorageFile\VideoStorageFile($this->uploadDirectory, $this->fileName);
-        } elseif ($this->isTextFile()) {
-            $this->storageFile = new StorageFile\TextStorageFile($this->uploadDirectory, $this->fileName);
-        } elseif ($this->isExcelFile()) {
-            $this->storageFile = new StorageFile\ExcelStorageFile($this->uploadDirectory, $this->fileName);
-        } else {
+            default              => null,
+        };
+
+        if (is_null($storageFile)) {
             $this->delete();
-            throw new StorageFileNotSupportedException($this->filePath, $this->mimeType, $this->extension);
+            throw $this->StorageFileNotSupportedException();
         }
 
-        return $this;
+        return $storageFile;
     }
 
-    final public function delete(): self
+    final protected function setFileManager(string $dirName, string $baseName, string $mimeType = null, int $size = null, string $extension = null): void
     {
-        if (!$this->isUploaded()) return $this;
+        $baseName = $this->avoidDuplicationName($dirName, $baseName);
 
-        $this->storageFile->delete();
-        $this->storageFile = null;
-
-        return $this;
+        parent::setFileManager($dirName, $baseName, $mimeType, $size, $extension);
     }
 
-    final public function storageFile(): StorageFile|null
+    final private function avoidDuplicationName(string $dirName, string $baseName): string
     {
-        return $this->storageFile;
-    }
-
-    final public function isUploaded(): bool
-    {
-        return !is_null($this->storageFile);
-    }
-
-    final public function isImageFile(): bool
-    {
-        return str_contains($this->mimeType(), 'image');
-    }
-
-    final public function isVideoFile(): bool
-    {
-        return str_contains($this->mimeType(), 'video');
-    }
-
-    final public function isTextFile(): bool
-    {
-        return str_contains($this->mimeType(), 'text');
-    }
-
-    final public function isExcelFile(): bool
-    {
-        return in_array($this->extension(), config("library.file.accept_excel", []));
-    }
-
-    final public function params(): array
-    {
-        $params = [
-            "fileName"  => $this->fileName(),
-            "extension" => $this->extension(),
-            "mimeType"  => $this->mimeType(),
-            "size"      => $this->size(),
-            "filePath"  => $this->filePath(),
-        ];
-
-        return $this->isUploaded() ? arrayMergeUnique($params, $this->storageFile->params()) : $params;
-    }
-
-    final public function fileName(): string
-    {
-        return $this->fileName;
-    }
-
-    final public function extension(): string
-    {
-        return $this->extension;
-    }
-
-    final public function mimeType(): string
-    {
-        return $this->mimeType;
-    }
-
-    final public function size(): int
-    {
-        return $this->size;
-    }
-
-    final public function filePath(): string
-    {
-        return $this->filePath;
-    }
-
-    final private function isNameDuplicate(): void
-    {
-        $exploded = explode(".", $this->fileName);
+        $exploded = explode(".", $baseName);
 
         if ($exploded[1] !== $this->extension) {
-            $this->fileName = $exploded[0] . "." . $this->extension;
+            $baseName = $exploded[0] . "." . $this->extension;
         }
 
-        for ($i = 1; Storage::exists($this->uploadDirectory . "/" . $this->fileName); $i++) {
-            if (str_contains($this->fileName, "(" . $i . ")")) {
-                $this->fileName = str_replace("(" . $i . ")", "(" . ($i + 1) . ")", $this->fileName);
-            } else {
-                $this->fileName = $exploded[0] . "(" . $i . ")." . $this->extension;
-            }
+        for ($i = 1; $this->isExist($dirName . "/" . $baseName); $i++) {
+            $baseName = match (str_contains($baseName, "(" . $i . ")")) {
+                true  => str_replace("(" . $i . ")", "(" . ($i + 1) . ")", $baseName),
+                false => $exploded[0] . "(" . $i . ")." . $this->extension,
+            };
         }
+
+        return $baseName;
     }
 }

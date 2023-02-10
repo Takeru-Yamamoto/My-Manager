@@ -125,7 +125,7 @@ if (!function_exists('checkLog')) {
 if (!function_exists('jsonCheckLog')) {
     function jsonCheckLog(mixed $check): void
     {
-        checkLog(json_encode($check, JSON_UNESCAPED_UNICODE));
+        checkLog(json_encode($check, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
     }
 }
 if (!function_exists('checkMapLog')) {

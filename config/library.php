@@ -45,10 +45,6 @@ return [
         "log" => env("LIBRARY_EVENT_LOG", false),
     ],
     "file" => [
-        "accept_excel" => [
-            'xlsx',
-            'xls',
-        ],
         "character_code" => [
             'UTF-8',
             'eucJP-win',

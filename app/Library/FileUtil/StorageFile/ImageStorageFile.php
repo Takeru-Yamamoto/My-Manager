@@ -13,14 +13,12 @@ final class ImageStorageFile extends StorageFile
 
     private int $width;
     private int $height;
-    private int $size;
-    private string $mimeType;
 
     private array $positions;
 
-    function __construct(string $uploadDirectory, string $fileName)
+    function __construct(string $dirName, string $baseName)
     {
-        parent::__construct($uploadDirectory, $fileName);
+        parent::__construct($dirName, $baseName);
 
         $this->positions = [
             "top-left",
@@ -37,10 +35,10 @@ final class ImageStorageFile extends StorageFile
         $this->setChild();
     }
 
-    public function save(string $uploadDirectory, string $fileName): self
+    public function save(string $dirName, string $baseName): self
     {
-        $this->file->save(storage_path("app/" . $uploadDirectory . "/" . $fileName));
-        $this->reset($uploadDirectory, $fileName);
+        $this->file->save(storage_path("app/" . $dirName . "/" . $baseName));
+        $this->reset($dirName, $baseName);
         return $this;
     }
     protected function setChild(): void
@@ -49,17 +47,16 @@ final class ImageStorageFile extends StorageFile
 
         $this->width    = $this->file->width();
         $this->height   = $this->file->height();
-        $this->size     = $this->file->filesize();
-        $this->mimeType = $this->file->mime();
     }
-    protected function childParams(): array
+
+    public function params(): array
     {
-        return [
+        $params = [
             "width"    => $this->width(),
             "height"   => $this->height(),
-            "size"     => $this->size(),
-            "mimeType" => $this->mimeType(),
         ];
+
+        return array_merge($params, parent::params());
     }
 
     public function width(): int
@@ -70,20 +67,12 @@ final class ImageStorageFile extends StorageFile
     {
         return $this->height;
     }
-    public function size(): int
-    {
-        return $this->size;
-    }
-    public function mimeType(): string
-    {
-        return $this->mimeType;
-    }
 
     // 画像の形式を変更する
     private function encode(string $extension, int $quality = 100): self
     {
         $this->file = $this->file->encode($extension, $quality);
-        $this->resetFileName($this->name . "." . $extension);
+        $this->setFileManager($this->dirName, $this->fileName . "." . $extension);
         return $this;
     }
     public function encodeJPG(int $quality = 100): self
@@ -173,11 +162,11 @@ final class ImageStorageFile extends StorageFile
         x       : 重ねる画像を配置する基準点からの水平距離
         y       : 重ねる画像を配置する基準点からの垂直距離
     */
-    public function insert(string $uploadDirectory, string $fileName, string $position = "top-left", int $x = 0, int $y = 0): self
+    public function insert(string $dirName, string $baseName, string $position = "top-left", int $x = 0, int $y = 0): self
     {
         if (!in_array($position, $this->positions)) return $this;
 
-        $insert = new ImageStorageFile($uploadDirectory, $fileName);
+        $insert = new ImageStorageFile($dirName, $baseName);
 
         $this->file = $this->file->insert($insert->file, $position, $x, $y);
         return $this;

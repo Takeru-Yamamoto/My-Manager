@@ -8,8 +8,8 @@ use Illuminate\Http\UploadedFile;
 
 final class ImageRequestFile extends RequestFile
 {
-    function __construct(UploadedFile $file, ?string $additionalUploadDirectory, ?string $registerName)
+    function __construct(UploadedFile $file, string $dirName)
     {
-        parent::__construct($file, $additionalUploadDirectory, $registerName);
+        parent::__construct($file, $dirName);
     }
 }

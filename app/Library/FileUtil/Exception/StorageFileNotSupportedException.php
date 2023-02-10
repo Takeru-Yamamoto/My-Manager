@@ -4,8 +4,8 @@ namespace App\Library\FileUtil\Exception;
 
 class StorageFileNotSupportedException extends \Exception
 {
-    public function __construct(string $filePath, string $mimeType, string $extension)
+    public function __construct(string $filePath, string $mimeType)
     {
-        parent::__construct("このファイルがサポートされているストレージファイルがありません。 filePath: " . $filePath . " mimeType: " . $mimeType . " extension: " . $extension);
+        parent::__construct("このファイルがサポートされているストレージファイルがありません。 ファイルパス: " . $filePath . " MIMEタイプ: " . $mimeType);
     }
 }

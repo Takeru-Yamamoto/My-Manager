@@ -2,24 +2,21 @@
 
 namespace App\Library\FileUtil;
 
-use App\Library\FileUtil\Exception\RequestFileNotFoundException;
-use App\Library\FileUtil\Exception\RequestFileNotSupportedException;
-use App\Library\FileUtil\Exception\StorageFileNotSupportedException;
 use App\Library\FileUtil\RequestFile;
 use App\Library\FileUtil\StorageFile;
+use App\Library\FileUtil\FileManager;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Csv;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-abstract class BaseFileUtil
+abstract class BaseFileUtil extends FileManager
 {
     protected array $files;
 
-    function __construct()
-    {
+    function __construct() {
         $this->files = [];
     }
 
@@ -48,66 +45,67 @@ abstract class BaseFileUtil
         return isset($this->files["storage"]) ? $this->files["storage"] : [];
     }
 
-    public function requestFile(Request $request, string $fileName, ?string $additionalUploadDirectory = null, ?string $registerName = null): self
+    public function requestFile(Request $request, string $postName, string $dirName = ""): self
     {
-        if (is_null($request->file($fileName))) throw new RequestFileNotFoundException($fileName);
+        if (is_null($request->file($postName))) throw $this->RequestFileNotFoundException($postName);
 
-        $files = is_array($request->file($fileName)) ? $request->file($fileName) : [$request->file($fileName)];
+        $files = is_array($request->file($postName)) ? $request->file($postName) : [$request->file($postName)];
 
         foreach ($files as $file) {
-            if (str_contains($file->getClientMimeType(), 'image')) {
-                $this->files["request"][] = new RequestFile\ImageRequestFile($file, $additionalUploadDirectory, $registerName);
-            } elseif (str_contains($file->getClientMimeType(), 'video')) {
-                $this->files["request"][] = new RequestFile\VideoRequestFile($file, $additionalUploadDirectory, $registerName);
-            } elseif (str_contains($file->getClientMimeType(), 'text')) {
-                $this->files["request"][] = new RequestFile\TextRequestFile($file, $additionalUploadDirectory, $registerName);
-            } elseif (in_array($file->extension(), config("library.file.accept_excel", []))) {
-                $this->files["request"][] = new RequestFile\ExcelRequestFile($file, $additionalUploadDirectory, $registerName);
-            } else {
-                throw new RequestFileNotSupportedException($file->getClientOriginalName(), $file->getClientMimeType());
-            }
+            $requestFile = match (true) {
+                $this->isImageFile($file->getClientMimeType()) => new RequestFile\ImageRequestFile($file, $dirName),
+                $this->isVideoFile($file->getClientMimeType()) => new RequestFile\VideoRequestFile($file, $dirName),
+                $this->isTextFile($file->getClientMimeType())  => new RequestFile\TextRequestFile($file, $dirName),
+                $this->isExcelFile($file->getClientMimeType()) => new RequestFile\ExcelRequestFile($file, $dirName),
+
+                default                                        => null
+            };
+
+            if (!$requestFile instanceof RequestFile) throw $this->RequestFileNotSupportedException($file->getClientOriginalName(), $file->getClientMimeType());
+
+            $this->files["request"][] = $requestFile;
         }
 
         return $this;
     }
 
-    public function storageFile(string $uploadDirectory, string $fileName): self
+    public function storageFile(string $baseName, string $dirName = null): self
     {
-        $mimeType = Storage::mimeType($uploadDirectory . "/" . $fileName);
-        $extension = Storage::extension($uploadDirectory . "/" . $fileName);
+        $mimeType = $this->mimeType($dirName . "/" . $baseName);
 
-        if (str_contains($mimeType, 'image')) {
-            $this->files["storage"][] = new StorageFile\ImageStorageFile($uploadDirectory, $fileName);
-        } elseif (str_contains($mimeType, 'video')) {
-            $this->files["storage"][] = new StorageFile\VideoStorageFile($uploadDirectory, $fileName);
-        } elseif (str_contains($mimeType, 'text')) {
-            $this->files["storage"][] = new StorageFile\TextStorageFile($uploadDirectory, $fileName);
-        } elseif (in_array($extension, config("library.file.accept_excel", []))) {
-            $this->files["storage"][] = new StorageFile\ExcelStorageFile($uploadDirectory, $fileName);
-        } else {
-            throw new StorageFileNotSupportedException($uploadDirectory . "/" . $fileName, $mimeType, $extension);
-        }
+        $storageFile = match (true) {
+            $this->isImageFile($mimeType) => new StorageFile\ImageStorageFile($dirName, $baseName),
+            $this->isVideoFile($mimeType) => new StorageFile\VideoStorageFile($dirName, $baseName),
+            $this->isTextFile($mimeType)  => new StorageFile\TextStorageFile($dirName, $baseName),
+            $this->isExcelFile($mimeType) => new StorageFile\ExcelStorageFile($dirName, $baseName),
+
+            default                       => null
+        };
+
+        if (!$storageFile instanceof StorageFile) throw $this->StorageFileNotSupportedException($dirName . "/" . $baseName, $mimeType);
+
+        $this->files["storage"][] = $storageFile;
 
         return $this;
     }
 
-    public function createEXCEL(string $uploadDirectory, string $fileName): self
+    public function createEXCEL(string $baseName, string $dirName = null): self
     {
-        if (str_contains($fileName, ".xlsx") === false) $fileName .= ".xlsx";
+        if (str_contains($baseName, ".xlsx") === false) $baseName .= ".xlsx";
         $sheet = new Spreadsheet();
         $writer = new Xlsx($sheet);
-        $writer->save($uploadDirectory . "/" . $fileName);
-        $this->files["storage"][] = new StorageFile\ExcelStorageFile($uploadDirectory, $fileName);
+        $writer->save($dirName . "/" . $baseName);
+        $this->files["storage"][] = new StorageFile\ExcelStorageFile($dirName, $baseName);
         return $this;
     }
 
-    public function createCSV(string $uploadDirectory, string $fileName): self
+    public function createCSV(string $baseName, string $dirName = null): self
     {
-        if (str_contains($fileName, ".csv") === false) $fileName .= ".csv";
+        if (str_contains($baseName, ".csv") === false) $baseName .= ".csv";
         $sheet = new Spreadsheet();
         $writer = new Csv($sheet);
-        $writer->save($uploadDirectory . "/" . $fileName);
-        $this->files["storage"][] = new StorageFile\TextStorageFile($uploadDirectory, $fileName);
+        $writer->save($dirName . "/" . $baseName);
+        $this->files["storage"][] = new StorageFile\TextStorageFile($dirName, $baseName);
         return $this;
     }
 }
